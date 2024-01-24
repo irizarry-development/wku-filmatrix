@@ -1,57 +1,71 @@
----
-name: Vercel Postgres + Prisma Next.js Starter
-slug: postgres-prisma
-description: Simple Next.js template that uses Vercel Postgres as the database and Prisma as the ORM.
-framework: Next.js
-useCase: Starter
-css: Tailwind
-database: Vercel Postgres
-deployUrl: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fstorage%2Fpostgres-prisma&project-name=postgres-prisma&repository-name=postgres-prisma&demo-title=Vercel%20Postgres%20%2B%20Prisma%20Next.js%20Starter&demo-description=Simple%20Next.js%20template%20that%20uses%20Vercel%20Postgres%20as%20the%20database%20and%20Prisma%20as%20the%20ORM.&demo-url=https%3A%2F%2Fpostgres-prisma.vercel.app%2F&demo-image=https%3A%2F%2Fpostgres-prisma.vercel.app%2Fopengraph-image.png&stores=%5B%7B"type"%3A"postgres"%7D%5D
-demoUrl: https://postgres-prisma.vercel.app/
-relatedTemplates:
-  - postgres-starter
-  - postgres-kysely
-  - postgres-sveltekit
----
+# WKU Filmatrix
 
-# Vercel Postgres + Prisma Next.js Starter
+This is our senior capstone project that we have been tasked to build for the WKU Film and Journalism Department. 
 
-Simple Next.js template that uses [Vercel Postgres](https://vercel.com/postgres) as the database and [Prisma](https://prisma.io/) as the ORM.
+# 0.1 Local Environment Setup
 
-## Demo
+There are a few things you will want to make sure you have installed in your local environment.
 
-https://postgres-prisma.vercel.app/
+## 0.1.1 PNPM
 
-## How to Use
+As this is a more modern project, we are going to be using a modern package manager with it as well. Note, this still installs from the same remote locations, just quicker and in a more space effective way. 
 
-You can choose from one of the following two methods to use this repository:
+To install, simply click [here](https://pnpm.io/installation) for install instructions depending on your individual operating system.
 
-### One-Click Deploy
+## 0.1.2 Setup `.env` with a local database
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
+If you prefer to use a local PostgreSQL database instead of connecting to the one hosted by Vercel, you will need to set this up here. Once you have your PostgreSQL database setup, you will need to construct a `DATABASE_URL`.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fstorage%2Fpostgres-prisma&project-name=postgres-prisma&repository-name=postgres-prisma&demo-title=Vercel%20Postgres%20%2B%20Prisma%20Next.js%20Starter&demo-description=Simple%20Next.js%20template%20that%20uses%20Vercel%20Postgres%20as%20the%20database%20and%20Prisma%20as%20the%20ORM.&demo-url=https%3A%2F%2Fpostgres-prisma.vercel.app%2F&demo-image=https%3A%2F%2Fpostgres-prisma.vercel.app%2Fopengraph-image.png&stores=%5B%7B"type"%3A"postgres"%7D%5D)
-
-### Clone and Deploy
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [pnpm](https://pnpm.io/installation) to bootstrap the example:
-
-```bash
-pnpm create next-app --example https://github.com/vercel/examples/tree/main/storage/postgres-prisma
+The format to do so is
+```
+postgres://[db_username]:[db_password]@[db_host_url]:[db_port]/[db_name]
 ```
 
-Once that's done, copy the .env.example file in this directory to .env.local (which will be ignored by Git):
+If you never have used PostgreSQL on your machine before, you can just use the default database and this would be your URL
 
-```bash
-cp .env.example .env.local
+```
+postgres://postgres:postgres@localhost:5432/postgres
 ```
 
-Then open `.env.local` and set the environment variables to match the ones in your Vercel Storage Dashboard.
+However, if you have multiple databases and users on your machine, the URL may look like
 
-Next, run Next.js in development mode:
-
-```bash
-pnpm dev
+```
+postgres://matt:b78sd#.22@localhost:5432/wku-filmatrix
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples) ([Documentation](https://nextjs.org/docs/deployment)).
+Once you have your DATABASE_URL, navigate to the `.env.example` file in the very root of the directory, and replace **BOTH** environment variables with the above URL. 
+
+Once you have done so run `npx prisma db push` which will migrate the local database schema to whatever is currently specified by `schema.prisma`. Then, run `npx prisma db seed` which will seed the database with its seed data. At this point, you should have a working local database for the project. 
+
+### Potential Errors
+
+If you run into an error, such as the credentials provided for `postgres` are not valid, you can do the following to fix it.
+
+1. `sudo -u postgres psql`
+
+    This launches psql under the postgres username
+
+2. Make the prompt should look as below:
+
+    ```
+    postgres=# ALTER USER postgres PASSWORD 'postgres';
+    ALTER ROLE
+    postgres=# 
+    ```
+
+    You can use a different password if you want.
+
+Now you should be able to use the default URL provided above. If you wish to user a different user, or perhaps a different database all together, just make sure you replace the proper sections in the database URL, that way you can properly connect to the database. 
+
+For any issues troubleshooting your database not launching, or other issues, turn to Google. It truly is your best friend on issues working with Postgres. Someone has had your issue before.
+
+## 0.1.3 Setup `.env` with a Vercel Postgres database
+
+If you are going to be deploying to Vercel, or utilizing their Vercel Postgres Databases, you may benefit from installing the VercelCLI. 
+
+**To install VercelCLI with PNPM**
+```
+pnpm i -g vercel@latest
+vercel --version
+```
+Link the project with `vercel link`, then simply type `vercel env pull .env` where it will populate any environment variables from your app.
