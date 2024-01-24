@@ -10,6 +10,7 @@
 
 # next.js
 /.next/
+/.vscode/
 /out/
 next-env.d.ts
 
