@@ -1,20 +1,14 @@
 import { ReactNode } from 'react'
 
-import './globals.css'
-import { Inter } from 'next/font/google'
+import '@/styles/app.css'
+import Image from 'next/image'
+import Header from '@/components/ui/Header'
 
 export const metadata = {
-  metadataBase: new URL('https://postgres-prisma.vercel.app'),
-  title: 'Vercel Postgres Demo with Prisma',
+  title: 'WKU Filmatrix',
   description:
-    'A simple Next.js app with Vercel Postgres as the database and Prisma as the ORM',
+    'WKU Filmatrix is a database for storing information pertinent to the WKU Film and Journalism department such as location data and their corresponding contracts, vendor data, student and cast, data and much more.'
 }
-
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-  display: 'swap',
-})
 
 type RootProps = {
   children: ReactNode
@@ -23,7 +17,15 @@ type RootProps = {
 export default function RootLayout({ children }: RootProps) {
   return (
     <html lang="en">
-      <body className={inter.variable}>{children}</body>
+      <body className="app-body">
+        <Header />
+        <main className="app-content">
+          {children}
+        </main>
+        <footer className="app-footer">
+
+        </footer>  
+      </body>
     </html>
   )
 }

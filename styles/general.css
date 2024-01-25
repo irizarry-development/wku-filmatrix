@@ -1,0 +1,16 @@
+:root {
+    --red: #B01E24;
+    --red-dark: #9A1A20;
+    --gray-lightest: #EFEFEF;
+    --gray-lighter: #CCC;
+    --gray-muted: #777;
+    --gray-text: #555;
+    --gray-darker: #333;
+    --gray-darkest: #222;
+    
+    background: var(--gray-darkest);
+}
+
+html, body {
+    font-size: 10px;
+}

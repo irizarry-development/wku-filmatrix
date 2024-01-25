@@ -1,15 +1,9 @@
-import { Suspense } from 'react'
-import Table from '@/components/table'
-import TablePlaceholder from '@/components/table-placeholder'
-
-export const dynamic = 'force-dynamic'
+import { Fragment } from "react";
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center">
-      <Suspense fallback={<TablePlaceholder />}>
-        <Table />
-      </Suspense>
-    </main>
+    <Fragment>
+      <h1>Welcome to the WKU Filmatrix!</h1>
+    </Fragment>
   )
 }

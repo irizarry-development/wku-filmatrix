@@ -1,0 +1,32 @@
+.app-header {
+    background: url('/hero.jpg');
+    height: 14rem;
+    display: grid;
+    grid-template-columns: 18rem 1fr;
+}
+
+.app-header .app-header-logo {
+    max-height: 10rem;
+    width: auto;
+    align-self: center;
+    padding-left: 2rem;
+}
+
+.app-header .app-main-navigation {
+    display: none;
+}
+
+.app-header .app-hamburger {
+    display: grid;
+    align-self: center;
+    justify-self: end;
+    row-gap: 0.6rem;
+    padding-right: 2rem;
+}
+
+.app-header .app-hamburger .app-hamburger-line {
+    background: var(--gray-lightest);
+    height: 0.4rem;
+    width: 3.6rem;
+    border-radius: 1rem;
+}
