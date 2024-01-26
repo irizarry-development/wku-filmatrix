@@ -1,0 +1,68 @@
+.preview-buttons {
+    display: grid; 
+}
+
+.preview-button {
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: start;
+}
+
+.btn, input[type="file"]::file-selector-button {
+    font-size: 1.4rem;
+    font-weight: 400;
+    background: var(--red-dark);
+    color: var(--white);
+    cursor: pointer;
+    padding: 0.75rem 2.4rem;
+    border: 1px solid var(--red-dark);
+    line-height: 2rem;;
+}
+
+.btn.sm {
+    padding: 0.5rem 1.5rem;
+    font-size: 1.2rem;
+}
+
+.btn.lg {
+    padding: 1rem 3rem;
+    font-size: 1.6rem;
+}
+
+.btn.secondary {
+    background: var(--gray-darkest);
+    border: 1px solid var(--gray-muted);
+    color: var(--gray-muted)
+}
+
+.btn.outline {
+    background: var(--gray-darkest);
+    border: 1px solid var(--red-dark);
+    color: var(--red-dark);
+}
+
+.btn.success {
+    background: var(--green);
+    border: 1px solid var(--green);
+    color: var(--white);
+}
+
+.btn.info {
+    background: var(--bright-blue);
+    border: 1px solid var(--bright-blue);
+    color: var(--gray-darkest);
+}
+
+.btn.warning {
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    color: var(--gray-darkest);
+}
+
+.btn.danger {
+    background: var(--danger-red);
+    border: 1px solid var(--danger-red);
+    color: var(--white);
+}
