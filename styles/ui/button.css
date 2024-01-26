@@ -10,17 +10,6 @@
     justify-items: start;
 }
 
-.btn, input[type="file"]::file-selector-button {
-    font-size: 1.4rem;
-    font-weight: 400;
-    background: var(--red-dark);
-    color: var(--white);
-    cursor: pointer;
-    padding: 0.75rem 2.4rem;
-    border: 1px solid var(--red-dark);
-    line-height: 2rem;;
-}
-
 .btn.sm {
     padding: 0.5rem 1.5rem;
     font-size: 1.2rem;
@@ -31,38 +20,87 @@
     font-size: 1.6rem;
 }
 
+.btn, input[type="file"]::file-selector-button {
+    font-size: 1.4rem;
+    font-weight: 400;
+    background: var(--red-dark);
+    color: var(--white);
+    cursor: pointer;
+    padding: 0.75rem 2.4rem;
+    border: 0.1rem solid var(--red-dark);
+    line-height: 2rem;;
+    transition: 300ms ease-in-out;
+}
+
+.btn:hover, input[type="file"]::file-selector-button:hover {
+    background: var(--red-darker);
+    border: 0.1rem solid var(--red-darker);
+}
+
 .btn.secondary {
     background: var(--gray-darkest);
-    border: 1px solid var(--gray-muted);
+    border: 0.1rem solid var(--gray-muted);
     color: var(--gray-muted)
+}
+
+.btn.secondary:hover {
+    background: var(--red);
+    border: 0.1rem solid var(--red-darker);
+    color: var(--white);
 }
 
 .btn.outline {
     background: var(--gray-darkest);
-    border: 1px solid var(--red-dark);
+    border: 0.1rem solid var(--red-dark);
     color: var(--red-dark);
+}
+
+.btn.outline:hover {
+    background: var(--red-dark);
+    border: 0.1rem solid var(--red-darker);
+    color: var(--white);
 }
 
 .btn.success {
     background: var(--green);
-    border: 1px solid var(--green);
+    border: 0.1rem solid var(--green);
     color: var(--white);
+}
+
+.btn.success:hover {
+    background: var(--green-dark);
+    border: 0.1rem solid var(--green-dark);
 }
 
 .btn.info {
     background: var(--bright-blue);
-    border: 1px solid var(--bright-blue);
+    border: 0.1rem solid var(--bright-blue);
     color: var(--gray-darkest);
+}
+
+.btn.info:hover {
+    background: var(--bright-blue-dark);
+    border: 0.1rem solid var(--bright-blue-dark);
 }
 
 .btn.warning {
     background: var(--gold);
-    border: 1px solid var(--gold);
+    border: 0.1rem solid var(--gold);
     color: var(--gray-darkest);
+}
+
+.btn.warning:hover {
+    background: var(--gold-dark);
+    border: 0.1rem solid var(--gold-dark);
 }
 
 .btn.danger {
     background: var(--danger-red);
-    border: 1px solid var(--danger-red);
+    border: 0.1rem solid var(--danger-red);
     color: var(--white);
+}
+
+.btn.danger:hover {
+    background: var(--light-red);
+    border: 0.1rem solid var(--light-red);
 }

@@ -34,7 +34,6 @@
 .form-group > input[type="tel"]:focus,
 .form-group > textarea:focus
 {
-    /*make it like an outer glow of red*/
     box-shadow: 0 0 0 2px rgba(176,30,36,.5);
     border-color: var(--red-dark)
 }
