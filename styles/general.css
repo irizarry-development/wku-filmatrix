@@ -1,7 +1,9 @@
 :root {
     --danger-red: #dc3545;
+    --light-red: #be313c;
     --red: #B01E24;
     --red-dark: #9A1A20;
+    --red-darker: #7D151B;
     --gray-lightest: #EFEFEF;
     --gray-lighter: #CCC;
     --gray-muted: #777;
@@ -10,8 +12,11 @@
     --gray-darkest: #222;
     --white: #FFF;
     --green: #198754;
+    --green-dark: #157347;
     --bright-blue: #0dcaf0;
+    --bright-blue-dark: #0badd6;
     --gold: #ffc107;
+    --gold-dark: #d39e00;
 
     background: var(--gray-darkest);
 }
