@@ -20,7 +20,7 @@
 .form-group {
     display: grid;
     grid-template-rows: 2rem 1fr;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: 600;
     color: var(--gray-lightest);
     row-gap: 0.6rem;
