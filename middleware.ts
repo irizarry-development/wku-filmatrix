@@ -1,4 +1,4 @@
-import { auth } from './lib/auth'
+import { auth } from '~/lib/auth'
 
 export default auth
 
@@ -12,7 +12,7 @@ export const config = {
        * - favicon.ico (favicon file)
        */
       {
-        source: '/((?!api|_next/static|_next/image|favicon.ico|public).*)',
+        source: '/((?!api|_next/static|_next/image|favicon.ico|.*\\.png$).*)',
         missing: [
           { type: 'header', key: 'next-router-prefetch' },
           { type: 'header', key: 'purpose', value: 'prefetch' },
