@@ -14,6 +14,12 @@ export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth({
         auth, request: { nextUrl }
       }) {
         return !!auth?.user;
+      },
+      async signIn({ user, account, profile, email, credentials }) {
+        return true
+      },
+      async redirect({ url, baseUrl }) {
+        return baseUrl
       }
     },
     debug: true,
