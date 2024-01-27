@@ -20,7 +20,6 @@ export default function LoginPage() {
                     <Button color="primary" content="Sign in" disabled={pending} />
                     <Button color="secondary" content="Forgot password?" />
                 </section>
-                {error && <p className="error">{error}</p>}
             </fieldset>
         </form>
     )

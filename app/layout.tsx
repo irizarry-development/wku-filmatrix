@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import '~/styles/app.css'
 import Image from 'next/image'
 import Header from '~/components/ui/Header'
+import { Toaster } from 'react-hot-toast'
 
 export const metadata = {
   title: 'WKU Filmatrix',
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: RootProps) {
         <footer className="app-footer">
 
         </footer>  
+        <Toaster />
       </body>
     </html>
   )
