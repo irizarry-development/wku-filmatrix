@@ -10,11 +10,6 @@ import bcrypt from 'bcrypt'
 export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth({
     adapter: PrismaAdapter(prisma),
     callbacks: {
-      authorized({
-        auth, request: { nextUrl }
-      }) {
-        return !!auth?.user;
-      },
       async signIn({ user, account, profile, email, credentials }) {
         return true
       },
@@ -55,6 +50,12 @@ export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth({
 
             if (!user) {
               throw new Error('No user found')
+            }
+
+            const passwordMatch = await bcrypt.compare(password, user.saltedPassword)
+
+            if (!passwordMatch) {
+              throw new Error('Password does not match')
             }
 
             return user
