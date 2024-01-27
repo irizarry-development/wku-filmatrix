@@ -16,7 +16,7 @@
 }
 
 .app-header .app-main-navigation {
-    position: absolute;
+    position: fixed;
     background: rgba(34, 34, 34, 0.90);
     backdrop-filter: blur(0.3rem);
     height: calc(100vh - 14rem);
