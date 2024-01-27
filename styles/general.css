@@ -26,7 +26,13 @@ html, body {
     font-family: "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-.app-content {
+.app-body {
+    display: grid;
+    grid-template-rows: 14rem 1fr 30rem;
+    min-height: 100vh;
+}
+
+.app-body .app-content {
     padding: 0 2rem;
 }
 
