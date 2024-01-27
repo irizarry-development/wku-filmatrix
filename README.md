@@ -142,3 +142,11 @@ pnpm i -g vercel@latest
 vercel --version
 ```
 Link the project with `vercel link`, then simply type `vercel env pull .env` where it will populate any environment variables from your app.
+
+## 0.1.4 Test Accounts
+
+```
+matt@wku.edu - wku496
+zach@wku.edu - wku496
+trevor@wku.edu - wku496
+```

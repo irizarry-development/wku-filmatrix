@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
 
-import '@/styles/app.css'
+import '~/styles/app.css'
 import Image from 'next/image'
-import Header from '@/components/ui/Header'
+import Header from '~/components/ui/Header'
 
 export const metadata = {
   title: 'WKU Filmatrix',
