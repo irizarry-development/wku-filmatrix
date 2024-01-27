@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import WkuLogo from '~/public/wku_w.png';
 import WkuSquare from '~/public/wkucuptall_w.png'
-import Hamburger from './Hamburger';
+import Hamburger from '~/components/ui/Hamburger'
 
 export default function Header() {
     return (

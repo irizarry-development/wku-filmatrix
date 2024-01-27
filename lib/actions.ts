@@ -1,5 +1,7 @@
 'use server'
 
+import { User } from "@prisma/client"
+import { AuthError } from "next-auth"
 import { signIn } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 
@@ -7,29 +9,10 @@ export async function authenticate(prev: string | undefined, formData: FormData)
     try {
         await signIn('credentials', formData)
     } catch (error) {
-        console.error(error)
-        return 'Something went wrong.'
-    }
-}
-
-export async function getUserFromDatabase(email: string) {
-
-    console.log("getUserFromDatabase called with value " + email)
-
-    let user = await prisma.user.findUnique({
-        where: {
-            email
+        if (error instanceof AuthError) {
+            return "Something went wrong";
         }
-    })
-
-    if (!user) {
-        console.log("User not found in database.")
-        return null
+        
+        throw error;
     }
-
-    console.log("User found in database.")
-
-    console.log(user)
-
-    return user
 }

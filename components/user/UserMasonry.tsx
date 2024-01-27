@@ -1,5 +1,5 @@
 import { User } from '@prisma/client'
-import UserCard from '@/components/user/UserCard'
+import UserCard from '~/components/user/UserCard'
 import { FC } from 'react'
 
 const UserMasonry: FC<{userData: User[]}> = ({userData}) => {
