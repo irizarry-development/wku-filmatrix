@@ -30,6 +30,7 @@ html, body {
     display: grid;
     grid-template-rows: 14rem 1fr 30rem;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .app-body .app-content {
