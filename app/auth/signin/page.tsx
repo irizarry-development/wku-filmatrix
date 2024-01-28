@@ -11,8 +11,12 @@ export default function LoginPage() {
     async function _authenticate(prev: string | undefined, formData: FormData) {
         const result = await authenticate(prev, formData)
 
+        console.log(result)
+
         if (!result) 
             return
+
+        console.log("FOUND ERROR")
 
         return toast.error(result)
     }
