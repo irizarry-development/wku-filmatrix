@@ -47,6 +47,7 @@
     color: var(--gray-lightest);
     transition: 200ms linear;
     outline: none;
+    font-size: 1.6rem;
 }
 
 .form-group .radio-group, 
