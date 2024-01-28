@@ -1,13 +1,27 @@
 "use client"
 
-import { authenticate } from "~/lib/actions"
 import { useFormState, useFormStatus } from "react-dom"
 import TextInput from "~/components/ui/form/Input"
 import Button from "~/components/ui/Button"
+import toast from "react-hot-toast"
+import { authenticate } from "~/lib/actions"
 
 export default function LoginPage() {
 
-    const [error, dispatch] = useFormState(authenticate, undefined)
+    async function _authenticate(prev: string | undefined, formData: FormData) {
+        const result = await authenticate(prev, formData)
+
+        console.log(result)
+
+        if (!result) 
+            return
+
+        console.log("FOUND ERROR")
+
+        return toast.error(result)
+    }
+
+    const [error, dispatch] = useFormState(_authenticate, undefined)
     const { pending } = useFormStatus()
 
     return (
@@ -20,7 +34,6 @@ export default function LoginPage() {
                     <Button color="primary" content="Sign in" disabled={pending} />
                     <Button color="secondary" content="Forgot password?" />
                 </section>
-                {error && <p className="error">{error}</p>}
             </fieldset>
         </form>
     )

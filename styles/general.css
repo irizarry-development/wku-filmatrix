@@ -35,6 +35,10 @@ html, body {
     margin: 0 auto;
 }
 
+.app-body .app-toaster {
+    font-size: 1.8rem;
+}
+
 .app-body .app-content {
     padding: 2rem;
 }

@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import '~/styles/app.css'
 import Image from 'next/image'
 import Header from '~/components/ui/Header'
+import { Toaster } from 'react-hot-toast'
 
 export const metadata = {
   title: 'WKU Filmatrix',
@@ -17,7 +18,15 @@ type RootProps = {
 export default function RootLayout({ children }: RootProps) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"/>
+      </head>
       <body className="app-body">
+        <Toaster 
+          toastOptions={
+            {className: "app-toaster"}
+          }
+        />   
         <Header />
         <main className="app-content">
           {children}
