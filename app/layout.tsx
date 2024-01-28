@@ -26,10 +26,7 @@ export default function RootLayout({ children }: RootProps) {
         <Header />
         <main className="app-content">
           {children}
-        </main>
-        <footer className="app-footer">
-
-        </footer>  
+        </main> 
       </body>
     </html>
   )

@@ -28,7 +28,7 @@ html, body {
 
 .app-body {
     display: grid;
-    grid-template-rows: 14rem 1fr 30rem;
+    grid-template-rows: 14rem 1fr;
     min-height: 100vh;
     overflow-x: hidden;
     max-width: 100vw;

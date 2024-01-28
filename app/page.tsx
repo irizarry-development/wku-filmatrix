@@ -65,6 +65,80 @@ export default function Home() {
                     <Button color="danger" content="Large" size="lg" />
                 </section>
             </section>
+                <form className="form">
+                  <fieldset>
+                    <legend>Contact Information</legend>
+                    <Input 
+                        label="First Name"
+                        placeholder="First Name"
+                        id="first-name"
+                    />
+                    {/* <Input
+                        label="Multiline Text Field"
+                        placeholder="Enter your comments here..."
+                        type="multiline"
+                        id="multiline"
+                    />
+
+                    <Radio 
+                        label="Radio Buttons"
+                        options={['Option 1', 'Option 2', 'Option 3']}
+                        id="radios"
+                    />
+                    <Radio 
+                        label="Checkboxes"
+                        options={['Option 1', 'Option 2', 'Option 3']}
+                        checkbox
+                        id="checkboxes"
+                    />   
+
+                    <Select 
+                        label="Dropdown"
+                        options={['Option 1', 'Option 2', 'Option 3']}
+                    />
+                    <Select 
+                        label="Multi-Select"
+                        options={['Option 1', 'Option 2', 'Option 3']}
+                        multiple
+                    />
+
+                    <Input
+                        label="File Upload"
+                        type="file"
+                        id="file-upload"
+                    />
+                    <Input 
+                        label="Date Field"
+                        type="date"
+                        id="date-field"
+                    />
+                    <Input 
+                        label="Time Field"
+                        type="time"
+                        id="time-field"
+                    />
+                    <Input 
+                        label="Number Field"
+                        type="number"
+                        id="number-field"
+                    />
+                    <Input 
+                        label="Color Field"
+                        type="color"
+                        id="color-field"
+                    />
+                    <Input 
+                        label="Range Field"
+                        type="range"
+                        id="range-field"
+                    />
+                    <Input 
+                        label="Search Field"
+                        type="search"
+                        id="search-field"
+                    /> */}
+                  </fieldset>
+                </form>
         </Fragment>
     );
 }
