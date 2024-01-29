@@ -65,7 +65,6 @@ export default function Home() {
                     <Button color="danger" content="Large" size="lg" />
                 </section>
             </section>
-            <section className="preview-form">
                 <form className="form">
                   <fieldset>
                     <legend>Contact Information</legend>
@@ -73,13 +72,13 @@ export default function Home() {
                         label="First Name"
                         placeholder="First Name"
                         id="first-name"
-                    />
-                    <Input
-                        label="Multiline Text Field"
-                        placeholder="Enter your comments here..."
-                        type="multiline"
-                        id="multiline"
-                    />
+                    /><Input
+                    label="Multiline Text Field"
+                    placeholder="Enter your comments here..."
+                    type="multiline"
+                    id="multiline"
+                />
+                    {/* 
 
                     <Radio 
                         label="Radio Buttons"
@@ -137,10 +136,9 @@ export default function Home() {
                         label="Search Field"
                         type="search"
                         id="search-field"
-                    />
+                    /> */}
                   </fieldset>
                 </form>
-            </section>
         </Fragment>
     );
 }
