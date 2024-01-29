@@ -77,30 +77,30 @@ export default function Home() {
                     placeholder="Enter your comments here..."
                     type="multiline"
                     id="multiline"
-                />
+                /><Radio 
+                label="Radio Buttons"
+                options={['Option 1', 'Option 2', 'Option 3']}
+                id="radios"
+            />
+            <Radio 
+                label="Checkboxes"
+                options={['Option 1', 'Option 2', 'Option 3']}
+                checkbox
+                id="checkboxes"
+            /> <Select 
+            label="Dropdown"
+            options={['Option 1', 'Option 2', 'Option 3']}
+        />
+        <Select 
+            label="Multi-Select"
+            options={['Option 1', 'Option 2', 'Option 3']}
+            multiple
+        />
                     {/* 
 
-                    <Radio 
-                        label="Radio Buttons"
-                        options={['Option 1', 'Option 2', 'Option 3']}
-                        id="radios"
-                    />
-                    <Radio 
-                        label="Checkboxes"
-                        options={['Option 1', 'Option 2', 'Option 3']}
-                        checkbox
-                        id="checkboxes"
-                    />   
+                      
 
-                    <Select 
-                        label="Dropdown"
-                        options={['Option 1', 'Option 2', 'Option 3']}
-                    />
-                    <Select 
-                        label="Multi-Select"
-                        options={['Option 1', 'Option 2', 'Option 3']}
-                        multiple
-                    />
+                    
 
                     <Input
                         label="File Upload"
