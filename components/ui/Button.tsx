@@ -5,6 +5,7 @@ interface ButtonProps {
     alignment?: ButtonAlignment
     justification?: ButtonJustification
     disabled?: boolean
+    handler?: () => void
 }
 
 type ButtonColors = 'primary' | 'secondary' | 'outline' | 'success' | 'info' | 'warning' | 'danger'
@@ -18,9 +19,10 @@ export default function Button({
     size = "md",
     alignment,
     justification,
-    disabled = false
+    disabled = false,
+    handler
 }: ButtonProps) {
     return (
-        <button className={`btn ${size} ${color} ${alignment} ${justification}`} aria-disabled={disabled}>{content}</button>
+        <button onClick={handler} className={`btn ${size} ${color} ${alignment} ${justification}`} aria-disabled={disabled}>{content}</button>
     )
 }
