@@ -3,10 +3,16 @@ import Select from "~/components/ui/form/Select";
 import Radio from "~/components/ui/form/Radio";
 import Input from "~/components/ui/form/Input";
 import { Fragment } from "react";
+import { auth } from "~/lib/auth";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
 
-    
+    const session = await auth();
+
+    if (!session) {
+        redirect('/auth/signin')
+    }
 
     return (
         <Fragment>
@@ -77,41 +83,32 @@ export default function Home() {
                     placeholder="Enter your comments here..."
                     type="multiline"
                     id="multiline"
-                />
+                /><Radio 
+                label="Radio Buttons"
+                options={['Option 1', 'Option 2', 'Option 3']}
+                id="radios"
+            />
+            <Radio 
+                label="Checkboxes"
+                options={['Option 1', 'Option 2', 'Option 3']}
+                checkbox
+                id="checkboxes"
+            /> <Select 
+            label="Dropdown"
+            options={['Option 1', 'Option 2', 'Option 3']}
+        />
+        <Select 
+            label="Multi-Select"
+            options={['Option 1', 'Option 2', 'Option 3']}
+            multiple
+        />
                     {/* 
 
-                    <Radio 
-                        label="Radio Buttons"
-                        options={['Option 1', 'Option 2', 'Option 3']}
-                        id="radios"
-                    />
-                    <Radio 
-                        label="Checkboxes"
-                        options={['Option 1', 'Option 2', 'Option 3']}
-                        checkbox
-                        id="checkboxes"
-                    />   
+                      
 
-                    <Select 
-                        label="Dropdown"
-                        options={['Option 1', 'Option 2', 'Option 3']}
-                    />
-                    <Select 
-                        label="Multi-Select"
-                        options={['Option 1', 'Option 2', 'Option 3']}
-                        multiple
-                    />
+                    
 
-                    <Input
-                        label="File Upload"
-                        type="file"
-                        id="file-upload"
-                    />
-                    <Input 
-                        label="Date Field"
-                        type="date"
-                        id="date-field"
-                    />
+                    
                     <Input 
                         label="Time Field"
                         type="time"

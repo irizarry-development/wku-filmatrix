@@ -18,7 +18,7 @@ export default function Header() {
           />
           <nav className={`app-main-navigation ${navActive}`}>
             <section className="nav-links">
-              <Link className="nav-link" href="/">Home</Link>
+              <Link className="nav-link" href="/">Dashboard</Link>
               <Link className="nav-link" href="/people">People</Link>
               <Link className="nav-link" href="/projects">Projects</Link>
               <Link className="nav-link" href="/vendors">Vendors</Link>
