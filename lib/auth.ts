@@ -7,11 +7,14 @@ import { z } from "zod";
 
 import bcrypt from 'bcrypt'
 
-export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth({
+export const { handlers: {GET, POST}, auth, signIn, signOut, } = NextAuth({
     adapter: PrismaAdapter(prisma),
     callbacks: {
-      async signIn({ user, account, profile, email, credentials }) {
-        return true
+      async session({ session }) {
+        return session
+      },
+      async jwt ({ token }) {
+        return token
       },
       async redirect({ url, baseUrl }) {
         return baseUrl
