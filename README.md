@@ -2,6 +2,79 @@
 
 This is our senior capstone project that we have been tasked to build for the WKU Film and Journalism Department. 
 
+# 0.0 GitHub Conventions
+
+## 0.0.1 Branching
+
+In this project, it will be of the utmost importance that we always have something meaningful to show our client. Even even our early stages of development, it is important that we aren't displaying non-functioning work to a client.
+
+Therefore, I propose we adhere to a set of guidelines around how we commit to our local repository. There will be three main branches:
+
+### Main
+
+This is our client facing, production branch that the client can look at anytime by clicking [here](https://wku-filmatrix.vercel.app). Commiting to this branch should be done via a **PR** via the develop branch.
+
+### Develop
+
+This should not client facing; however, the client may want to see how things are going on a task. So even though this may contain experimental features that could inhibit functionalities of the app, it should be somewhat functional.
+
+Commiting to this project should be done via a **PR** via the requested PR. This ensures we have time to test the new features before we implement them to the production branch.
+
+### Feature
+
+These should not be shown to a client, as they likely may not gain anything from visually seeing it. For example, `feature/auth` is not meanignful until the client can see the authentication flow.
+
+To create a feature branch (in this example we will use `feature/auth`):
+1. ensure that you are checked in the develop branch.
+
+    ```
+    git checkout develop
+    ```
+
+2. Pull the most recent develop changes.
+
+    ```
+    git pull origin develop.
+    ```
+
+3. Resolve any conflicts
+4. Check out to the new feature branch.
+
+    ```
+    git checkout -B feature/auth --track origin/develop
+    ```
+The above command tracks the develop branch, ensuring that your feature commit does not get too far behind any potential changes from someone else. Also, if you run the `git status` command, it will give you more information. For example:
+
+**Without `--track` flag**
+
+```
+$ git status
+On branch feature/auth
+Your branch is ahead of 'origin/dev' by 1 commit.
+  (use "git push" to publish your local commits)
+```
+
+**With `--track` flag**
+
+```
+$ git status
+On branch feature/auth
+Your branch and 'origin/develop' have diverged,
+and have 3 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+```
+
+#### Naming Conventions
+Try and be brief but descriptive with the branch names. For example
+
+```
+feature/auth
+feature/vendor-api
+feature/people-dashboard
+```
+
+***I didn't enforce branch protection rules on GitHub, but as much as possible it would be really great to try and stick to them.***
+
 # 0.1 Local Environment Setup
 
 There are a few things you will want to make sure you have installed in your local environment.
@@ -69,3 +142,11 @@ pnpm i -g vercel@latest
 vercel --version
 ```
 Link the project with `vercel link`, then simply type `vercel env pull .env` where it will populate any environment variables from your app.
+
+## 0.1.4 Test Accounts
+
+```
+matt@wku.edu - wku496
+zach@wku.edu - wku496
+trevor@wku.edu - wku496
+```

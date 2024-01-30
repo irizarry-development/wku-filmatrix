@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
 
-import '@/styles/app.css'
-import Image from 'next/image'
-import Header from '@/components/ui/Header'
+import '~/styles/app.css'
+import Header from '~/components/ui/Header'
+import { Toaster } from 'react-hot-toast'
 
 export const metadata = {
   title: 'WKU Filmatrix',
@@ -18,13 +18,15 @@ export default function RootLayout({ children }: RootProps) {
   return (
     <html lang="en">
       <body className="app-body">
+        <Toaster 
+          toastOptions={
+            {className: "app-toaster"}
+          }
+        />   
         <Header />
         <main className="app-content">
           {children}
-        </main>
-        <footer className="app-footer">
-
-        </footer>  
+        </main> 
       </body>
     </html>
   )

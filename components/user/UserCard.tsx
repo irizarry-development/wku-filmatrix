@@ -1,19 +1,19 @@
-import { users } from "@prisma/client"
+import { User } from "@prisma/client"
 import Image from 'next/image'
 
 export default function UserCard({
     name,
     image,
     email
-  }: users) {
+  }: User) {
     return (
       <section
         className="user-card"
         key={name}
       >
         <Image
-          src={image}
-          alt={name}
+          src={image || "/images/placeholder.png"}
+          alt={name || ""}
           width={48}
           height={48}
           className="user-card-image"

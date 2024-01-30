@@ -1,10 +1,19 @@
-import Button from "@/components/ui/Button";
-import Select from "@/components/ui/form/Select";
-import Radio from "@/components/ui/form/Radio";
-import Input from "@/components/ui/form/Input";
+import Button from "~/components/ui/Button";
+import Select from "~/components/ui/form/Select";
+import Radio from "~/components/ui/form/Radio";
+import Input from "~/components/ui/form/Input";
 import { Fragment } from "react";
+import { auth } from "~/lib/auth";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+
+    const session = await auth();
+
+    if (!session) {
+        redirect('/auth/signin')
+    }
+
     return (
         <Fragment>
             <h1>Style Guide</h1>
@@ -62,73 +71,71 @@ export default function Home() {
                     <Button color="danger" content="Large" size="lg" />
                 </section>
             </section>
-            <section className="preview-form">
                 <form className="form">
                   <fieldset>
                     <legend>Contact Information</legend>
                     <Input 
                         label="First Name"
                         placeholder="First Name"
-                    />
-                    <Input
-                        label="Multiline Text Field"
-                        placeholder="Enter your comments here..."
-                        type="multiline"
-                    />
+                        id="first-name"
+                    /><Input
+                    label="Multiline Text Field"
+                    placeholder="Enter your comments here..."
+                    type="multiline"
+                    id="multiline"
+                /><Radio 
+                label="Radio Buttons"
+                options={['Option 1', 'Option 2', 'Option 3']}
+                id="radios"
+            />
+            <Radio 
+                label="Checkboxes"
+                options={['Option 1', 'Option 2', 'Option 3']}
+                checkbox
+                id="checkboxes"
+            /> <Select 
+            label="Dropdown"
+            options={['Option 1', 'Option 2', 'Option 3']}
+        />
+        <Select 
+            label="Multi-Select"
+            options={['Option 1', 'Option 2', 'Option 3']}
+            multiple
+        />
+                    {/* 
 
-                    <Radio 
-                        label="Radio Buttons"
-                        options={['Option 1', 'Option 2', 'Option 3']}
-                        id="radios"
-                    />
-                    <Radio 
-                        label="Checkboxes"
-                        options={['Option 1', 'Option 2', 'Option 3']}
-                        checkbox
-                        id="checkboxes"
-                    />   
+                      
 
-                    <Select 
-                        label="Dropdown"
-                        options={['Option 1', 'Option 2', 'Option 3']}
-                    />
-                    <Select 
-                        label="Multi-Select"
-                        options={['Option 1', 'Option 2', 'Option 3']}
-                        multiple
-                    />
+                    
 
-                    <Input
-                        label="File Upload"
-                        type="file"
-                    />
-                    <Input 
-                        label="Date Field"
-                        type="date"
-                    />
+                    
                     <Input 
                         label="Time Field"
                         type="time"
+                        id="time-field"
                     />
                     <Input 
                         label="Number Field"
                         type="number"
+                        id="number-field"
                     />
                     <Input 
                         label="Color Field"
                         type="color"
+                        id="color-field"
                     />
                     <Input 
                         label="Range Field"
                         type="range"
+                        id="range-field"
                     />
                     <Input 
                         label="Search Field"
                         type="search"
-                    />
+                        id="search-field"
+                    /> */}
                   </fieldset>
                 </form>
-            </section>
         </Fragment>
     );
 }
