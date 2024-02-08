@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react"
+import { FormEvent, useRef } from "react"
 import { useFormState } from "react-dom";
 import Button from "~/components/ui/Button";
 import TextInput from "~/components/ui/form/Input";
@@ -9,11 +9,15 @@ export default function OnboardingPage() {
 
     const dialogRef = useRef<HTMLDialogElement>(null)
 
-    const _handleSubmit = () => 
+    const _handleModal = () => 
     {
         if (dialogRef.current) {
             dialogRef.current.showModal()
         }
+    }
+
+    const _handleSubmit = () => {
+        console.log('submitting')
     }
 
     const [error, dispatch] = useFormState(_handleSubmit, undefined)
@@ -21,7 +25,7 @@ export default function OnboardingPage() {
     return (
         <>
             <h1>Crew Onboarding</h1>
-            <form className="form" id="onboarding-form">
+            <form className="form" id="onboarding-form" onSubmit={(e) => e.preventDefault()}>
                 <fieldset>
                     <legend>Crew Member Information</legend>
                     <TextInput label="Name" id="name" type="text" />
@@ -47,13 +51,13 @@ export default function OnboardingPage() {
                     color="primary" 
                     content="Submit" 
                     disabled={false} 
-                    handler={_handleSubmit}
+                    handler={_handleModal}
                 />
                 <Button 
                     color="secondary" 
                     content="Skip" 
                     disabled={false} 
-                    handler={_handleSubmit}
+                    handler={_handleModal}
                 />
 
             </form>
