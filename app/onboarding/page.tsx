@@ -3,6 +3,7 @@
 import { FormEvent, useRef } from "react"
 import { useFormState } from "react-dom";
 import Button from "~/components/ui/Button";
+import { Modal } from "~/components/ui/Modal";
 import TextInput from "~/components/ui/form/Input";
 
 export default function OnboardingPage() {
@@ -91,7 +92,7 @@ export default function OnboardingPage() {
                      shall have the right to use the Crew Member's name, voice, picture, and likeness in connection with the Motion Picture, the advertising and publicizing thereof, and any 
                      promotional films or clips respecting the Motion Picture without additional compensation therefore.
                 </p>
-                <span className ="buttons">
+                <section className="buttons">
                     <Button 
                         color="primary" 
                         content="Submit" 
@@ -108,7 +109,7 @@ export default function OnboardingPage() {
                         disabled={false} 
                         handler={_handleClose}
                     />
-                </span>
+                </section>
             </dialog>
         </>
     )
