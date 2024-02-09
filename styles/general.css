@@ -1,4 +1,4 @@
-:root, dialog {
+:root {
     --danger-red: #dc3545;
     --light-red: #be313c;
     --red: #B01E24;
@@ -35,22 +35,12 @@ html, body {
     margin: 0 auto;
 }
 
-.app-body .app-toaster, dialog {
+.app-body .app-toaster {
     font-size: 1.8rem;
 }
 
-.app-body .app-content, dialog {
+.app-body .app-content {
     margin: 2rem;
-}
-
-dialog:not([open]){
-    display:none;
-}
-
-dialog {
-    max-width: 100vw;
-    overflow-x: hidden;
-    margin: 0 auto;
 }
 
 h1 {
