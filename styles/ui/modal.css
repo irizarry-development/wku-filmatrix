@@ -1,9 +1,9 @@
 .modal {
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
     background: none;
     border: none;
-    margin: 0;
+    margin: auto 0;
     position: fixed;
 }
 

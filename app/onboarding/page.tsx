@@ -10,20 +10,18 @@ export default function OnboardingPage() {
 
     const dialogRef = useRef<HTMLDialogElement>(null)
 
-    const _handleModal = () => 
-    {
-        if (dialogRef.current) {
-            dialogRef.current.showModal()
-        }
-    }
-
     const _handleSubmit = () => {
         console.log('submitting')
     }
 
-    const _handleClose = () => {
-        if (dialogRef.current) {
+    const _handleToggle = () => {
+        if (!dialogRef.current) 
+            return;
+
+        if (dialogRef.current.open) {
             dialogRef.current.close()
+        } else {
+            dialogRef.current.showModal()
         }
     }
 
@@ -58,13 +56,13 @@ export default function OnboardingPage() {
                     color="primary" 
                     content="Submit" 
                     disabled={false} 
-                    handler={_handleModal}
+                    handler={_handleToggle}
                 />
                 <Button 
                     color="secondary" 
                     content="Skip" 
                     disabled={false} 
-                    handler={_handleModal}
+                    handler={_handleToggle}
                 />
 
             </form>
@@ -110,7 +108,7 @@ export default function OnboardingPage() {
                             color="outline" 
                             content="Cancel" 
                             disabled={false} 
-                            handler={_handleClose}
+                            handler={_handleToggle}
                         />
                     </section>
                 </section>

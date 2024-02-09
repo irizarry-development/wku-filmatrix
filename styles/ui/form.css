@@ -5,8 +5,9 @@
 
 .form fieldset {
     display: grid;
-    row-gap: 2rem;
+    row-gap: 3rem;
     border: 0.1rem dotted var(--gray-muted);
+    padding: 2rem;
 }
 
 .form fieldset legend {
