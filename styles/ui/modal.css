@@ -3,7 +3,7 @@
     height: 90vh;
     background: none;
     border: none;
-    margin: auto 0;
+    margin: auto ;
     position: fixed;
 }
 
@@ -13,19 +13,28 @@
 
 .modal .modal-body {
     margin: 2rem;
-    padding: 2rem;
     border: 0.1rem solid var(--gray-dark);
-    background: var(--gray-darkest);
+    background: var(--gray-darker);
     display: grid;
     row-gap: 2rem;
 }
 
-.modal .modal-content {
+.modal .modal-body .modal-header {
     display: grid;
+    background: var(--red);
+    padding: 0.4rem;
 }
 
-.modal .modal-body .modal-buttons {
+.modal .modal-body .modal-header .modal-close {
+    justify-self: end;
+    align-self: center;
+    font-size: 4rem;
+    color: var(--gray-lightest);
+    cursor: pointer;
+
+}
+
+.modal .modal-body .modal-content {
     display: grid;
-    grid-auto-flow: column;
-    column-gap: 1rem;
+    padding: 2rem;
 }

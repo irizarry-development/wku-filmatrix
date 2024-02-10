@@ -1,13 +1,25 @@
+import { ForwardedRef, forwardRef } from "react"
+import { MdClose } from "react-icons/md";
+
 interface ModalProps {
-    ref: React.RefObject<HTMLDialogElement>
+    children: React.ReactNode
 }
 
-export function Modal({
-    ref
-}: ModalProps) {
+export const Modal = forwardRef((props: ModalProps, ref: ForwardedRef<HTMLDialogElement>) => {
     return (
-        <dialog ref={ref} className="modal">
-            <h1>Hello Modal</h1>
+        <dialog className="modal" ref={ref}>
+            <section className="modal-body">
+                <section className="modal-header">
+                    <MdClose 
+                        className="modal-close"
+                    />
+                </section>
+                <section className="modal-content">
+                    {
+                        props.children
+                    }
+                </section>
+            </section>
         </dialog>
     )
-}
+})
