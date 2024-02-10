@@ -5,6 +5,7 @@ import { useFormState } from "react-dom";
 import Button from "~/components/ui/Button";
 import { Modal } from "~/components/ui/Modal";
 import TextInput from "~/components/ui/form/Input";
+import { toggleModal } from "~/lib/modal";
 
 export default function OnboardingPage() {
 
@@ -12,17 +13,6 @@ export default function OnboardingPage() {
 
     const _handleSubmit = () => {
         console.log('submitting')
-    }
-
-    const _handleToggle = () => {
-        if (!dialogRef.current) 
-            return;
-
-        if (dialogRef.current.open) {
-            dialogRef.current.close()
-        } else {
-            dialogRef.current.showModal()
-        }
     }
 
     const [error, dispatch] = useFormState(_handleSubmit, undefined)
@@ -56,15 +46,15 @@ export default function OnboardingPage() {
                     color="primary" 
                     content="Submit" 
                     disabled={false} 
-                    handler={_handleToggle}
+                    handler={() => toggleModal(dialogRef)}
                 />
                 <Button 
                     color="secondary" 
                     content="Skip" 
                     disabled={false} 
-                    handler={_handleToggle}
+                    handler={() => console.log('skipping')}
                 />
-                <Modal ref={dialogRef}>
+                <Modal ref={dialogRef} toggleHandler={() => toggleModal(dialogRef)}>
                     <section className="onboarding-disclaimer">
                     <h1>BY SUBMITTING THIS FORM IT IS AGREED AS FOLLOWS:</h1>
                     <h3>1. VOLUNTARY SERVICE:</h3> <p>The Crew Member is providing their services on a voluntary
@@ -101,7 +91,7 @@ export default function OnboardingPage() {
                             color="secondary" 
                             content="I Disagree (Exit)" 
                             disabled={false} 
-                            handler={_handleToggle}
+                            handler={() => toggleModal(dialogRef)}
                         />
                     </section>
                 </Modal>       

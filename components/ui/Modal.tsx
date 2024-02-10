@@ -3,6 +3,7 @@ import { MdClose } from "react-icons/md";
 
 interface ModalProps {
     children: React.ReactNode
+    toggleHandler: () => void
 }
 
 export const Modal = forwardRef((props: ModalProps, ref: ForwardedRef<HTMLDialogElement>) => {
