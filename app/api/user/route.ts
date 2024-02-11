@@ -25,7 +25,7 @@ export async function GET() {
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json()
-        const { email, saltedPassword } = await createUserSchema.parseAsync(body)
+        const { email, saltedPassword } = createUserSchema.parse(body)
 
         const existingUserByEmail = await prisma.user.findUnique({
             where: {
