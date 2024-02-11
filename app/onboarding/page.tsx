@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useRef } from "react"
+import { FormEvent, FormEventHandler, useRef } from "react"
 import { useFormState } from "react-dom";
 import Button from "~/components/ui/Button";
 import { Modal } from "~/components/ui/Modal";
@@ -11,16 +11,17 @@ export default function OnboardingPage() {
 
     const dialogRef = useRef<HTMLDialogElement>(null)
 
-    const _handleSubmit = () => {
+    async function handleSubmit(prev: string | undefined, formData: FormData) {
         console.log('submitting')
+        return "result"
     }
 
-    const [error, dispatch] = useFormState(_handleSubmit, undefined)
+    const [error, dispatch] = useFormState(handleSubmit, undefined)
 
     return (
-        <>
+        <section className="onboarding-page">
             <h1>Crew Onboarding</h1>
-            <form className="form" id="onboarding-form" onSubmit={(e) => e.preventDefault()}>
+            <form className="form" id="onboarding-form" action={dispatch}>
                 <fieldset>
                     <legend>Crew Member Information</legend>
                     <TextInput label="Name" id="name" type="text" />
@@ -41,18 +42,21 @@ export default function OnboardingPage() {
                     <TextInput label="Allergies" id="allergies" type="text" />
                     <TextInput label="Medications" id="medications" type="text" />
                     <TextInput label="Medical Conditions" id="conditions" type="text" />
-                </fieldset>
+                </fieldset>  
+
                 <Button 
                     color="primary" 
                     content="Submit" 
                     disabled={false} 
                     handler={() => toggleModal(dialogRef)}
+                    type="button"
                 />
                 <Button 
                     color="secondary" 
                     content="Skip" 
                     disabled={false} 
                     handler={() => console.log('skipping')}
+                    type="button"
                 />
                 <Modal ref={dialogRef} toggleHandler={() => toggleModal(dialogRef)}>
                     <section className="onboarding-disclaimer">
@@ -84,19 +88,19 @@ export default function OnboardingPage() {
                         <Button 
                             color="primary" 
                             content="I Agree" 
-                            disabled={false} 
-                            handler={_handleSubmit}
+                            disabled={false}
                         />
                         <Button 
                             color="secondary" 
                             content="I Disagree (Exit)" 
                             disabled={false} 
                             handler={() => toggleModal(dialogRef)}
+                            type="button"
                         />
                     </section>
-                </Modal>       
+                </Modal>   
             </form>
-            
-        </>
+              
+        </section>
     )
 }
