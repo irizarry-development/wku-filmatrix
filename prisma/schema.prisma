@@ -42,7 +42,7 @@ model User {
   emailVerified DateTime?
   saltedPassword String
   image         String?
-  hasOnboarded Boolean   @default(false)
+  hasOnboarded  Boolean   @default(false)
   accounts      Account[]
   sessions      Session[]
 }
