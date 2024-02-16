@@ -10,22 +10,17 @@ export async function GET() {
     })
 }
 
-
-
 /**
  * API Route to create a new user.
  * 
  * POST /api/user/
  * 
- * 
- * @param req 
- * @returns 
  */
 
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json()
-        const { email, saltedPassword } = createUserSchema.parse(body)
+        const { email, saltedPassword, name } = createUserSchema.parse(body)
 
         const existingUserByEmail = await prisma.user.findUnique({
             where: {
@@ -50,13 +45,16 @@ export async function POST(req: NextRequest) {
         } = await prisma.user.create({
             data: {
                 email,
+                name,
                 saltedPassword: hashedPassword
             }
         })
 
         return NextResponse.json({ user: rest, status: 201, message: "User created."})
     } catch (error) {
-        console.error(error)
+
+        // TODO: Implement some kind of security check here. E.g. rate limiting or something.
+
         return NextResponse.json({ user: null, status: 500, message: "Error occured during user creation."})
     }
 }
