@@ -23,5 +23,9 @@ export const appNavigationLinks: NavLink[] = [
     {
         label: 'Your Profile',
         path: '/profile'
+    },
+    {
+        label: 'Onboarding',
+        path: '/onboarding'
     }
 ]

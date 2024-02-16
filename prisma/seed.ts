@@ -24,7 +24,6 @@ async function main() {
       },
     }),
   ])
-  console.log(response)
 }
 main()
   .then(async () => {

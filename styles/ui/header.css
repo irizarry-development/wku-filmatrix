@@ -38,6 +38,7 @@
     row-gap: 0.6rem;
     padding-right: 2rem;
     z-index: 2;
+    cursor: pointer;
 }
 
 .app-header .app-hamburger .app-hamburger-line {

@@ -1,0 +1,65 @@
+.people-cards {
+    display: grid;
+    row-gap: 0.2rem;
+    padding: 2rem;
+    background: var(--gray-darker);
+}
+
+.people-cards .people-card {
+    display: grid;
+    grid-template-columns: 10rem 18rem;
+    justify-content: space-between;
+    background: #444;
+}
+
+.people-cards .people-card .people-card-image {
+    place-self: center;
+    width: 10rem;
+    height: 10rem;
+}
+
+.people-cards .people-card .people-card-meta {
+    display: grid;
+    grid-auto-flow: column;
+    color: white;
+    align-self: center;
+    padding-left: 1rem;
+}
+
+.people-cards .people-card .people-card-buttons {
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.people-cards .people-card .people-card-meta strong {
+    font-size: 1.6rem;
+}
+
+.people-card-edit,
+.people-card-view,
+.people-card-delete,
+.people-card-archive {
+    display: grid;
+    place-self: center;
+    padding: 1rem;
+    height: 2.4rem;
+    width: 2.4rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+}
+
+.people-card-delete {
+    color: var(--danger-red);
+}
+
+.people-card-view {
+    color: var(--bright-blue);
+}
+
+.people-card-edit {
+    color: var(--gold-dark);
+}
+
+.people-card-archive {
+    color: var(--gray-lightest);
+}

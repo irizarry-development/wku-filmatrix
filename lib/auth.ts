@@ -10,10 +10,18 @@ import bcrypt from 'bcrypt'
 export const { handlers: {GET, POST}, auth, signIn, signOut, } = NextAuth({
     adapter: PrismaAdapter(prisma),
     callbacks: {
-      async session({ session }) {
-        return session
+      async session(params) {
+        //@ts-ignore
+        return params.session
       },
-      async jwt ({ token }) {
+      async jwt ({ token, user }) {
+        if (user) {
+          return {
+            ...token,
+            // @ts-ignore
+            hasOnboarded: user.hasOnboarded
+          }
+        }
         return token
       },
       async redirect({ url, baseUrl }) {
