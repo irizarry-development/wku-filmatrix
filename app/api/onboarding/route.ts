@@ -9,9 +9,6 @@ export const POST = auth((req) => {
         })
     }
 
-    console.log(req.auth.user)
-    console.log(req)
-
     return NextResponse.json({
         status: 200,
         message: "Welcome to the onboarding API"

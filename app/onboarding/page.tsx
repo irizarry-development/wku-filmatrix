@@ -1,7 +1,10 @@
 "use client";
 
+import axios from "axios";
+import { Router, useRouter } from "next/router";
 import { FormEvent, FormEventHandler, useRef } from "react"
 import { useFormState } from "react-dom";
+import toast from "react-hot-toast";
 import Button from "~/components/ui/Button";
 import { Modal } from "~/components/ui/Modal";
 import TextInput from "~/components/ui/form/Input";
@@ -11,24 +14,37 @@ export default function OnboardingPage() {
 
     const dialogRef = useRef<HTMLDialogElement>(null)
 
-    async function handleSubmit(prev: string | undefined, formData: FormData) {
-        console.log('submitting')
-        return "result"
-    }
+    async function handleSubmit(formData: FormData) {
+        // axios post request to /api/onboarding
+        // if successful, redirect to dashboard
 
-    const [error, dispatch] = useFormState(handleSubmit, undefined)
+        // if not successful, display error message
+
+        for (let value of formData.values()) {
+            console.log(value)
+        }
+
+        const response = await axios.post('/api/onboarding', formData)
+
+        //if (response.status === 200) {
+            // redirect to dashboard
+        //} else {
+            // display error message
+            toast.error('An error occurred while submitting the form')
+        //}
+
+    }
 
     return (
         <section className="onboarding-page">
             <h1>Crew Onboarding</h1>
-            <form className="form" id="onboarding-form" action={dispatch}>
+            <form className="form" id="onboarding-form" action={handleSubmit}>
                 <fieldset>
                     <legend>Crew Member Information</legend>
                     <TextInput label="Name" id="name" type="text" />
                     <TextInput label="Non WKU Email" id="email" type="text" />
                     <TextInput label="Phone" id="phone" type="text" /> 
                     <TextInput label="Address" id="address" type="text" />
-                    <TextInput label="Position" id="position" type="text" />
                     <TextInput label="Credit" id="credit" type="text" />
                 </fieldset>
                 <fieldset>
