@@ -6,18 +6,21 @@ interface ModalProps {
     toggleHandler: () => void
 }
 
-export const Modal = forwardRef((props: ModalProps, ref: ForwardedRef<HTMLDialogElement>) => {
+export const Modal = forwardRef(({
+    children, toggleHandler
+}: ModalProps, ref: ForwardedRef<HTMLDialogElement>) => {
     return (
         <dialog className="modal" ref={ref}>
             <section className="modal-body">
                 <section className="modal-header">
                     <MdClose 
                         className="modal-close"
+                        onClick={toggleHandler}
                     />
                 </section>
                 <section className="modal-content">
                     {
-                        props.children
+                        children
                     }
                 </section>
             </section>
