@@ -6,9 +6,7 @@ interface ModalProps {
     toggleHandler: () => void;
 }
 
-export default forwardRef(
-    (
-        { children, toggleHandler }: ModalProps,
+const Modal = ({ children, toggleHandler }: ModalProps,
         ref: ForwardedRef<HTMLDialogElement>
     ) => {
         return (
@@ -25,4 +23,5 @@ export default forwardRef(
             </dialog>
         );
     }
-);
+
+export default forwardRef(Modal);
