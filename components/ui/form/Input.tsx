@@ -9,14 +9,14 @@ type InputType =
     | "range"
     | "search"
     | "email"
-    | "password"
+    | "password";
 
 interface TextInputProps {
-    id: string
-    label: string
-    placeholder?: string
-    type?: InputType
-    helperText?: string
+    id: string;
+    label: string;
+    placeholder?: string;
+    type?: InputType;
+    helperText?: string;
 }
 
 export default function TextInput({
@@ -41,5 +41,5 @@ export default function TextInput({
                 />
             )}
         </label>
-    )
+    );
 }
