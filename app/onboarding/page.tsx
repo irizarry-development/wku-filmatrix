@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import axios from "axios"
-import {useRef} from "react"
-import toast from "react-hot-toast"
-import Button from "~/components/ui/Button"
-import {Modal} from "~/components/ui/Modal"
-import TextInput from "~/components/ui/form/Input"
-import {toggleModal} from "~/lib/modal"
+import axios from "axios";
+import { useRef } from "react";
+import toast from "react-hot-toast";
+import Button from "~/components/ui/Button";
+import { Modal } from "~/components/ui/Modal";
+import TextInput from "~/components/ui/form/Input";
+import { toggleModal } from "~/lib/modal";
 
 export default function OnboardingPage() {
-    const dialogRef = useRef<HTMLDialogElement>(null)
+    const dialogRef = useRef<HTMLDialogElement>(null);
 
     async function handleSubmit(formData: FormData) {
         const onboardingData = {
@@ -23,23 +23,23 @@ export default function OnboardingPage() {
             emergencyContactAddress: formData.get("emergencyContactAddress"),
             allergies: formData.get("allergies"),
             medications: formData.get("medications"),
-            conditions: formData.get("conditions"),
-        }
+            conditions: formData.get("conditions")
+        };
 
         try {
-            await axios.post("/api/onboarding", onboardingData)
-            toast.success("Onboarding form submitted")
+            await axios.post("/api/onboarding", onboardingData);
+            toast.success("Onboarding form submitted");
         } catch (error) {
-            toast.error("Onboarding form failed to submit")
+            toast.error("Onboarding form failed to submit");
         }
     }
 
     async function skipOnboarding() {
         try {
-            await axios.post("/api/onboarding/skip")
-            toast.success("Onboarding form skipped")
+            await axios.post("/api/onboarding/skip");
+            toast.success("Onboarding form skipped");
         } catch (error) {
-            toast.error("Onboarding form failed to skip")
+            toast.error("Onboarding form failed to skip");
         }
     }
 
@@ -55,21 +55,38 @@ export default function OnboardingPage() {
                         type="text"
                         helperText="First and Last"
                     />
-                    <TextInput 
-                        label="Non WKU Email" 
-                        id="outgoingEmail" 
-                        type="text" 
+                    <TextInput
+                        label="Non WKU Email"
+                        id="outgoingEmail"
+                        type="text"
                         helperText="Personal Email"
                     />
-                    <TextInput label="Phone" id="phoneNumber" type="text" helperText="Personal Phone" />
+                    <TextInput
+                        label="Phone"
+                        id="phoneNumber"
+                        type="text"
+                        helperText="Personal Phone"
+                    />
                     <TextInput label="Address" id="address" type="text" />
                     <TextInput label="Credit" id="credit" type="text" />
                 </fieldset>
                 <fieldset>
                     <legend>Emergency Contact</legend>
-                    <TextInput label="Name" id="emergencyContactName" type="text" />
-                    <TextInput label="Phone" id="emergencyContactPhone" type="text" />
-                    <TextInput label="Address" id="emergencyContactAddress" type="text" />
+                    <TextInput
+                        label="Name"
+                        id="emergencyContactName"
+                        type="text"
+                    />
+                    <TextInput
+                        label="Phone"
+                        id="emergencyContactPhone"
+                        type="text"
+                    />
+                    <TextInput
+                        label="Address"
+                        id="emergencyContactAddress"
+                        type="text"
+                    />
                 </fieldset>
                 <fieldset>
                     <legend>Medical Information</legend>
@@ -198,5 +215,5 @@ export default function OnboardingPage() {
                 </Modal>
             </form>
         </section>
-    )
+    );
 }
