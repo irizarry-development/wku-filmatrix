@@ -3,7 +3,7 @@
     height: 90vh;
     background: none;
     border: none;
-    margin: auto ;
+    margin: auto;
     position: fixed;
 }
 
@@ -31,7 +31,6 @@
     font-size: 4rem;
     color: var(--gray-lightest);
     cursor: pointer;
-
 }
 
 .modal .modal-body .modal-content {

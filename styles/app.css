@@ -1,11 +1,11 @@
-@import 'general.css';
+@import "general.css";
 
-@import 'ui/footer.css';
-@import 'ui/header.css';
-@import 'ui/form.css';
-@import 'ui/button.css';
-@import 'ui/modal.css';
+@import "ui/footer.css";
+@import "ui/header.css";
+@import "ui/form.css";
+@import "ui/button.css";
+@import "ui/modal.css";
 
-@import 'pages/login.css';
-@import 'pages/onboarding.css';
-@import 'pages/people.css';
+@import "pages/login.css";
+@import "pages/onboarding.css";
+@import "pages/people.css";

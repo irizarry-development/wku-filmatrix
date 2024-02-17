@@ -6,11 +6,11 @@ export const POST = auth((req) => {
         return NextResponse.json({
             status: 401,
             error: "Unauthorized"
-        })
+        });
     }
 
     return NextResponse.json({
         status: 200,
         message: "Welcome to the onboarding API"
-    })
-})
+    });
+});
