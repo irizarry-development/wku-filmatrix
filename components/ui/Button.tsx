@@ -29,13 +29,15 @@ export default function Button({
     alignment,
     justification,
     disabled = false,
-    handler
+    handler,
+    type
 }: ButtonProps) {
     return (
         <button
             onClick={handler}
             className={`btn ${size} ${color} ${alignment} ${justification}`}
             aria-disabled={disabled}
+            type={type}
         >
             {content}
         </button>

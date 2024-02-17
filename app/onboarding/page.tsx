@@ -1,15 +1,18 @@
 "use client";
 
 import axios from "axios";
+import { redirect, useRouter } from "next/navigation";
 import { useRef } from "react";
 import toast from "react-hot-toast";
 import Button from "~/components/ui/Button";
 import { Modal } from "~/components/ui/Modal";
+import { Fieldset } from "~/components/ui/form/Fieldset";
 import TextInput from "~/components/ui/form/Input";
 import { toggleModal } from "~/lib/modal";
 
 export default function OnboardingPage() {
     const dialogRef = useRef<HTMLDialogElement>(null);
+    const router = useRouter();
 
     async function handleSubmit(formData: FormData) {
         const onboardingData = {
@@ -29,6 +32,7 @@ export default function OnboardingPage() {
         try {
             await axios.post("/api/onboarding", onboardingData);
             toast.success("Onboarding form submitted");
+            router.push("/");
         } catch (error) {
             toast.error("Onboarding form failed to submit");
         }
@@ -38,6 +42,7 @@ export default function OnboardingPage() {
         try {
             await axios.post("/api/onboarding/skip");
             toast.success("Onboarding form skipped");
+            router.push("/");
         } catch (error) {
             toast.error("Onboarding form failed to skip");
         }
@@ -47,8 +52,7 @@ export default function OnboardingPage() {
         <section className="onboarding-page">
             <h1>Crew Onboarding</h1>
             <form className="form" id="onboarding-form" action={handleSubmit}>
-                <fieldset>
-                    <legend>Crew Member Information</legend>
+                <Fieldset legendTitle="Crew Member Information">
                     <TextInput
                         label="Name"
                         id="name"
@@ -69,9 +73,11 @@ export default function OnboardingPage() {
                     />
                     <TextInput label="Address" id="address" type="text" />
                     <TextInput label="Credit" id="credit" type="text" />
-                </fieldset>
-                <fieldset>
-                    <legend>Emergency Contact</legend>
+                </Fieldset>
+                <Fieldset
+                    legendTitle="Emergency Contact"
+                    legendSubtitle="In case of emergency, please notify:"
+                >
                     <TextInput
                         label="Name"
                         id="emergencyContactName"
@@ -87,9 +93,8 @@ export default function OnboardingPage() {
                         id="emergencyContactAddress"
                         type="text"
                     />
-                </fieldset>
-                <fieldset>
-                    <legend>Medical Information</legend>
+                </Fieldset>
+                <Fieldset legendTitle="Medical Information">
                     <TextInput label="Allergies" id="allergies" type="text" />
                     <TextInput
                         label="Medications"
@@ -101,7 +106,7 @@ export default function OnboardingPage() {
                         id="conditions"
                         type="text"
                     />
-                </fieldset>
+                </Fieldset>
 
                 <Button
                     color="primary"
