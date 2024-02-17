@@ -79,6 +79,12 @@ export default async function Home() {
                         id="first-name"
                     />
                     <Input
+                        label="Last Name"
+                        placeholder="Last Name"
+                        id="last-name"
+                        helperText="Please enter your last name."
+                    />
+                    <Input
                         label="Multiline Text Field"
                         placeholder="Enter your comments here..."
                         type="multiline"
