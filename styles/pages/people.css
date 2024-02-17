@@ -1,38 +1,75 @@
-.people-cards {
+.people-table {
+    display: grid;
+    row-gap: 1.6rem;
+}
+
+.people-table .people-cards {
     display: grid;
     row-gap: 0.2rem;
-    padding: 2rem;
     background: var(--gray-darker);
 }
 
-.people-cards .people-card {
+.people-table .people-cards .people-card {
     display: grid;
-    grid-template-columns: 10rem 18rem;
+    grid-template-columns: 1fr 5rem;
     justify-content: space-between;
     background: #444;
+    position: relative;
 }
 
-.people-cards .people-card .people-card-image {
-    place-self: center;
-    width: 10rem;
-    height: 10rem;
-}
-
-.people-cards .people-card .people-card-meta {
+.people-table .people-cards .people-card .people-card-meta {
     display: grid;
-    grid-auto-flow: column;
+    grid-template-columns: 8rem auto;
     color: white;
+    column-gap: 0.4rem;
+}
+
+.people-table .people-cards .people-card .people-card-open-details {
+    color: var(--red);
+    height: 3.2rem;
+    width: 3.2rem;
+    cursor: pointer;
     align-self: center;
-    padding-left: 1rem;
+    justify-self: end;
+    margin-right: 0.8rem;
 }
 
-.people-cards .people-card .people-card-buttons {
+.people-table .people-cards .people-card .people-details {
     display: grid;
-    grid-auto-flow: column;
+    grid-template-columns: 1fr 5rem;
+    grid-column: 1/3;
+    background: var(--gray-darker);
 }
 
-.people-cards .people-card .people-card-meta strong {
-    font-size: 1.6rem;
+.people-table .people-cards .people-card .people-details .people-details-content {
+    padding: 0.4rem 1.2rem;
+}
+
+.people-table .people-cards .people-card .people-details .people-details-content a {
+    text-decoration: none;
+    color: var(--red)
+}
+
+.people-table .people-cards .people-card .people-details .people-action-buttons {
+    display: grid;
+    justify-self: end;
+}
+
+.people-table .people-cards .people-card .people-card-meta .people-card-image {
+    width: 8rem;
+    height: 8rem;
+    background: #aaa;
+}
+
+.people-table .people-cards .people-card .people-card-meta .people-card-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+    overflow: hidden;
+}
+
+.people-table .people-cards .people-card .people-card-meta .people-card-details p {
+    font-size: 1.4rem;
+    align-self: center;
 }
 
 .people-card-edit,
