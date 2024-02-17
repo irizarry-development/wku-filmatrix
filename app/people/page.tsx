@@ -1,15 +1,15 @@
-import prisma from '~/lib/prisma'
-import PeopleMasonry from '~/components/people/PeopleMasonry';
-import { auth } from '~/lib/auth';
-import { redirect } from 'next/navigation';
-import TextInput from '~/components/ui/form/Input';
+import prisma from "~/lib/prisma";
+import PeopleMasonry from "~/components/people/PeopleMasonry";
+import { auth } from "~/lib/auth";
+import { redirect } from "next/navigation";
+import TextInput from "~/components/ui/form/Input";
 
 export default async function PeoplePage() {
     const session = await auth();
     const userData = await prisma.user.findMany();
 
     if (!session) {
-        redirect('/auth/signin')
+        redirect("/auth/signin");
     }
 
     return (
@@ -18,5 +18,5 @@ export default async function PeoplePage() {
             <TextInput label="Search" id="search" type="text" />
             <PeopleMasonry userData={userData} />
         </>
-    )
+    );
 }

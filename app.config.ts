@@ -5,27 +5,27 @@ export interface NavLink {
 
 export const appNavigationLinks: NavLink[] = [
     {
-        label: 'Dashboard',
-        path: '/'
+        label: "Dashboard",
+        path: "/"
     },
     {
-        label: 'People',
-        path: '/people'
+        label: "People",
+        path: "/people"
     },
     {
-        label: 'Projects',
-        path: '/projects'
+        label: "Projects",
+        path: "/projects"
     },
     {
-        label: 'Vendors',
-        path: '/vendors'
+        label: "Vendors",
+        path: "/vendors"
     },
     {
-        label: 'Your Profile',
-        path: '/profile'
+        label: "Your Profile",
+        path: "/profile"
     },
     {
-        label: 'Onboarding',
-        path: '/onboarding'
+        label: "Onboarding",
+        path: "/onboarding"
     }
-]
+];

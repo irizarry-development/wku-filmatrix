@@ -1,6 +1,6 @@
 # WKU Filmatrix
 
-This is our senior capstone project that we have been tasked to build for the WKU Film and Journalism Department. 
+This is our senior capstone project that we have been tasked to build for the WKU Film and Journalism Department.
 
 # 0.0 GitHub Conventions
 
@@ -25,25 +25,27 @@ Commiting to this project should be done via a **PR** via the requested PR. This
 These should not be shown to a client, as they likely may not gain anything from visually seeing it. For example, `feature/auth` is not meanignful until the client can see the authentication flow.
 
 To create a feature branch (in this example we will use `feature/auth`):
-1. ensure that you are checked in the develop branch.
+
+1.  ensure that you are checked in the develop branch.
 
     ```
     git checkout develop
     ```
 
-2. Pull the most recent develop changes.
+2.  Pull the most recent develop changes.
 
     ```
     git pull origin develop.
     ```
 
-3. Resolve any conflicts
-4. Check out to the new feature branch.
+3.  Resolve any conflicts
+4.  Check out to the new feature branch.
 
-    ```
-    git checkout -B feature/auth --track origin/develop
-    ```
-The above command tracks the develop branch, ensuring that your feature commit does not get too far behind any potential changes from someone else. Also, if you run the `git status` command, it will give you more information. For example:
+        ```
+        git checkout -B feature/auth --track origin/develop
+        ```
+
+    The above command tracks the develop branch, ensuring that your feature commit does not get too far behind any potential changes from someone else. Also, if you run the `git status` command, it will give you more information. For example:
 
 **Without `--track` flag**
 
@@ -65,6 +67,7 @@ and have 3 and 1 different commits each, respectively.
 ```
 
 #### Naming Conventions
+
 Try and be brief but descriptive with the branch names. For example
 
 ```
@@ -73,7 +76,7 @@ feature/vendor-api
 feature/people-dashboard
 ```
 
-***I didn't enforce branch protection rules on GitHub, but as much as possible it would be really great to try and stick to them.***
+**_I didn't enforce branch protection rules on GitHub, but as much as possible it would be really great to try and stick to them._**
 
 # 0.1 Local Environment Setup
 
@@ -81,7 +84,7 @@ There are a few things you will want to make sure you have installed in your loc
 
 ## 0.1.1 PNPM
 
-As this is a more modern project, we are going to be using a modern package manager with it as well. Note, this still installs from the same remote locations, just quicker and in a more space effective way. 
+As this is a more modern project, we are going to be using a modern package manager with it as well. Note, this still installs from the same remote locations, just quicker and in a more space effective way.
 
 To install, simply click [here](https://pnpm.io/installation) for install instructions depending on your individual operating system.
 
@@ -90,6 +93,7 @@ To install, simply click [here](https://pnpm.io/installation) for install instru
 If you prefer to use a local PostgreSQL database instead of connecting to the one hosted by Vercel, you will need to set this up here. Once you have your PostgreSQL database setup, you will need to construct a `DATABASE_URL`.
 
 The format to do so is
+
 ```
 postgres://[db_username]:[db_password]@[db_host_url]:[db_port]/[db_name]
 ```
@@ -106,9 +110,9 @@ However, if you have multiple databases and users on your machine, the URL may l
 postgres://matt:b78sd#.22@localhost:5432/wku-filmatrix
 ```
 
-Once you have your DATABASE_URL, navigate to the `.env.example` file in the very root of the directory, and replace **BOTH** environment variables with the above URL. 
+Once you have your DATABASE_URL, navigate to the `.env.example` file in the very root of the directory, and replace **BOTH** environment variables with the above URL.
 
-Once you have done so run `npx prisma db push` which will migrate the local database schema to whatever is currently specified by `schema.prisma`. Then, run `npx prisma db seed` which will seed the database with its seed data. At this point, you should have a working local database for the project. 
+Once you have done so run `npx prisma db push` which will migrate the local database schema to whatever is currently specified by `schema.prisma`. Then, run `npx prisma db seed` which will seed the database with its seed data. At this point, you should have a working local database for the project.
 
 ### Potential Errors
 
@@ -123,24 +127,26 @@ If you run into an error, such as the credentials provided for `postgres` are no
     ```
     postgres=# ALTER USER postgres PASSWORD 'postgres';
     ALTER ROLE
-    postgres=# 
+    postgres=#
     ```
 
     You can use a different password if you want.
 
-Now you should be able to use the default URL provided above. If you wish to user a different user, or perhaps a different database all together, just make sure you replace the proper sections in the database URL, that way you can properly connect to the database. 
+Now you should be able to use the default URL provided above. If you wish to user a different user, or perhaps a different database all together, just make sure you replace the proper sections in the database URL, that way you can properly connect to the database.
 
 For any issues troubleshooting your database not launching, or other issues, turn to Google. It truly is your best friend on issues working with Postgres. Someone has had your issue before.
 
 ## 0.1.3 Setup `.env` with a Vercel Postgres database
 
-If you are going to be deploying to Vercel, or utilizing their Vercel Postgres Databases, you may benefit from installing the VercelCLI. 
+If you are going to be deploying to Vercel, or utilizing their Vercel Postgres Databases, you may benefit from installing the VercelCLI.
 
 **To install VercelCLI with PNPM**
+
 ```
 pnpm i -g vercel@latest
 vercel --version
 ```
+
 Link the project with `vercel link`, then simply type `vercel env pull .env` where it will populate any environment variables from your app.
 
 ## 0.1.4 Test Accounts

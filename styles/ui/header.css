@@ -1,5 +1,5 @@
 .app-header {
-    background: url('/hero.jpg');
+    background: url("/hero.jpg");
     height: 14rem;
     display: grid;
     grid-template-columns: 18rem 1fr;
@@ -17,7 +17,7 @@
 
 .app-header .app-main-navigation {
     position: fixed;
-    background: rgba(34, 34, 34, 0.90);
+    background: rgba(34, 34, 34, 0.9);
     backdrop-filter: blur(0.3rem);
     height: calc(100vh - 14rem);
     width: 100vw;
