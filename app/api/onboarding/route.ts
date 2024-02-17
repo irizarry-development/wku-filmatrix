@@ -32,4 +32,4 @@ export const POST = auth(async (req) => {
             error: "Internal Server Error"
         });
     }
-});
+}) as any;
