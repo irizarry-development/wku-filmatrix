@@ -27,6 +27,12 @@
     row-gap: 0.6rem;
 }
 
+.form-group .helper-text {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--gray-muted);
+}
+
 .form-group > input[type="text"]:focus,
 .form-group > input[type="email"]:focus,
 .form-group > input[type="password"]:focus,
