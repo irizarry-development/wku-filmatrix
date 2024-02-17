@@ -11,15 +11,12 @@ export const POST = auth(async (req) => {
         })
     }
 
-    const body = await req.json()
-    const parsedBody = onboardingBodySchema.parse(body)
-
     try {
 
         await prisma.user.update({
             where: {
                 email: req.auth.user.email
-            }, data: { ...parsedBody, hasOnboarded: true }
+            }, data: { hasOnboarded: true }
         })
 
         return NextResponse.json({

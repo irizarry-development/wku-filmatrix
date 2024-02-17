@@ -1,36 +1,46 @@
-"use client";
+"use client"
 
-import axios from "axios";
-import { Router, useRouter } from "next/router";
-import { FormEvent, FormEventHandler, useRef } from "react";
-import { useFormState } from "react-dom";
-import toast from "react-hot-toast";
-import Button from "~/components/ui/Button";
-import { Modal } from "~/components/ui/Modal";
-import TextInput from "~/components/ui/form/Input";
-import { toggleModal } from "~/lib/modal";
+import axios from "axios"
+import {useRef} from "react"
+import toast from "react-hot-toast"
+import Button from "~/components/ui/Button"
+import {Modal} from "~/components/ui/Modal"
+import TextInput from "~/components/ui/form/Input"
+import {toggleModal} from "~/lib/modal"
 
 export default function OnboardingPage() {
-    const dialogRef = useRef<HTMLDialogElement>(null);
+    const dialogRef = useRef<HTMLDialogElement>(null)
 
     async function handleSubmit(formData: FormData) {
-        // axios post request to /api/onboarding
-        // if successful, redirect to dashboard
-
-        // if not successful, display error message
-
-        for (let value of formData.values()) {
-            console.log(value);
+        const onboardingData = {
+            name: formData.get("name"),
+            outgoingEmail: formData.get("outgoingEmail"),
+            phoneNumber: formData.get("phoneNumber"),
+            address: formData.get("address"),
+            credit: formData.get("credit"),
+            emergencyContactName: formData.get("emergencyContactName"),
+            emergencyContactPhone: formData.get("emergencyContactPhone"),
+            emergencyContactAddress: formData.get("emergencyContactAddress"),
+            allergies: formData.get("allergies"),
+            medications: formData.get("medications"),
+            conditions: formData.get("conditions"),
         }
 
-        const response = await axios.post("/api/onboarding", formData);
+        try {
+            await axios.post("/api/onboarding", onboardingData)
+            toast.success("Onboarding form submitted")
+        } catch (error) {
+            toast.error("Onboarding form failed to submit")
+        }
+    }
 
-        //if (response.status === 200) {
-        // redirect to dashboard
-        //} else {
-        // display error message
-        toast.error("An error occurred while submitting the form");
-        //}
+    async function skipOnboarding() {
+        try {
+            await axios.post("/api/onboarding/skip")
+            toast.success("Onboarding form skipped")
+        } catch (error) {
+            toast.error("Onboarding form failed to skip")
+        }
     }
 
     return (
@@ -39,17 +49,27 @@ export default function OnboardingPage() {
             <form className="form" id="onboarding-form" action={handleSubmit}>
                 <fieldset>
                     <legend>Crew Member Information</legend>
-                    <TextInput label="Name" id="name" type="text" />
-                    <TextInput label="Non WKU Email" id="email" type="text" />
-                    <TextInput label="Phone" id="phone" type="text" />
+                    <TextInput
+                        label="Name"
+                        id="name"
+                        type="text"
+                        helperText="First and Last"
+                    />
+                    <TextInput 
+                        label="Non WKU Email" 
+                        id="outgoingEmail" 
+                        type="text" 
+                        helperText="Personal Email"
+                    />
+                    <TextInput label="Phone" id="phoneNumber" type="text" helperText="Personal Phone" />
                     <TextInput label="Address" id="address" type="text" />
                     <TextInput label="Credit" id="credit" type="text" />
                 </fieldset>
                 <fieldset>
                     <legend>Emergency Contact</legend>
-                    <TextInput label="Name" id="em_name" type="text" />
-                    <TextInput label="Phone" id="em_phone" type="text" />
-                    <TextInput label="Address" id="em_address" type="text" />
+                    <TextInput label="Name" id="emergencyContactName" type="text" />
+                    <TextInput label="Phone" id="emergencyContactPhone" type="text" />
+                    <TextInput label="Address" id="emergencyContactAddress" type="text" />
                 </fieldset>
                 <fieldset>
                     <legend>Medical Information</legend>
@@ -77,7 +97,7 @@ export default function OnboardingPage() {
                     color="secondary"
                     content="Skip"
                     disabled={false}
-                    handler={() => console.log("skipping")}
+                    handler={() => skipOnboarding()}
                     type="button"
                 />
                 <Modal
@@ -178,5 +198,5 @@ export default function OnboardingPage() {
                 </Modal>
             </form>
         </section>
-    );
+    )
 }

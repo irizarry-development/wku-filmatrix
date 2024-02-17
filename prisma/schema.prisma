@@ -44,6 +44,7 @@ model User {
 
   // User Profile
   name          String?
+  outgoingEmail String?
   emailVerified DateTime?
   image         String?
   hasOnboarded  Boolean   @default(false)
