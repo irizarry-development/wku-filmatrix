@@ -1,8 +1,8 @@
 import prisma from "~/lib/prisma";
-import PeopleMasonry from "~/components/people/PeopleMasonry";
 import { auth } from "~/lib/auth";
 import { redirect } from "next/navigation";
-import TextInput from "~/components/ui/form/Input";
+import { PeopleTable } from "~/components/people/PeopleTable";
+import Button from "~/components/ui/Button";
 
 export default async function PeoplePage() {
     const session = await auth();
@@ -14,9 +14,11 @@ export default async function PeoplePage() {
 
     return (
         <>
-            <h1>People Database</h1>
-            <TextInput label="Search" id="search" type="text" />
-            <PeopleMasonry userData={userData} />
+            <section className="people-header">
+                <h1>People Database</h1>
+                <Button color="primary" content="Add User(s)" />
+            </section>
+            <PeopleTable userData={userData} />
         </>
     );
 }

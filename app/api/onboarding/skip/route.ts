@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { auth } from "~/lib/auth";
-import { onboardingBodySchema } from "~/lib/z";
 import prisma from "~/lib/prisma";
 
 export const POST = auth(async (req) => {
