@@ -39,8 +39,8 @@ export default function UserCard({
                 className="people-card-open-details"
                 onClick={_handleToggle}
             />
-            {detailsOpen && (
-                <section className="people-details">
+            
+                <section className={`people-details ${detailsOpen && 'open'}`}>
                     <section className="people-details-content">
                         <p><strong>Email: </strong><a href={`mailto:${email}`}>{email}</a></p>
                         <p><strong>Phone: </strong><a href={`tel:${phoneNumber}`}>{phoneNumber}</a></p>
@@ -56,7 +56,7 @@ export default function UserCard({
                         <FaArchive className="people-card-archive" />
                     </section>
                 </section>
-            )}
+            
         </section>
     );
 }

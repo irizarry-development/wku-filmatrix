@@ -1,3 +1,13 @@
+.people-header {
+    display: grid;
+    grid-template-columns: 1fr 10rem;
+}
+
+.people-header .btn {
+    justify-self: end;
+    align-self: center;
+}
+
 .people-table {
     display: grid;
     row-gap: 1.6rem;
@@ -14,7 +24,6 @@
     grid-template-columns: 1fr 5rem;
     justify-content: space-between;
     background: #444;
-    position: relative;
 }
 
 .people-table .people-cards .people-card .people-card-meta {
@@ -35,10 +44,14 @@
 }
 
 .people-table .people-cards .people-card .people-details {
-    display: grid;
     grid-template-columns: 1fr 5rem;
     grid-column: 1/3;
     background: var(--gray-darker);
+    display: none;
+}
+
+.people-table .people-cards .people-card .people-details.open {
+    display: grid;
 }
 
 .people-table .people-cards .people-card .people-details .people-details-content {
