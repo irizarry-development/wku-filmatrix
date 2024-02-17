@@ -5,7 +5,7 @@ import { redirect, useRouter } from "next/navigation";
 import { useRef } from "react";
 import toast from "react-hot-toast";
 import Button from "~/components/ui/Button";
-import { Modal } from "~/components/ui/Modal";
+import Modal from "~/components/ui/Modal";
 import { Fieldset } from "~/components/ui/form/Fieldset";
 import TextInput from "~/components/ui/form/Input";
 import { toggleModal } from "~/lib/modal";

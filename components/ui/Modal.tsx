@@ -6,7 +6,7 @@ interface ModalProps {
     toggleHandler: () => void;
 }
 
-export const Modal = forwardRef(
+export default forwardRef(
     (
         { children, toggleHandler }: ModalProps,
         ref: ForwardedRef<HTMLDialogElement>
