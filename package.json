@@ -8,7 +8,9 @@
     "dev": "prisma generate && next dev",
     "build": "prisma generate && prisma db push && prisma db seed && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky",
+    "pretty": "prettier --write ."
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
@@ -33,6 +35,7 @@
     "@types/react-dom": "18.2.18",
     "eslint": "8.51.0",
     "eslint-config-next": "13.5.4",
+    "husky": "^9.0.11",
     "prettier": "^3.2.4",
     "prisma": "^5.8.1",
     "ts-node": "^10.9.1",
