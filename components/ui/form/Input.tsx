@@ -5,13 +5,15 @@ interface TextInputProps {
     label: string;
     placeholder?: string;
     type?: InputType
+    helperText?: string;
 }
 
 
-export default function TextInput({ id, label, placeholder, type = 'text' }: TextInputProps) {
+export default function TextInput({ id, helperText, label, placeholder, type = 'text' }: TextInputProps) {
     return (
         <label htmlFor={id} className="form-group">
             <span className="label">{label}</span>
+            { helperText && <em>{helperText}</em> }
             { 
                 type === 'multiline' 
                     ? 
