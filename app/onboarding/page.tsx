@@ -10,8 +10,6 @@ import { Fieldset } from "~/components/ui/form/Fieldset";
 import TextInput from "~/components/ui/form/Input";
 import { toggleModal } from "~/lib/modal";
 
-
-
 export default function OnboardingPage() {
     const dialogRef = useRef<HTMLDialogElement>(null);
     const router = useRouter();
@@ -30,7 +28,7 @@ export default function OnboardingPage() {
             medications: formData.get("medications"),
             conditions: formData.get("conditions")
         };
-    
+
         try {
             await axios.post("/api/onboarding", onboardingData);
             toast.success("Onboarding form submitted");
@@ -39,7 +37,7 @@ export default function OnboardingPage() {
             toast.error("Onboarding form failed to submit");
         }
     }
-    
+
     async function skipOnboarding() {
         try {
             await axios.post("/api/onboarding/skip");
@@ -96,9 +94,7 @@ export default function OnboardingPage() {
                         type="text"
                     />
                 </Fieldset>
-                <Fieldset 
-                    legendTitle="Medical Information"
-                >
+                <Fieldset legendTitle="Medical Information">
                     <TextInput label="Allergies" id="allergies" type="text" />
                     <TextInput
                         label="Medications"

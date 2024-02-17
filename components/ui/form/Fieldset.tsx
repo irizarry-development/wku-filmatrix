@@ -17,5 +17,5 @@ export function Fieldset({
             {legendSubtitle && <p>{legendSubtitle}</p>}
             {children}
         </fieldset>
-    )
+    );
 }
