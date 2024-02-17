@@ -7,11 +7,10 @@ import { auth } from "~/lib/auth";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
-
     const session = await auth();
 
     if (!session) {
-        redirect('/auth/signin')
+        redirect("/auth/signin");
     }
 
     return (
@@ -71,37 +70,46 @@ export default async function Home() {
                     <Button color="danger" content="Large" size="lg" />
                 </section>
             </section>
-                <form className="form">
-                  <fieldset>
+            <form className="form">
+                <fieldset>
                     <legend>Contact Information</legend>
-                    <Input 
+                    <Input
                         label="First Name"
                         placeholder="First Name"
                         id="first-name"
-                    /><Input
-                    label="Multiline Text Field"
-                    placeholder="Enter your comments here..."
-                    type="multiline"
-                    id="multiline"
-                /><Radio 
-                label="Radio Buttons"
-                options={['Option 1', 'Option 2', 'Option 3']}
-                id="radios"
-            />
-            <Radio 
-                label="Checkboxes"
-                options={['Option 1', 'Option 2', 'Option 3']}
-                checkbox
-                id="checkboxes"
-            /> <Select 
-            label="Dropdown"
-            options={['Option 1', 'Option 2', 'Option 3']}
-        />
-        <Select 
-            label="Multi-Select"
-            options={['Option 1', 'Option 2', 'Option 3']}
-            multiple
-        />
+                    />
+                    <Input
+                        label="Last Name"
+                        placeholder="Last Name"
+                        id="last-name"
+                        helperText="Please enter your last name."
+                    />
+                    <Input
+                        label="Multiline Text Field"
+                        placeholder="Enter your comments here..."
+                        type="multiline"
+                        id="multiline"
+                    />
+                    <Radio
+                        label="Radio Buttons"
+                        options={["Option 1", "Option 2", "Option 3"]}
+                        id="radios"
+                    />
+                    <Radio
+                        label="Checkboxes"
+                        options={["Option 1", "Option 2", "Option 3"]}
+                        checkbox
+                        id="checkboxes"
+                    />{" "}
+                    <Select
+                        label="Dropdown"
+                        options={["Option 1", "Option 2", "Option 3"]}
+                    />
+                    <Select
+                        label="Multi-Select"
+                        options={["Option 1", "Option 2", "Option 3"]}
+                        multiple
+                    />
                     {/* 
 
                       
@@ -134,8 +142,8 @@ export default async function Home() {
                         type="search"
                         id="search-field"
                     /> */}
-                  </fieldset>
-                </form>
+                </fieldset>
+            </form>
         </Fragment>
     );
 }
