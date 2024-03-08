@@ -1,6 +1,6 @@
 .app-header {
     background: url("/hero.jpg");
-    height: 100vh;
+    height: 100%;
     width: 5rem;
     display: grid;
     grid-template-rows: 10rem 1fr;
@@ -41,6 +41,7 @@
     grid-auto-flow: column;
     grid-template-columns: 5rem 1fr;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .app-header .app-main-navigation .profile-links {
@@ -69,7 +70,6 @@
     width: 2.5rem;
     place-self: center;
     fill: var(--gray-lightest);
-    cursor: pointer;
     transition: 150ms ease-in-out;
 }
 
