@@ -1,6 +1,6 @@
 .app-header {
     background: url("/hero.jpg");
-    height: 100vh;
+    height: 100%;
     width: 5rem;
     display: grid;
     grid-template-rows: 10rem 1fr;
