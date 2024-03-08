@@ -1,6 +1,6 @@
 {
-    "name": "postgres-prisma",
-    "repository": "https://github.com/vercel/examples.git",
+    "name": "wku-filmatrix",
+    "repository": "https://github.com/irizarry-development/wku-filmatrix.git",
     "license": "MIT",
     "version": "0.0.0",
     "private": true,
@@ -9,7 +9,6 @@
         "build": "prisma generate && prisma db push && prisma db seed && next build",
         "start": "next start",
         "lint": "next lint",
-        "prepare": "husky",
         "pretty": "prettier --write ."
     },
     "prisma": {
