@@ -20,7 +20,7 @@ export default function UserCard({
     emergencyContactName,
     emergencyContactPhone
 }: User) {
-    const [detailsOpen, setDetailsOpen] = useState(true);
+    const [detailsOpen, setDetailsOpen] = useState(false);
 
     const _handleToggle = () => {
         setDetailsOpen(!detailsOpen);
