@@ -1,16 +1,26 @@
 interface ButtonProps {
-    color: ButtonColors
-    content: string
-    size?: ButtonSize  
-    alignment?: ButtonAlignment
-    justification?: ButtonJustification
-    disabled?: boolean
+    color: ButtonColors;
+    content: string;
+    size?: ButtonSize;
+    alignment?: ButtonAlignment;
+    justification?: ButtonJustification;
+    disabled?: boolean;
+    handler?: () => void;
+    type?: ButtonTypes;
 }
 
-type ButtonColors = 'primary' | 'secondary' | 'outline' | 'success' | 'info' | 'warning' | 'danger'
-type ButtonSize = 'sm' | 'md' | 'lg'
-type ButtonAlignment = 'left' | 'right'
-type ButtonJustification = 'top' | 'bottom'
+type ButtonColors =
+    | "primary"
+    | "secondary"
+    | "outline"
+    | "success"
+    | "info"
+    | "warning"
+    | "danger";
+type ButtonSize = "sm" | "md" | "lg";
+type ButtonAlignment = "left" | "right";
+type ButtonJustification = "top" | "bottom";
+type ButtonTypes = "submit" | "reset" | "button";
 
 export default function Button({
     color,
@@ -18,9 +28,18 @@ export default function Button({
     size = "md",
     alignment,
     justification,
-    disabled = false
+    disabled = false,
+    handler,
+    type
 }: ButtonProps) {
     return (
-        <button className={`btn ${size} ${color} ${alignment} ${justification}`} aria-disabled={disabled}>{content}</button>
-    )
+        <button
+            onClick={handler}
+            className={`btn ${size} ${color} ${alignment} ${justification}`}
+            aria-disabled={disabled}
+            type={type}
+        >
+            {content}
+        </button>
+    );
 }

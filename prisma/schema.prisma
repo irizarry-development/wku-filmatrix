@@ -37,11 +37,32 @@ model Session {
 
 model User {
   id            String    @id @default(cuid())
-  name          String?
+
+  // Auth
   email         String?   @unique
-  emailVerified DateTime?
   saltedPassword String
+
+  // User Profile
+  name          String?
+  outgoingEmail String?
+  emailVerified DateTime?
   image         String?
+  hasOnboarded  Boolean   @default(false)
+  phoneNumber  String?
+  address      String?
+  position    String?
+  credit      String?
+  allergies   String?
+  medications String?
+  conditions  String?
+
+  // Emergency Contact
+  emergencyContactName String?
+  emergencyContactPhone String?
+  emergencyContactAddress String?
+
+  // Relations
+
   accounts      Account[]
   sessions      Session[]
 }

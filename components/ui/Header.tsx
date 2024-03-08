@@ -1,36 +1,89 @@
 "use client";
 
-import Image from 'next/image';
-import WkuLogo from '~/public/wku_w.png';
-import WkuSquare from '~/public/wkucuptall_w.png'
-import { useState } from 'react';
-import Link from 'next/link';
+import Image from "next/image";
+import WkuSquare from "~/public/wkucuptall_w.png";
+import { useState } from "react";
+import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
+import { MdPeopleAlt } from "react-icons/md";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaSuitcase } from "react-icons/fa";
+import { BsCameraReelsFill } from "react-icons/bs";
+import { FaUserCircle } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
+import { RiMenuUnfoldFill } from "react-icons/ri";
+import { FaHome } from "react-icons/fa";
 
 export default function Header() {
-    const [navActive, setNavActive] = useState(false)
- 
+    const [headerOpen, setHeaderOpen] = useState(false);
+    const { data: session, status } = useSession();
+
     return (
-        <header className="app-header">
-          <Image 
-            src={WkuSquare}
-            alt="WKU Logo"
-            className="app-header-logo"
-          />
-          <nav className={`app-main-navigation ${navActive}`}>
-            <section className="nav-links">
-              <Link className="nav-link" href="/">Dashboard</Link>
-              <Link className="nav-link" href="/people">People</Link>
-              <Link className="nav-link" href="/projects">Projects</Link>
-              <Link className="nav-link" href="/vendors">Vendors</Link>
-              <Link className="nav-link" href="/your-profile">Your Profile</Link>
-              <Link className="nav-link" href="/auth/signin">Login</Link>
-            </section>
-          </nav>
-          <section className="app-hamburger" onClick={() => setNavActive(!navActive)}>
-              <section className="app-hamburger-line"></section>
-              <section className="app-hamburger-line"></section>
-              <section className="app-hamburger-line"></section>
-          </section>
+        <header className={`app-header ${headerOpen && "open"}`}>
+            <Image src={WkuSquare} alt="WKU Logo" className="app-header-logo" />
+            <nav className="app-main-navigation">
+                <section className="nav-links">
+                    <section 
+                        className="nav-link"
+                        onClick={() => setHeaderOpen(!headerOpen)}
+                    >
+                        <RiMenuUnfoldFill />
+                        <p>Menu</p>
+                    </section>
+                    <Link 
+                        className="nav-link"
+                        href="/"
+                        onClick={() => setHeaderOpen(false)}
+                    >
+                        <FaHome />
+                        <p>Dashboard</p>
+                    </Link>
+                    <Link 
+                        className="nav-link"
+                        href="/people"
+                        onClick={() => setHeaderOpen(false)}
+                    >
+                        <MdPeopleAlt />
+                        <p>People</p>
+                    </Link>
+                    <Link 
+                        className="nav-link"
+                        href="/locations"
+                        onClick={() => setHeaderOpen(false)}
+                    >
+                        <FaMapMarkerAlt />
+                        <p>Locations</p>
+                    </Link>
+                    <Link 
+                        className="nav-link"
+                        href="/projects"
+                        onClick={() => setHeaderOpen(false)}
+                    >
+                        <FaSuitcase />
+                        <p>Projects</p>
+                    </Link>
+                    <Link 
+                        className="nav-link"
+                        href="/vendors"
+                        onClick={() => setHeaderOpen(false)}
+                    >
+                        <BsCameraReelsFill />
+                        <p>Vendors</p>
+                    </Link>
+                </section>
+                <section className="profile-links">
+                    <section className="profile-link">
+                        <FaUserCircle />
+                        <p>Profile</p>
+                    </section>
+                    <section className="profile-link">
+                        <MdLogout 
+                            onClick={() => signOut()}
+                        />
+                        <p>Logout</p>
+                    </section>
+                </section>
+            </nav>
         </header>
-    )
+    );
 }
