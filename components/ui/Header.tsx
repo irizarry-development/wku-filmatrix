@@ -23,10 +23,11 @@ export default function Header() {
             <Image src={WkuSquare} alt="WKU Logo" className="app-header-logo" />
             <nav className="app-main-navigation">
                 <section className="nav-links">
-                    <section className="nav-link">
-                        <RiMenuUnfoldFill 
-                            onClick={() => setHeaderOpen(!headerOpen)}
-                        />
+                    <section 
+                        className="nav-link"
+                        onClick={() => setHeaderOpen(!headerOpen)}
+                    >
+                        <RiMenuUnfoldFill />
                         <p>Menu</p>
                     </section>
                     <Link 
