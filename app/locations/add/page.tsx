@@ -1,9 +1,37 @@
+"use client";
+
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import Button from "~/components/ui/Button";
 import Input from "~/components/ui/form/Input";
 
 export default function AddLocationPage() {
+
+    const router = useRouter();
+
+    async function handleAddLocation(formData: FormData) {
+        const newLocationData = {
+            locationName: formData.get("locationName") as string,
+            locationDescription: formData.get("locationDescription") as string,
+            locationAddress: formData.get("locationAddress") as string,
+            locationPhone: formData.get("locationPhone") as string,
+            locationEmail: formData.get("locationEmail") as string,
+            locationContactName: formData.get("locationContactName") as string,
+            locationKeywords: formData.get("locationKeywords") as string
+        };
+
+        try {
+            await axios.post("/api/locations/add", newLocationData);
+            toast.success("Location added");
+            router.push("/locations");
+        } catch (error) {
+            toast.error("Failed to add location");
+        }
+    }
+
     return (
-        <form className="form">
+        <form className="form" id="add-location-form" action={handleAddLocation}>
             <fieldset>
                 <legend>Add Location</legend>
                 <Input 

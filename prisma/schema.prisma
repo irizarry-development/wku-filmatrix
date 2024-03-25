@@ -75,7 +75,6 @@ model Location {
   locationName String
   locationAddress String
   locationKeywords String
-  locationImage String
   locationDescription String
   locationPhone String
   locationEmail String

@@ -16,15 +16,12 @@ export const {
     adapter: PrismaAdapter(prisma),
     callbacks: {
         async session(params) {
-            //@ts-ignore
             return params.session;
         },
         async jwt({ token, user }) {
             if (user) {
                 return {
-                    ...token,
-                    // @ts-ignore
-                    hasOnboarded: user.hasOnboarded
+                    ...token
                 };
             }
             return token;

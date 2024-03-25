@@ -14,7 +14,7 @@ type InputType =
 
 interface TextInputProps {
     id: string;
-    label: string;
+    label?: string;
     placeholder?: string;
     type?: InputType;
     helperText?: string;

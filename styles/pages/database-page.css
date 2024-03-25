@@ -1,0 +1,15 @@
+.database-page {
+}
+
+.database-page .database-page-header {
+    display: grid;
+    grid-template-columns: 1fr 4rem;
+}
+
+.database-page .database-page-header .database-page-add {
+    height: 3.2rem;
+    font-size: 3.2rem;
+    color: var(--red-darker);
+    align-self: center;
+    justify-self: end;
+}

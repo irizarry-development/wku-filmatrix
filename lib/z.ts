@@ -9,6 +9,26 @@ export const createUserSchema = z.object({
         .min(8, "Password must be at least 8 characters long")
 });
 
+export const createVendorSchema = z.object({
+    vendorName: z.string().min(1, "Vendor name is required"),
+    vendorDescription: z.string().min(1, "Vendor description is required"),
+    vendorAddress: z.string().min(1, "Vendor address is required"),
+    vendorPhone: z.string().min(1, "Vendor phone is required"),
+    vendorEmail: z.string().min(1, "Vendor email is required").email("Invalid email"),
+    vendorContactName: z.string().min(1, "Vendor contact name is required"),
+    vendorKeywords: z.string().min(1, "Vendor keywords are required")
+});
+
+export const createLocationSchema = z.object({
+    locationName: z.string().min(1, "Location name is required"),
+    locationDescription: z.string().min(1, "Location description is required"),
+    locationAddress: z.string().min(1, "Location address is required"),
+    locationPhone: z.string().min(1, "Location phone is required"),
+    locationEmail: z.string().min(1, "Location email is required").email("Invalid email"),
+    locationContactName: z.string().min(1, "Location contact name is required"),
+    locationKeywords: z.string().min(1, "Location keywords are required")
+});
+
 export const onboardingBodySchema = z.object({
     name: z.string().min(1, "Name is required").max(128, "Name is too long"),
     outgoingEmail: z.string().email("Invalid email"),

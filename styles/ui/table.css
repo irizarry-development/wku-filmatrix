@@ -1,0 +1,31 @@
+.searchable-table {
+    overflow-x: scroll;
+}
+
+.table {
+    margin-top: 2rem;
+    min-width: 100%;
+    border-collapse: collapse;
+    font-size: 1.2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    overflow-x: scroll;
+}
+
+.table .table-header tr {
+    background-color: var(--red);
+    color: #ffffff;
+    text-align: left;
+}
+
+.table th,
+.table td {
+    padding: 1.2rem 1.5rem;
+}
+
+.table .table-body tr {
+    background: var(--gray-lighter);
+}
+
+.table .table-body tr:nth-of-type(even) {
+    background-color: var(--gray-lightest);
+}

@@ -54,6 +54,7 @@
     transition: 200ms linear;
     outline: none;
     font-size: 1.6rem;
+    font-family: "Helvetica Neue", sans-serif;
 }
 
 .form-group .radio-group,
