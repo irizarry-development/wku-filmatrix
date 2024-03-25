@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { useRef } from "react";
 import toast from "react-hot-toast";
 import Button from "~/components/ui/Button";

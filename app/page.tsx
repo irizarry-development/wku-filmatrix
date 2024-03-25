@@ -3,16 +3,8 @@ import Select from "~/components/ui/form/Select";
 import Radio from "~/components/ui/form/Radio";
 import Input from "~/components/ui/form/Input";
 import { Fragment } from "react";
-import { auth } from "~/lib/auth";
-import { redirect } from "next/navigation";
 
 export default async function Home() {
-    const session = await auth();
-
-    if (!session) {
-        redirect("/auth/signin");
-    }
-
     return (
         <Fragment>
             <h1>Style Guide</h1>

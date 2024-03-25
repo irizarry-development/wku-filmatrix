@@ -9,7 +9,8 @@ type InputType =
     | "range"
     | "search"
     | "email"
-    | "password";
+    | "password"
+    | "tel";
 
 interface TextInputProps {
     id: string;

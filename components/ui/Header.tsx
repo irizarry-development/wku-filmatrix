@@ -56,19 +56,19 @@ export default function Header() {
                     </Link>
                     <Link 
                         className="nav-link"
-                        href="/projects"
-                        onClick={() => setHeaderOpen(false)}
-                    >
-                        <FaSuitcase />
-                        <p>Projects</p>
-                    </Link>
-                    <Link 
-                        className="nav-link"
                         href="/vendors"
                         onClick={() => setHeaderOpen(false)}
                     >
-                        <BsCameraReelsFill />
+                        <FaSuitcase />
                         <p>Vendors</p>
+                    </Link>
+                    <Link 
+                        className="nav-link"
+                        href="/projects"
+                        onClick={() => setHeaderOpen(false)}
+                    >
+                        <BsCameraReelsFill />
+                        <p>Projects</p>
                     </Link>
                 </section>
                 <section className="profile-links">

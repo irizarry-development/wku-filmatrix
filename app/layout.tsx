@@ -5,6 +5,7 @@ import Header from "~/components/ui/Header";
 import { Toaster } from "react-hot-toast";
 import { auth } from "~/lib/auth";
 import { SessionProvider } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export const metadata = {
     title: "WKU Filmatrix",
@@ -18,6 +19,10 @@ type RootProps = {
 
 export default async function RootLayout({ children }: RootProps) {
     const session = await auth();
+
+    if (!session) {
+        redirect("/auth/signin");
+    }
 
     return (
         <html lang="en">
