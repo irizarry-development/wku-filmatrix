@@ -20,10 +20,6 @@ type RootProps = {
 export default async function RootLayout({ children }: RootProps) {
     const session = await auth();
 
-    if (!session) {
-        redirect("/auth/signin");
-    }
-
     return (
         <html lang="en">
             <body className="app-body">
