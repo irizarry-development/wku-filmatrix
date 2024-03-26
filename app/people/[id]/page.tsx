@@ -44,12 +44,12 @@ export default async function PeopleProfilePage({
             </section>
             
             <section className="resource-page-content">
-                <p>{email}</p>
-                <p>{degree}</p>
-                <p>{classYear}</p>
-                <p>{hasOnboarded ? "Yes" : "No"}</p>
-                <p>{address}</p>
-                <p>{credit}</p>
+                <p><strong>Email: </strong>{email}</p>
+                <p><strong>Degree: </strong>{degree}</p>
+                <p><strong>Class Year: </strong>{classYear}</p>
+                <p><strong>Onboarded: </strong>{hasOnboarded ? "Yes" : "No"}</p>
+                <p><strong>Address: </strong>{address}</p>
+                <p><strong>Credit: </strong>{credit}</p>
             </section>
         </section>
     )
