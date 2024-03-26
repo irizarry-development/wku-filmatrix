@@ -42,12 +42,12 @@ export default async function VendorProfilePage({
                 <h1>{vendorName}</h1>   
             </section>
             <section className="resource-page-content">
-                <p>{vendorDescription}</p>
-                <p>{vendorAddress}</p>
-                <p>{vendorPhone}</p>
-                <p>{vendorEmail}</p>
-                <p>{vendorContactName}</p>
-                <p>{vendorKeywords}</p>
+                <p><strong>Description: </strong>{vendorDescription}</p>
+                <p><strong>Address: </strong>{vendorAddress}</p>
+                <p><strong>Phone: </strong>{vendorPhone}</p>
+                <p><strong>Email: </strong>{vendorEmail}</p>
+                <p><strong>Contact Name: </strong>{vendorContactName}</p>
+                <p><strong>Keywords: </strong>{vendorKeywords}</p>
             </section>
         </section>
     )

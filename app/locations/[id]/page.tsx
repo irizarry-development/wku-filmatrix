@@ -45,11 +45,11 @@ export default async function LocationProfilePage({
             </section>
             <section className="location-info">
             <p>{locationDescription}</p>
-                <p>{locationAddress}</p>
-                <p>{locationPhone}</p>
-                <p>{locationEmail}</p>
-                <p>{locationContactName}</p>
-                <p>{locationKeywords}</p>
+                <p><strong>Address: </strong>{locationAddress}</p>
+                <p><strong>Phone: </strong>{locationPhone}</p>
+                <p><strong>Email: </strong>{locationEmail}</p>
+                <p><strong>Contact Name: </strong>{locationContactName}</p>
+                <p><strong>Keywords: </strong>{locationKeywords}</p>
             </section>
         </section>
     )
