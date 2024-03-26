@@ -1,9 +1,11 @@
 "use client";
 
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import Button from "~/components/ui/Button";
 import Input from "~/components/ui/form/Input";
 
@@ -22,7 +24,7 @@ export default function EditLocationPage({
             const router = useRouter();
 
             async function fetchLocationData() {
-                const foundLocation = await axios.get(`/api/locations/${id}`); 
+                const foundLocation = await axios.get(`/api/v1/locations/${id}`); 
 
                 if (!foundLocation) {
                     router.push('/404')
@@ -43,7 +45,7 @@ export default function EditLocationPage({
                 };
 
                 try {
-                    await axios.patch(`/api/locations/${id}`, updatedLocationData);
+                    await axios.patch(`/api/v1/locations/${id}`, updatedLocationData);
 
                     toast.success("Location updated");
 
@@ -69,8 +71,10 @@ export default function EditLocationPage({
             }, [id]);
 
             return (
-                <section className="edit-location-page">
-                    <form className="form" id="edit-location-form" action={updateLocationData}>
+                    <form className="form edit-resource-form" id="edit-location-form" action={updateLocationData}>
+                        <Link href="/locations" className="back-link">
+                            <FaArrowLeftLong />
+                        </Link>
                         <fieldset>
                             <legend>Edit Location</legend>
                             <Input
@@ -118,6 +122,5 @@ export default function EditLocationPage({
                         </fieldset>
                         <Button color="primary" content="Edit Location" />
                     </form>
-                </section>
             )
 }

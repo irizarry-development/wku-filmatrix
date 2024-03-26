@@ -1,10 +1,13 @@
 "use client";
 
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Button from "~/components/ui/Button";
 import Input from "~/components/ui/form/Input";
+
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function AddLocationPage() {
 
@@ -22,7 +25,7 @@ export default function AddLocationPage() {
         };
 
         try {
-            await axios.post("/api/locations/add", newLocationData);
+            await axios.post("/api/v1/locations/add", newLocationData);
             toast.success("Location added");
             router.push("/locations");
             router.refresh();
@@ -32,7 +35,10 @@ export default function AddLocationPage() {
     }
 
     return (
-        <form className="form" id="add-location-form" action={handleAddLocation}>
+        <form className="form add-resource-form" id="add-location-form" action={handleAddLocation}>
+            <Link href="/locations" className="back-link">
+                <FaArrowLeftLong />
+            </Link>
             <fieldset>
                 <legend>Add Location</legend>
                 <Input 

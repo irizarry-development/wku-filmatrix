@@ -30,7 +30,7 @@ export default function OnboardingPage() {
         };
 
         try {
-            await axios.patch("/api/onboarding", onboardingData);
+            await axios.patch("/api/v1/onboarding", onboardingData);
             toast.success("Onboarding form submitted");
             router.push("/");
             router.refresh();
@@ -41,7 +41,7 @@ export default function OnboardingPage() {
 
     async function skipOnboarding() {
         try {
-            await axios.post("/api/onboarding/skip");
+            await axios.post("/api/v1/onboarding/skip");
             toast.success("Onboarding form skipped");
             router.push("/");
         } catch (error) {

@@ -1,6 +1,6 @@
 import prisma from "~/lib/prisma";
 import Link from "next/link";
-import { FaCirclePlus } from "react-icons/fa6";
+import { FaCirclePlus, FaEye, FaPenToSquare, FaTrashCan } from "react-icons/fa6";
 import Table from "~/components/ui/table/Table";
 
 export default async function PeoplePage() {
@@ -16,7 +16,7 @@ export default async function PeoplePage() {
                 </Link>
             </section>
             <section className="database-content">
-                <Table title="People" headers={["Name", "Email", "Degree", "Class Year", "Onboarded", "Address", "Credit"]}>
+                <Table title="People" headers={["Name", "Email", "Degree", "Class Year", "Onboarded", "Address", "Credit", ""]}>
                     {userData.map(({
                         id, name, email, degree, classYear, hasOnboarded, address, credit
                     }) => (
@@ -28,6 +28,21 @@ export default async function PeoplePage() {
                             <td>{hasOnboarded ? "Yes" : "No"}</td>
                             <td>{address}</td>
                             <td>{credit}</td>
+                            <td className="database-actions">
+                                <Link href={`/people/${id}`} className="database-action-view">
+                                    <FaEye />
+                                </Link>
+                                <Link
+                                    href={`/people/${id}/edit`}
+                                    className="database-action-edit"
+                                >
+                                    <FaPenToSquare />
+                                </Link>
+                                <FaTrashCan
+                                    className="database-action-delete"
+                                />
+                            </td>
+
                         </tr>
                     ))}
                 </Table>

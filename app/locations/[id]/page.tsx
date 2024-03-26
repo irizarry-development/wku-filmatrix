@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 import prisma from '~/lib/prisma';
 
 interface LocationProfilePageProps {
@@ -34,10 +36,15 @@ export default async function LocationProfilePage({
     } = foundLocation;
 
     return (
-        <section className="view-location-page">
-            <h1>{locationName}</h1>
-            <p>{locationDescription}</p>
+        <section className="view-resource-page">
+            <section className="resource-page-header">
+                <Link href="/locations" className="back-link">
+                    <FaArrowLeftLong />
+                </Link>
+                <h1>{locationName}</h1>
+            </section>
             <section className="location-info">
+            <p>{locationDescription}</p>
                 <p>{locationAddress}</p>
                 <p>{locationPhone}</p>
                 <p>{locationEmail}</p>

@@ -11,3 +11,6 @@
 @import "pages/onboarding.css";
 @import "pages/people.css";
 @import "pages/database-page.css";
+@import "pages/add-resource.css";
+@import "pages/view-resource.css";
+@import "pages/edit-resource.css";
