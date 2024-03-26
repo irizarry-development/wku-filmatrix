@@ -9,14 +9,16 @@ type InputType =
     | "range"
     | "search"
     | "email"
-    | "password";
+    | "password"
+    | "tel";
 
 interface TextInputProps {
     id: string;
-    label: string;
+    label?: string;
     placeholder?: string;
     type?: InputType;
     helperText?: string;
+    initialValue?: string;
 }
 
 export default function TextInput({
@@ -24,20 +26,22 @@ export default function TextInput({
     helperText,
     label,
     placeholder,
-    type = "text"
+    type = "text",
+    initialValue
 }: TextInputProps) {
     return (
         <label htmlFor={id} className="form-group">
             <span className="label">{label}</span>
             {helperText && <em className="helper-text">{helperText}</em>}
             {type === "multiline" ? (
-                <textarea id={id} name={id} placeholder={placeholder || ""} />
+                <textarea id={id} name={id} placeholder={placeholder || ""} defaultValue={initialValue || ""} />
             ) : (
                 <input
                     type={type}
                     id={id}
                     name={id}
                     placeholder={placeholder || ""}
+                    defaultValue={initialValue || ""}
                 />
             )}
         </label>

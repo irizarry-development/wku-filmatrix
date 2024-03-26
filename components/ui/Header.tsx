@@ -14,76 +14,83 @@ import { MdLogout } from "react-icons/md";
 import { RiMenuUnfoldFill } from "react-icons/ri";
 import { FaHome } from "react-icons/fa";
 
-export default function Header() {
+interface HeaderProps {
+    authenticated: boolean
+}
+
+export default function Header({
+    authenticated
+}: HeaderProps) {
     const [headerOpen, setHeaderOpen] = useState(false);
-    const { data: session, status } = useSession();
 
     return (
         <header className={`app-header ${headerOpen && "open"}`}>
             <Image src={WkuSquare} alt="WKU Logo" className="app-header-logo" />
-            <nav className="app-main-navigation">
-                <section className="nav-links">
-                    <section 
-                        className="nav-link"
-                        onClick={() => setHeaderOpen(!headerOpen)}
-                    >
-                        <RiMenuUnfoldFill />
-                        <p>Menu</p>
+            {authenticated &&
+                <nav className="app-main-navigation">
+                    <section className="nav-links">
+                        <section
+                            className="nav-link"
+                            onClick={() => setHeaderOpen(!headerOpen)}
+                        >
+                            <RiMenuUnfoldFill />
+                            <p>Menu</p>
+                        </section>
+                        <Link
+                            className="nav-link"
+                            href="/"
+                            onClick={() => setHeaderOpen(false)}
+                        >
+                            <FaHome />
+                            <p>Dashboard</p>
+                        </Link>
+                        <Link
+                            className="nav-link"
+                            href="/people"
+                            onClick={() => setHeaderOpen(false)}
+                        >
+                            <MdPeopleAlt />
+                            <p>People</p>
+                        </Link>
+                        <Link
+                            className="nav-link"
+                            href="/locations"
+                            onClick={() => setHeaderOpen(false)}
+                        >
+                            <FaMapMarkerAlt />
+                            <p>Locations</p>
+                        </Link>
+                        <Link
+                            className="nav-link"
+                            href="/vendors"
+                            onClick={() => setHeaderOpen(false)}
+                        >
+                            <FaSuitcase />
+                            <p>Vendors</p>
+                        </Link>
+                        <Link
+                            className="nav-link"
+                            href="/projects"
+                            onClick={() => setHeaderOpen(false)}
+                        >
+                            <BsCameraReelsFill />
+                            <p>Projects</p>
+                        </Link>
                     </section>
-                    <Link 
-                        className="nav-link"
-                        href="/"
-                        onClick={() => setHeaderOpen(false)}
-                    >
-                        <FaHome />
-                        <p>Dashboard</p>
-                    </Link>
-                    <Link 
-                        className="nav-link"
-                        href="/people"
-                        onClick={() => setHeaderOpen(false)}
-                    >
-                        <MdPeopleAlt />
-                        <p>People</p>
-                    </Link>
-                    <Link 
-                        className="nav-link"
-                        href="/locations"
-                        onClick={() => setHeaderOpen(false)}
-                    >
-                        <FaMapMarkerAlt />
-                        <p>Locations</p>
-                    </Link>
-                    <Link 
-                        className="nav-link"
-                        href="/projects"
-                        onClick={() => setHeaderOpen(false)}
-                    >
-                        <FaSuitcase />
-                        <p>Projects</p>
-                    </Link>
-                    <Link 
-                        className="nav-link"
-                        href="/vendors"
-                        onClick={() => setHeaderOpen(false)}
-                    >
-                        <BsCameraReelsFill />
-                        <p>Vendors</p>
-                    </Link>
-                </section>
-                <section className="profile-links">
-                    <section className="profile-link">
-                        <FaUserCircle />
-                        <p>Profile</p>
+                    <section className="profile-links">
+                        <section className="profile-link">
+                            <FaUserCircle />
+                            <p>Profile</p>
+                        </section>
+                        <section className="profile-link">
+                            <MdLogout
+                                onClick={() => signOut()}
+                            />
+                            <p>Logout</p>
+                        </section>
                     </section>
-                    <section className="profile-link">
-                        <MdLogout 
-                            onClick={() => signOut()}
-                        />
-                        <p>Logout</p>
-                    </section>
-                </section>
-            </nav>
+                </nav>
+            }
         </header>
     );
 }

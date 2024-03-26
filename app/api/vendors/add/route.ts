@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { auth } from "~/lib/auth";
-import { onboardingBodySchema } from "~/lib/z";
 import prisma from "~/lib/prisma";
+import { createVendorSchema } from "~/lib/z";
 
-export const PATCH = auth(async (req) => {
+export const POST = auth(async (req) => {
     if (!req.auth || !req.auth.user || !req.auth.user.email) {
         return NextResponse.json({
             status: 401,
@@ -12,19 +12,16 @@ export const PATCH = auth(async (req) => {
     }
 
     const body = await req.json();
-    const parsedBody = onboardingBodySchema.parse(body);
+    const parsedBody = createVendorSchema.parse(body);
 
     try {
-        await prisma.user.update({
-            where: {
-                email: req.auth.user.email
-            },
-            data: { ...parsedBody, hasOnboarded: true }
+        await prisma.vendor.create({
+            data: { ...parsedBody }
         });
 
         return NextResponse.json({
             status: 200,
-            message: "Onboarding form submitted"
+            message: "Vendor added"
         });
     } catch (error) {
         return NextResponse.json({

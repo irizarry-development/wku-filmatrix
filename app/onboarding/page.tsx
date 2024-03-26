@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import toast from "react-hot-toast";
 import Button from "~/components/ui/Button";
@@ -30,9 +30,10 @@ export default function OnboardingPage() {
         };
 
         try {
-            await axios.post("/api/onboarding", onboardingData);
+            await axios.patch("/api/onboarding", onboardingData);
             toast.success("Onboarding form submitted");
             router.push("/");
+            router.refresh();
         } catch (error) {
             toast.error("Onboarding form failed to submit");
         }
