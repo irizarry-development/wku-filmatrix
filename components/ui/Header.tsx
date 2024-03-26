@@ -13,20 +13,21 @@ import { FaUserCircle } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { RiMenuUnfoldFill } from "react-icons/ri";
 import { FaHome } from "react-icons/fa";
+import { Session } from "next-auth";
 
 interface HeaderProps {
-    authenticated: boolean
+    session: Session | null
 }
 
 export default function Header({
-    authenticated
+    session
 }: HeaderProps) {
     const [headerOpen, setHeaderOpen] = useState(false);
 
     return (
         <header className={`app-header ${headerOpen && "open"}`}>
             <Image src={WkuSquare} alt="WKU Logo" className="app-header-logo" />
-            {authenticated &&
+            {session &&
                 <nav className="app-main-navigation">
                     <section className="nav-links">
                         <section
@@ -79,8 +80,14 @@ export default function Header({
                     </section>
                     <section className="profile-links">
                         <section className="profile-link">
-                            <FaUserCircle />
-                            <p>Profile</p>
+                            <Link 
+                                className="profile-link"
+                                // @ts-ignore
+                                href={`/people/${session.userId}`}
+                            >
+                                <FaUserCircle />
+                                <p>Profile</p>
+                            </Link>
                         </section>
                         <section className="profile-link">
                             <MdLogout

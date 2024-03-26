@@ -5,8 +5,19 @@ export const createUserSchema = z.object({
     name: z.string().min(1, "Name is required"),
     saltedPassword: z
         .string()
-        .min(1, "Password is required")
-        .min(8, "Password must be at least 8 characters long")
+        .optional(),
+    degree: z.string().optional(),
+    classYear: z.string().optional(),
+    hasOnboarded: z.boolean().optional(),
+    address: z.string().optional(),
+    credit: z.string().optional(),
+    biography: z.string().optional(),
+    allergies: z.string().optional(),
+    medications: z.string().optional(),
+    conditions: z.string().optional(),
+    emergencyContactName: z.string().optional(),
+    emergencyContactPhone: z.string().optional(),
+    emergencyContactAddress: z.string().optional()
 });
 
 export const createVendorSchema = z.object({

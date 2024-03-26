@@ -3,24 +3,16 @@ import prisma from "~/lib/prisma";
 import { createUserSchema } from "~/lib/z";
 import { hash } from "bcrypt";
 
-export async function GET() {
-    return NextResponse.json({
-        status: 200,
-        message: "Welcome to the user API"
-    });
-}
-
-/**
- * API Route to create a new user.
- *
- * POST /api/user/
- *
- */
-
 export async function POST(req: NextRequest) {
+
+    // TODO: determine how users will be onboarded and new accounts created, this will work temporarily.
+
     try {
         const body = await req.json();
-        const { email, saltedPassword, name } = createUserSchema.parse(body);
+
+        // TODO: change back to constants
+
+        const { email, saltedPassword = "dummy", name } = createUserSchema.parse(body);
 
         const existingUserByEmail = await prisma.user.findUnique({
             where: {
@@ -32,11 +24,9 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ user: null, status: 409 });
         }
 
-        const hashedPassword = await hash(saltedPassword, 10);
+        // TODO: remove dummy password
 
-        // The reason for destructuring in this way is for security.
-        // We leave the salted password to get garbage collected on the server.
-        // We don't want to send the salted password to the client.
+        const hashedPassword = await hash(saltedPassword, 10);
 
         const { saltedPassword: _saltedPassword, ...rest } =
             await prisma.user.create({
@@ -53,8 +43,6 @@ export async function POST(req: NextRequest) {
             message: "User created."
         });
     } catch (error) {
-        // TODO: Implement some kind of security check here. E.g. rate limiting or something.
-
         return NextResponse.json({
             user: null,
             status: 500,

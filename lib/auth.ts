@@ -13,6 +13,10 @@ export const {
     adapter: PrismaAdapter(prisma),
     callbacks: {
         async session(params) {
+
+            // @ts-ignore
+            params.session.userId = params.token.sub;
+
             return params.session;
         },
         async jwt({ token, user }) {
