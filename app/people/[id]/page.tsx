@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 import prisma from '~/lib/prisma'
 
 interface PeopleProfilePageProps {
@@ -33,9 +35,15 @@ export default async function PeopleProfilePage({
 
 
     return (
-        <section className="view-people-page">
-            <h1>{name}</h1>
-            <section className="person-info">
+        <section className="view-resource-page">
+            <section className="resource-page-header">
+                <Link href="/people" className="back-link">
+                    <FaArrowLeftLong />
+                </Link>
+                <h1>{name}</h1>
+            </section>
+            
+            <section className="resource-page-content">
                 <p>{email}</p>
                 <p>{degree}</p>
                 <p>{classYear}</p>

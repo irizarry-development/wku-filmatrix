@@ -1,9 +1,11 @@
 "use client";
 
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import Button from "~/components/ui/Button";
 import Input from "~/components/ui/form/Input";
 
@@ -69,8 +71,10 @@ export default function EditLocationPage({
             }, [id]);
 
             return (
-                <section className="edit-location-page">
-                    <form className="form" id="edit-location-form" action={updateLocationData}>
+                    <form className="form edit-resource-form" id="edit-location-form" action={updateLocationData}>
+                        <Link href="/locations" className="back-link">
+                            <FaArrowLeftLong />
+                        </Link>
                         <fieldset>
                             <legend>Edit Location</legend>
                             <Input
@@ -118,6 +122,5 @@ export default function EditLocationPage({
                         </fieldset>
                         <Button color="primary" content="Edit Location" />
                     </form>
-                </section>
             )
 }

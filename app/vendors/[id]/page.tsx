@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 import prisma from '~/lib/prisma';
 
 interface VendorProfilePageProps {
@@ -32,10 +34,15 @@ export default async function VendorProfilePage({
     } = foundVendor;
 
     return (
-        <section className="vendor-profile-page">
-            <h1>{vendorName}</h1>
-            <p>{vendorDescription}</p>
-            <section className="vendor-profile-info">
+        <section className="view-resource-page">
+            <section className="resource-page-header">
+                <Link href="/vendors" className="back-link">
+                    <FaArrowLeftLong />
+                </Link>
+                <h1>{vendorName}</h1>   
+            </section>
+            <section className="resource-page-content">
+                <p>{vendorDescription}</p>
                 <p>{vendorAddress}</p>
                 <p>{vendorPhone}</p>
                 <p>{vendorEmail}</p>

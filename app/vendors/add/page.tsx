@@ -1,8 +1,10 @@
 "use client";
 
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import Button from "~/components/ui/Button";
 import Input from "~/components/ui/form/Input";
 
@@ -35,7 +37,10 @@ export default function AddVendorPage() {
 
     return (
         <section className="add-resource-page">
-            <form className="form" id="add-vendor-form" action={handleAddVendor}>
+            <form className="form add-resource-form" id="add-vendor-form" action={handleAddVendor}>
+                <Link href="/vendors" className="back-link">
+                    <FaArrowLeftLong />
+                </Link>
                 <fieldset>
                     <legend>Add Vendor</legend>
                     <Input 

@@ -1,9 +1,11 @@
 "use client";
 
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import Button from "~/components/ui/Button";
 import Input from "~/components/ui/form/Input";
 
@@ -70,8 +72,10 @@ export default function EditVendorPage({
         }, [id]);
     
         return (
-            <section className="edit-resource-page">
-                <form className="form" id="edit-vendor-form" action={updateVendorData}>
+                <form className="form edit-resource-form" id="edit-vendor-form" action={updateVendorData}>
+                    <Link href="/vendors" className="back-link">
+                        <FaArrowLeftLong />
+                    </Link>
                     <fieldset>
                         <legend>Edit Vendor</legend>
                         <Input 
@@ -123,6 +127,5 @@ export default function EditVendorPage({
                         content="Edit Vendor"
                     />
                 </form>
-            </section>
         )
     }

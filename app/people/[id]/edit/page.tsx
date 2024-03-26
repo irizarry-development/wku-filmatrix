@@ -1,9 +1,11 @@
 "use client";
 
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import Button from "~/components/ui/Button";
 import Input from "~/components/ui/form/Input";
 import Radio from "~/components/ui/form/Radio";
@@ -67,8 +69,10 @@ export default function EditPersonPage({
     }, [id]);
 
     return (
-        <section className="edit-person-page">
-            <form className="form" id="edit-person-form" action={updatePersonData}>
+            <form className="form edit-resource-form" id="edit-person-form" action={updatePersonData}>
+                <Link href="/people" className="back-link">
+                    <FaArrowLeftLong />
+                </Link>
                 <fieldset>
                     <legend>Edit Person</legend>
                     <Input
@@ -113,6 +117,5 @@ export default function EditPersonPage({
                     content="Edit Person"
                 />
             </form>
-        </section>
     )
 }

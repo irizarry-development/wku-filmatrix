@@ -1,8 +1,10 @@
 "use client";
 
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import Button from "~/components/ui/Button";
 import Input from "~/components/ui/form/Input";
 
@@ -29,9 +31,10 @@ export default function CreatePeoplePage() {
     }
 
     return (
-        <>
-            <h1>Add User</h1>
-            <form className="form" id="add-user-form" action={addPerson}>
+            <form className="form add-resource-form" id="add-user-form" action={addPerson}>
+                <Link href="/people" className="back-link">
+                    <FaArrowLeftLong />
+                </Link>
                 <fieldset>
                     <legend>User Information</legend>
                     <Input label="Name" id="name" />
@@ -42,6 +45,5 @@ export default function CreatePeoplePage() {
                     content="Add User"
                 />
             </form>
-        </>
     )
 }
