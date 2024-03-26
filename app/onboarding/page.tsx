@@ -30,7 +30,7 @@ export default function OnboardingPage() {
         };
 
         try {
-            await axios.post("/api/onboarding", onboardingData);
+            await axios.patch("/api/onboarding", onboardingData);
             toast.success("Onboarding form submitted");
             router.push("/");
             router.refresh();

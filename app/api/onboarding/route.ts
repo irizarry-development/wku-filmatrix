@@ -3,7 +3,7 @@ import { auth } from "~/lib/auth";
 import { onboardingBodySchema } from "~/lib/z";
 import prisma from "~/lib/prisma";
 
-export const POST = auth(async (req) => {
+export const PATCH = auth(async (req) => {
     if (!req.auth || !req.auth.user || !req.auth.user.email) {
         return NextResponse.json({
             status: 401,

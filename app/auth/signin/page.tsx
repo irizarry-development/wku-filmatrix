@@ -1,25 +1,28 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
 import TextInput from "~/components/ui/form/Input";
 import Button from "~/components/ui/Button";
 import toast from "react-hot-toast";
 import { authenticate } from "~/lib/actions";
 
 export default function LoginPage() {
-    async function _authenticate(prev: string | undefined, formData: FormData) {
-        const result = await authenticate(prev, formData);
+    async function handleLogin(formData: FormData) {
+        try {
+            
+            const result = await authenticate(formData);
 
-        if (!result) return;
-
-        return toast.error(result);
+            if (!result) {
+                toast.success("You have successfully signed in.");
+            } else {
+                return toast.error(result);
+            }
+        } catch (error) {
+            toast.error("An error occurred. Please try again.");
+        }
     }
 
-    const [error, dispatch] = useFormState(_authenticate, undefined);
-    const { pending } = useFormStatus();
-
     return (
-        <form className="form login-form" action={dispatch}>
+        <form className="form login-form" id="login-form" action={handleLogin}>
             <fieldset>
                 <legend>Sign in</legend>
                 <TextInput label="Your NetID" id="email" type="email" />
@@ -28,7 +31,6 @@ export default function LoginPage() {
                     <Button
                         color="primary"
                         content="Sign in"
-                        disabled={pending}
                     />
                     <Button color="secondary" content="Forgot password?" />
                 </section>
