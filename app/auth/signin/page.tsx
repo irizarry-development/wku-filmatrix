@@ -24,6 +24,7 @@ export default function LoginPage() {
 
     return (
         <form className="form login-form" id="login-form" action={handleLogin}>
+            <h1>WKU Filmatrix</h1>
             <fieldset>
                 <legend>Sign in</legend>
                 <TextInput label="Your NetID" id="email" type="email" />
