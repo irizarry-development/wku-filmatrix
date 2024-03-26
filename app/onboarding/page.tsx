@@ -33,6 +33,7 @@ export default function OnboardingPage() {
             await axios.post("/api/onboarding", onboardingData);
             toast.success("Onboarding form submitted");
             router.push("/");
+            router.refresh();
         } catch (error) {
             toast.error("Onboarding form failed to submit");
         }
