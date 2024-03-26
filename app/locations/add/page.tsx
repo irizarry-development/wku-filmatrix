@@ -25,6 +25,7 @@ export default function AddLocationPage() {
             await axios.post("/api/locations/add", newLocationData);
             toast.success("Location added");
             router.push("/locations");
+            router.refresh();
         } catch (error) {
             toast.error("Failed to add location");
         }

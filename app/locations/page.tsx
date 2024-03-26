@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaCirclePlus } from "react-icons/fa6";
+import { FaCirclePlus, FaEye, FaPenToSquare, FaTrashCan } from "react-icons/fa6";
 import Table from "~/components/ui/table/Table";
 import prisma from "~/lib/prisma";
 
@@ -17,12 +17,13 @@ export default async function LocationDatabase() {
         </section>
         <section className="database-content">
             <Table headers={
-                ["Name", "Address", "Description", "Phone", "Email", "Contact Name", "Keywords"]
+                ["Name", "Address", "Description", "Phone", "Email", "Contact", "Keywords", ""]
             }
             title="Locations">
 
                 {
                     locationData.map(({
+                        id,
                         locationName,
                         locationAddress,
                         locationKeywords,
@@ -39,6 +40,15 @@ export default async function LocationDatabase() {
                             <td>{locationEmail}</td>
                             <td>{locationContactName}</td>
                             <td>{locationKeywords}</td>
+                            <td className="database-actions">
+                                <Link href={`/locations/${id}`} className="database-action-view">
+                                    <FaEye />
+                                </Link>
+                                <Link href={`/locations/${id}/edit`} className="database-action-edit">
+                                    <FaPenToSquare />
+                                </Link>
+                                <FaTrashCan className="database-action-delete" />
+                            </td>
                         </tr>
                     ))
                 }
