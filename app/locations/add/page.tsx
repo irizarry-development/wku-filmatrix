@@ -22,7 +22,7 @@ export default function AddLocationPage() {
         };
 
         try {
-            await axios.post("/api/locations/add", newLocationData);
+            await axios.post("/api/v1/locations/add", newLocationData);
             toast.success("Location added");
             router.push("/locations");
             router.refresh();

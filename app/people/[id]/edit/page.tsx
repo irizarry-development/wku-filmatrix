@@ -22,7 +22,7 @@ export default function EditPersonPage({
     const router = useRouter();
 
     async function fetchPersonData() {
-        const foundPerson = await axios.get(`/api/user/${id}`);
+        const foundPerson = await axios.get(`/api/v1/user/${id}`);
 
         if (!foundPerson) {
             router.push('/404')
@@ -42,7 +42,7 @@ export default function EditPersonPage({
         };
 
         try {
-            await axios.patch(`/api/user/${id}`, updatedPersonData);
+            await axios.patch(`/api/v1/user/${id}`, updatedPersonData);
 
             toast.success("Person updated");
 

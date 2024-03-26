@@ -22,7 +22,7 @@ export default function AddVendorPage() {
         };
 
         try {
-            await axios.post("/api/vendors/add", newVendorData);
+            await axios.post("/api/v1/vendors/add", newVendorData);
             
             toast.success("Vendor added");
 

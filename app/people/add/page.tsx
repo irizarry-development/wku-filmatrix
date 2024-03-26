@@ -17,7 +17,7 @@ export default function CreatePeoplePage() {
         };
 
         try {
-            await axios.post(`/api/user`, newPerson);
+            await axios.post(`/api/v1/user`, newPerson);
 
             toast.success("Person added");
 

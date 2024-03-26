@@ -22,7 +22,7 @@ export default function EditVendorPage({
         const router = useRouter();
 
         async function fetchVendorData() {
-            const foundVendor = await axios.get(`/api/vendors/${id}`); 
+            const foundVendor = await axios.get(`/api/v1/vendors/${id}`); 
 
             if (!foundVendor) {
                 router.push('/404')
@@ -43,7 +43,7 @@ export default function EditVendorPage({
             };
 
             try {
-                await axios.patch(`/api/vendors/${id}`, updatedVendorData);
+                await axios.patch(`/api/v1/vendors/${id}`, updatedVendorData);
 
                 toast.success("Vendor updated");
 

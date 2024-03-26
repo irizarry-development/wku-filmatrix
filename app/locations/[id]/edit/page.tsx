@@ -22,7 +22,7 @@ export default function EditLocationPage({
             const router = useRouter();
 
             async function fetchLocationData() {
-                const foundLocation = await axios.get(`/api/locations/${id}`); 
+                const foundLocation = await axios.get(`/api/v1/locations/${id}`); 
 
                 if (!foundLocation) {
                     router.push('/404')
@@ -43,7 +43,7 @@ export default function EditLocationPage({
                 };
 
                 try {
-                    await axios.patch(`/api/locations/${id}`, updatedLocationData);
+                    await axios.patch(`/api/v1/locations/${id}`, updatedLocationData);
 
                     toast.success("Location updated");
 
