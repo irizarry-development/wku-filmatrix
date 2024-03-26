@@ -25,7 +25,9 @@ export default async function RootLayout({ children }: RootProps) {
             <body className="app-body">
                 <SessionProvider session={session}>
                     <Toaster toastOptions={{ className: "app-toaster" }} />
-                    <Header />
+                    <Header 
+                        authenticated={!!session}
+                    />
                     <main className="app-content">{children}</main>
                 </SessionProvider>
             </body>
