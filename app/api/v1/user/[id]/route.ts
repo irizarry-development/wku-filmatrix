@@ -89,6 +89,15 @@ export const DELETE = auth(async (req) => {
             status: 404
         }));
     }
+
+    // not sure how this should work
+    if (user.email === req.auth.user.email) {
+        return new Response(JSON.stringify({
+            status: 400,
+            error: 'You cannot delete yourself',
+        }));
+    }
+
     const deleted = await prisma.user.delete({
         where: {
             id

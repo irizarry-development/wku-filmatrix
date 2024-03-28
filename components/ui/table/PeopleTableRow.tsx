@@ -40,8 +40,12 @@ export default function PeopleTableRow({
 
   async function deletePerson(id: string, name: string|null) {
     try {
-      await axios.delete(`/api/v1/user/${id}`, {data: {id}});
-      toast.success(`User '${(name ? name : id)}' deleted`);
+      const res = await axios.delete(`/api/v1/user/${id}`, {data: {id}});
+      if (res.data.status >= 100 && res.data.status <= 299)
+        toast.success(`User '${(name ? name : id)}' deleted`);
+      else {
+        toast.error(res.data.error);
+      }
     } catch (error) {
       toast.error(`Failed to delete user '${(name ? name : id)}'`);
     }
