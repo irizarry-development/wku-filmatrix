@@ -19,18 +19,9 @@ export default async function PeoplePage() {
             <section className="database-content">
                 <Table title="People" headers={["Name", "Email", "Degree", "Class Year", "Onboarded", "Address", "Credit", ""]}>
                     {
-                        userData.map(({
-                            id, name, email, degree, classYear, hasOnboarded, address, credit
-                        }) => (
-                            <PeopleTableRow key={id}
-                                id={id}
-                                name={name}
-                                email={email}
-                                degree={degree}
-                                classYear={classYear}
-                                hasOnboarded={hasOnboarded}
-                                address={address}
-                                credit={credit}
+                        userData.map((user, i) => (
+                            <PeopleTableRow key={i}
+                                {...user}
                             />
                         ))
                     }

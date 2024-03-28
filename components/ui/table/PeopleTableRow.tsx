@@ -6,23 +6,13 @@ import { useRef } from "react";
 import { FaEye, FaPenToSquare, FaTrashCan } from "react-icons/fa6";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { User } from "@prisma/client";
 
 import { toggleModal } from "~/lib/modal";
 import Modal from "../Modal";
 import Button from "../Button";
 
 import "~/styles/ui/tablerow.css";
-
-type User = {
-  id: string,
-  name: string|null,
-  email: string|null,
-  degree: string|null,
-  classYear: string|null,
-  hasOnboarded: boolean,
-  address: string|null,
-  credit: string|null,
-}
 
 export default function PeopleTableRow({
   id,
@@ -40,7 +30,8 @@ export default function PeopleTableRow({
 
   async function deletePerson(id: string, name: string|null) {
     try {
-      const res = await axios.delete(`/api/v1/user/${id}`, {data: {id}});
+      const res = await axios.delete(`/api/v1/user/${id}`, {data: {id}})
+
       if (res.data.status >= 100 && res.data.status <= 299)
         toast.success(`User '${(name ? name : id)}' deleted`);
       else {
