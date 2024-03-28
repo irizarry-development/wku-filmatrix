@@ -1,7 +1,8 @@
 import prisma from "~/lib/prisma";
 import Link from "next/link";
-import { FaCirclePlus, FaEye, FaPenToSquare, FaTrashCan } from "react-icons/fa6";
+import { FaCirclePlus } from "react-icons/fa6";
 import Table from "~/components/ui/table/Table";
+import PeopleTableRow from "~/components/ui/table/PeopleTableRow";
 
 export default async function PeoplePage() {
 
@@ -17,34 +18,22 @@ export default async function PeoplePage() {
             </section>
             <section className="database-content">
                 <Table title="People" headers={["Name", "Email", "Degree", "Class Year", "Onboarded", "Address", "Credit", ""]}>
-                    {userData.map(({
-                        id, name, email, degree, classYear, hasOnboarded, address, credit
-                    }) => (
-                        <tr key={id}>
-                            <td>{name}</td>
-                            <td>{email}</td>
-                            <td>{degree}</td>
-                            <td>{classYear}</td>
-                            <td>{hasOnboarded ? "Yes" : "No"}</td>
-                            <td>{address}</td>
-                            <td>{credit}</td>
-                            <td className="database-actions">
-                                <Link href={`/people/${id}`} className="database-action-view">
-                                    <FaEye />
-                                </Link>
-                                <Link
-                                    href={`/people/${id}/edit`}
-                                    className="database-action-edit"
-                                >
-                                    <FaPenToSquare />
-                                </Link>
-                                <FaTrashCan
-                                    className="database-action-delete"
-                                />
-                            </td>
-
-                        </tr>
-                    ))}
+                    {
+                        userData.map(({
+                            id, name, email, degree, classYear, hasOnboarded, address, credit
+                        }) => (
+                            <PeopleTableRow key={id}
+                                id={id}
+                                name={name}
+                                email={email}
+                                degree={degree}
+                                classYear={classYear}
+                                hasOnboarded={hasOnboarded}
+                                address={address}
+                                credit={credit}
+                            />
+                        ))
+                    }
                 </Table>
             </section>
         </section>

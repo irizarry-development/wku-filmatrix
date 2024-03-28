@@ -70,3 +70,37 @@ export const PATCH = auth(async (req) => {
         }));
     }
 }) as any
+
+export const DELETE = auth(async (req) => {
+    if (!req.auth || !req.auth.user || !req.auth.user.email) {
+        return new Response(JSON.stringify({
+            status: 401,
+            error: "Unauthorized"
+        }));
+    }
+    const id = req.url.split("/").pop()!;
+    const user = await prisma.user.findUnique({
+        where: {
+            id
+        }
+    });
+    if (!user) {
+        return new Response(JSON.stringify({
+            status: 404
+        }));
+    }
+    const deleted = await prisma.user.delete({
+        where: {
+            id
+        }
+    });
+    if (!deleted) {
+        return new Response(JSON.stringify({
+            status: 500,
+            error: `Unexpected error while deleting user ${id}`,
+        }));
+    }
+    return new Response(JSON.stringify({
+        status: 200,
+    }));
+}) as any
