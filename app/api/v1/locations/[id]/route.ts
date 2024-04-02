@@ -75,4 +75,49 @@ export const PATCH = auth(async (req) => {
             }))
         }
     
-    }) as any
+}) as any
+
+export const DELETE = auth(async (req) => {
+    if (!req.auth || !req.auth.user || !req.auth.user.email) {
+        return new Response(JSON.stringify({
+            status: 401,
+            error: "Unauthorized"
+        }));
+    }
+
+    // get location id from url
+    const id = req.url.split("/").pop()!;
+
+    // find location
+    const loc = await prisma.location.findUnique({
+        where: {
+            id
+        }
+    });
+
+    // if location does not exist, return error
+    if (!loc) {
+        return new Response(JSON.stringify({
+            status: 404,
+            error: 'Location not found',
+        }));
+    }
+
+    // delete location
+    const deleted = await prisma.location.delete({
+        where: {
+            id
+        }
+    });
+
+    // return error if location was not deleted
+    if (!deleted) {
+        return new Response(JSON.stringify({
+            status: 500,
+            error: `Unexpected error while deleting location ${id}`,
+        }));
+    }
+    return new Response(JSON.stringify({
+        status: 200,
+    }));
+}) as any

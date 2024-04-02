@@ -78,19 +78,26 @@ export const DELETE = auth(async (req) => {
             error: "Unauthorized"
         }));
     }
+
+    // get user id from url
     const id = req.url.split("/").pop()!;
+
+    // find user
     const user = await prisma.user.findUnique({
         where: {
             id
         }
     });
+
+    // if user does not exist, return error
     if (!user) {
         return new Response(JSON.stringify({
-            status: 404
+            status: 404,
+            error: 'User not found',
         }));
     }
 
-    // not sure how this should work
+    // if user is trying to delete themselves, return error
     if (user.email === req.auth.user.email) {
         return new Response(JSON.stringify({
             status: 400,
@@ -98,11 +105,14 @@ export const DELETE = auth(async (req) => {
         }));
     }
 
+    // delete user
     const deleted = await prisma.user.delete({
         where: {
             id
         }
     });
+
+    // return error if user was not deleted
     if (!deleted) {
         return new Response(JSON.stringify({
             status: 500,

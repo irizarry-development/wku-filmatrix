@@ -2,7 +2,9 @@ import prisma from "~/lib/prisma";
 import Link from "next/link";
 import { FaCirclePlus } from "react-icons/fa6";
 import Table from "~/components/ui/table/Table";
-import PeopleTableRow from "~/components/ui/table/PeopleTableRow";
+import TableRow from "~/components/ui/table/TableRow";
+
+const headers = ["Name", "Email", "Degree", "Class Year", "Onboarded", "Address", "Credit", ""]
 
 export default async function PeoplePage() {
 
@@ -17,11 +19,17 @@ export default async function PeoplePage() {
                 </Link>
             </section>
             <section className="database-content">
-                <Table title="People" headers={["Name", "Email", "Degree", "Class Year", "Onboarded", "Address", "Credit", ""]}>
+                <Table title="People" headers={headers}>
                     {
+                        (userData.length > 0) &&
                         userData.map((user, i) => (
-                            <PeopleTableRow key={i}
-                                {...user}
+                            <TableRow
+                                key={i}
+                                type='User'
+                                id={user.id}
+                                name={user.name}
+                                fields={[user.name, user.email, user.degree, user.classYear, user.hasOnboarded ? 'Yes' : 'No', user.address, user.credit]}
+                                deleteUrl='/api/v1/user'
                             />
                         ))
                     }
