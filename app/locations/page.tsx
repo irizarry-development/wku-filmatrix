@@ -1,7 +1,10 @@
 import Link from "next/link";
-import { FaCirclePlus, FaEye, FaPenToSquare, FaTrashCan } from "react-icons/fa6";
+import { FaCirclePlus } from "react-icons/fa6";
 import Table from "~/components/ui/table/Table";
+import TableRow from "~/components/ui/table/TableRow";
 import prisma from "~/lib/prisma";
+
+const headers = ["Name", "Address", "Description", "Phone", "Email", "Contact", "Keywords", ""]
 
 export default async function LocationDatabase() {
 
@@ -16,40 +19,26 @@ export default async function LocationDatabase() {
             </Link>
         </section>
         <section className="database-content">
-            <Table headers={
-                ["Name", "Address", "Description", "Phone", "Email", "Contact", "Keywords", ""]
-            }
-            title="Locations">
-
+            <Table title="Locations" headers={headers}>
                 {
-                    locationData.map(({
-                        id,
-                        locationName,
-                        locationAddress,
-                        locationKeywords,
-                        locationDescription,
-                        locationPhone,
-                        locationEmail,
-                        locationContactName
-                    }) => (
-                        <tr key={locationName}>
-                            <td>{locationName}</td>
-                            <td>{locationAddress}</td>
-                            <td>{locationDescription}</td>
-                            <td>{locationPhone}</td>
-                            <td>{locationEmail}</td>
-                            <td>{locationContactName}</td>
-                            <td>{locationKeywords}</td>
-                            <td className="database-actions">
-                                <Link href={`/locations/${id}`} className="database-action-view">
-                                    <FaEye />
-                                </Link>
-                                <Link href={`/locations/${id}/edit`} className="database-action-edit">
-                                    <FaPenToSquare />
-                                </Link>
-                                <FaTrashCan className="database-action-delete" />
-                            </td>
-                        </tr>
+                    (locationData.length > 0) &&
+                    locationData.map((loc, i) => (
+                        <TableRow
+                            key={i}
+                            type='Location'
+                            id={loc.id}
+                            name={loc.locationName}
+                            fields={[
+                                loc.locationName,
+                                loc.locationAddress,
+                                loc.locationDescription,
+                                loc.locationPhone,
+                                loc.locationEmail,
+                                loc.locationContactName,
+                                loc.locationKeywords,
+                            ]}
+                            deleteUrl='/api/v1/locations'
+                        />
                     ))
                 }
             </Table>

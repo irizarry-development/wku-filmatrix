@@ -1,6 +1,6 @@
 interface ButtonProps {
     color: ButtonColors;
-    content: string;
+    content: string|JSX.Element;
     size?: ButtonSize;
     alignment?: ButtonAlignment;
     justification?: ButtonJustification;

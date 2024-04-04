@@ -77,3 +77,48 @@ export const PATCH = auth(async (req) => {
         }
     }
 ) as any
+
+export const DELETE = auth(async (req) => {
+    if (!req.auth || !req.auth.user || !req.auth.user.email) {
+        return new Response(JSON.stringify({
+            status: 401,
+            error: "Unauthorized"
+        }));
+    }
+
+    // get vendor id from url
+    const id = req.url.split("/").pop()!;
+
+    // find vendor
+    const vendor = await prisma.vendor.findUnique({
+        where: {
+            id
+        }
+    });
+
+    // if vendor does not exist, return error
+    if (!vendor) {
+        return new Response(JSON.stringify({
+            status: 404,
+            error: 'Vendor not found',
+        }));
+    }
+
+    // delete vendor
+    const deleted = await prisma.vendor.delete({
+        where: {
+            id
+        }
+    });
+
+    // return error if vendor was not deleted
+    if (!deleted) {
+        return new Response(JSON.stringify({
+            status: 500,
+            error: `Unexpected error while deleting vendor ${id}`,
+        }));
+    }
+    return new Response(JSON.stringify({
+        status: 200,
+    }));
+}) as any

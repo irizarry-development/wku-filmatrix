@@ -1,23 +1,14 @@
 import Link from "next/link";
 import { FaCirclePlus } from "react-icons/fa6";
 import Table from "~/components/ui/table/Table";
+import TableRow from "~/components/ui/table/TableRow";
 import prisma from "~/lib/prisma";
 
-import { FaEye } from "react-icons/fa6";
-import { FaPenToSquare } from "react-icons/fa6";
-import { FaTrashCan } from "react-icons/fa6";
+const headers = ["Name", "Description", "Address", "Phone", "Email", "Contact", ""]
 
 export default async function VendorPage() {
 
-    const vendors = await prisma.vendor.findMany()
-
-    const _deleteVendor = async (id: string) => {
-        await prisma.vendor.delete({
-            where: {
-                id: id
-            }
-        })
-    }
+    const vendorData = await prisma.vendor.findMany()
 
     return (
         <section className="database-page">
@@ -29,39 +20,27 @@ export default async function VendorPage() {
                 </Link>
             </section>
             <section className="database-content">
-                <Table title="Vendors" headers={["Name", "Description", "Address", "Phone", "Email", "Contact", ""]}>
-                    {vendors.map(({
-                        vendorName,
-                        vendorDescription,
-                        vendorAddress,
-                        vendorPhone,
-                        vendorEmail,
-                        vendorContactName,
-                        id
-                    }) => (
-                        <tr key={id}>
-                            <td>{vendorName}</td>
-                            <td>{vendorDescription}</td>
-                            <td>{vendorAddress}</td>
-                            <td>{vendorPhone}</td>
-                            <td>{vendorEmail}</td>
-                            <td>{vendorContactName}</td>
-                            <td className="database-actions">
-                                <Link href={`/vendors/${id}`} className="database-action-view">
-                                    <FaEye />
-                                </Link>
-                                <Link
-                                    href={`/vendors/${id}/edit`}
-                                    className="database-action-edit"
-                                >
-                                    <FaPenToSquare />
-                                </Link>
-                                <FaTrashCan 
-                                    className="database-action-delete"
-                                />
-                            </td>
-                        </tr>
-                    ))}
+                <Table title="Vendors" headers={headers}>
+                    {
+                        (vendorData.length > 0) &&
+                        vendorData.map((vendor, i) => (
+                            <TableRow
+                                key={i}
+                                type='Vendor'
+                                id={vendor.id}
+                                name={vendor.vendorName}
+                                fields={[
+                                    vendor.vendorName,
+                                    vendor.vendorDescription,
+                                    vendor.vendorAddress,
+                                    vendor.vendorPhone,
+                                    vendor.vendorEmail,
+                                    vendor.vendorContactName,
+                                ]}
+                                deleteUrl='/api/v1/vendors'
+                            />
+                        ))
+                    }
                 </Table>
             </section>
         </section>

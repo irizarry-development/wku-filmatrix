@@ -1,7 +1,10 @@
 import prisma from "~/lib/prisma";
 import Link from "next/link";
-import { FaCirclePlus, FaEye, FaPenToSquare, FaTrashCan } from "react-icons/fa6";
+import { FaCirclePlus } from "react-icons/fa6";
 import Table from "~/components/ui/table/Table";
+import TableRow from "~/components/ui/table/TableRow";
+
+const headers = ["Name", "Email", "Degree", "Class Year", "Onboarded", "Address", "Credit", ""]
 
 export default async function PeoplePage() {
 
@@ -16,35 +19,20 @@ export default async function PeoplePage() {
                 </Link>
             </section>
             <section className="database-content">
-                <Table title="People" headers={["Name", "Email", "Degree", "Class Year", "Onboarded", "Address", "Credit", ""]}>
-                    {userData.map(({
-                        id, name, email, degree, classYear, hasOnboarded, address, credit
-                    }) => (
-                        <tr key={id}>
-                            <td>{name}</td>
-                            <td>{email}</td>
-                            <td>{degree}</td>
-                            <td>{classYear}</td>
-                            <td>{hasOnboarded ? "Yes" : "No"}</td>
-                            <td>{address}</td>
-                            <td>{credit}</td>
-                            <td className="database-actions">
-                                <Link href={`/people/${id}`} className="database-action-view">
-                                    <FaEye />
-                                </Link>
-                                <Link
-                                    href={`/people/${id}/edit`}
-                                    className="database-action-edit"
-                                >
-                                    <FaPenToSquare />
-                                </Link>
-                                <FaTrashCan
-                                    className="database-action-delete"
-                                />
-                            </td>
-
-                        </tr>
-                    ))}
+                <Table title="People" headers={headers}>
+                    {
+                        (userData.length > 0) &&
+                        userData.map((user, i) => (
+                            <TableRow
+                                key={i}
+                                type='User'
+                                id={user.id}
+                                name={user.name}
+                                fields={[user.name, user.email, user.degree, user.classYear, user.hasOnboarded ? 'Yes' : 'No', user.address, user.credit]}
+                                deleteUrl='/api/v1/user'
+                            />
+                        ))
+                    }
                 </Table>
             </section>
         </section>

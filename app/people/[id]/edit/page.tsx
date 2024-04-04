@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import Button from "~/components/ui/Button";
 import Input from "~/components/ui/form/Input";
-import Radio from "~/components/ui/form/Radio";
 
 interface EditPersonPageProps {
     params: {
@@ -42,12 +41,9 @@ export default function EditPersonPage({
             address: formData.get("address"),
             credit: formData.get("credit"),
         };
-
         try {
             await axios.patch(`/api/v1/user/${id}`, updatedPersonData);
-
             toast.success("Person updated");
-
             router.push(`/people/${id}`);
             router.refresh();
         } catch (error) {
