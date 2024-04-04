@@ -4,7 +4,6 @@ import TextInput from "~/components/ui/form/Input";
 import Button from "~/components/ui/Button";
 import toast from "react-hot-toast";
 import { authenticate } from "~/lib/actions";
-import Image from 'next/image'
 
 export default function LoginPage() {
     async function handleLogin(formData: FormData) {

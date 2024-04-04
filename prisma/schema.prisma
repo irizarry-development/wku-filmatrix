@@ -68,6 +68,9 @@ model User {
 
   accounts      Account[]
   sessions      Session[]
+
+  // Many to many to a project
+  projects      Project[]
 }
 
 model Location {
@@ -79,6 +82,11 @@ model Location {
   locationPhone String
   locationEmail String
   locationContactName String
+
+  // Many to many projects
+
+  projects      Project[]
+
 }
 
 model Vendor {
@@ -90,6 +98,38 @@ model Vendor {
   vendorPhone String
   vendorEmail String
   vendorContactName String
+
+  // Many to many projects
+
+  projects      Project[]
+
+}
+
+model Project {
+  id         String   @id @default(cuid())
+  projectName String
+  projectDescription String
+  projectRuntime String
+  projectAspectRatio String
+  projectRating String
+  projectRatingCriteria String
+  projectProductionNumber String
+  projectCategory String
+  projectGenre String
+  projectLanguage String
+  projectShootingFormat String
+  projectFilmSound String
+  projectFilmSubtitled Boolean  @default(false)
+  projectTagline String
+  projectLogLine String
+  project25WordPitch String
+  project50WordPitch String
+  project75WordPitch String
+
+  // Many to many users
+  users      User[]
+  locations  Location[]
+  vendors    Vendor[]
 }
 
 model VerificationToken {
