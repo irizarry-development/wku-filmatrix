@@ -18,8 +18,8 @@ export default function TableRow(props: {
   type: string,
   id: string,
   name: string|null,
-  fields: (string|null)[],
-  deleteUrl: string,
+  fields: any[],
+  deleteUrl: string
 }) {
 
   const router = useRouter();
@@ -46,11 +46,11 @@ export default function TableRow(props: {
       { props.fields.map((field, i) => <td key={i}>{field ? field : ''}</td>) }
 
       <td className="database-actions">
-        <Link href={`/people/${props.id}`} className="database-action-view">
+        <Link href={`/${props.type.toLowerCase()}/${props.id}`} className="database-action-view">
           <FaEye />
         </Link>
         <Link
-          href={`/people/${props.id}/edit`}
+          href={`/${props.type.toLowerCase()}/${props.id}/edit`}
           className="database-action-edit"
         >
           <FaPenToSquare />

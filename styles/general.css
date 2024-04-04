@@ -50,7 +50,6 @@ body {
 .app-body .app-content {
     margin-left: 7rem;
     padding: 2rem 2rem 2rem 0;
-    overflow-x: scroll;
 }
 
 h1 {

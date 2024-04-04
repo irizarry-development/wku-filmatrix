@@ -113,7 +113,7 @@ model Project {
   projectAspectRatio String
   projectRating String
   projectRatingCriteria String
-  projectProductionNumber String
+  projectProductionNumber String @unique
   projectCategory String
   projectGenre String
   projectLanguage String
