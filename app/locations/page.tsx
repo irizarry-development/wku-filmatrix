@@ -47,15 +47,17 @@ const LocationDatabase = () => {
       <section className="database-page">
         <section className="database-page-header">
           <h1>Locations</h1>
-          
-        </section>
-        <section className="database-content">
-        <input 
+          <Link href="/locations/add" className="database-page-add">
+            <FaCirclePlus />
+          </Link>
+          <input 
             type="text"
             placeholder="Search locations..."
             value={searchTerm}
             onChange={handleSearchChange}
           />
+        </section>
+        <section className="database-content">
           
         <Table title="Locations" headers={headers}>
             {
