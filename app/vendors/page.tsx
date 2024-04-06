@@ -22,21 +22,6 @@ const VendorPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('/api/v1/vendors/search'); 
-      if (!response.ok) {
-        console.error('Failed to fetch:', response.statusText);
-        return;
-      }
-      const data = await response.json();
-      setVendorData(data);
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (!searchTerm) return;
 
     const fetchSearchResults = async () => {
       const response = await fetch(`/api/v1/vendors/search?query=${encodeURIComponent(searchTerm)}`);
@@ -47,7 +32,6 @@ const VendorPage = () => {
       const data = await response.json();
       setVendorData(data);
     };
-
     fetchSearchResults();
   }, [searchTerm]);
 

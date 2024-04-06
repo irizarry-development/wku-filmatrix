@@ -23,26 +23,10 @@ const LocationDatabase = () => {
     const [locationData, setLocationData] = useState<Location[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
 
-    useEffect(() => {
-      const fetchData = async () => {
-        const response = await fetch('/api/v1/user/search');
-        if (!response.ok) {
-          console.error('Failed to fetch:', response.statusText);
-          return;
-        }
-        const data = await response.json();
-        console.log(data);
-        setLocationData(data);
-      };
-
-      fetchData();
-    }, []); 
-
-    useEffect(() => {
-      if (!searchTerm) return; 
+    useEffect(() => { 
 
       const fetchSearchResults = async () => {
-        const response = await fetch(`/api/v1/user/search?query=${encodeURIComponent(searchTerm)}`);
+        const response = await fetch(`/api/v1/locations/search?query=${encodeURIComponent(searchTerm)}`);
         if (!response.ok) {
           console.error('Failed to fetch:', response.statusText);
           return;

@@ -32,21 +32,6 @@ const ProjectPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('/api/v1/projects/search'); 
-      if (!response.ok) {
-        console.error('Failed to fetch:', response.statusText);
-        return;
-      }
-      const data = await response.json();
-      setProjectData(data);
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (!searchTerm) return;
 
     const fetchSearchResults = async () => {
       const response = await fetch(`/api/v1/projects/search?query=${encodeURIComponent(searchTerm)}`);
