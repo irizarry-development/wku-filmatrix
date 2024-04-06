@@ -20,7 +20,7 @@ export default async function PeopleDatabase({
 }: PeopleDatabaseProps) {
 
     let parsedPage = 1;
-    let perPage = 10;
+    let perPage = 10 10;
 
     if (pageNumber) {
         parsedPage = parseInt(pageNumber);
