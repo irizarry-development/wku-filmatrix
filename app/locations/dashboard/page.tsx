@@ -62,6 +62,7 @@ export default async function LocationDatabase(
             id='search'
             type="search"
             placeholder='Search locations...'
+            initialValue={search}
           />
           <section className="database-search-buttons">
             <button type="submit">

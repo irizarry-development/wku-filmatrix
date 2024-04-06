@@ -73,6 +73,7 @@ export default async function ProjectPage(
             id='search'
             type="search"
             placeholder='Search projects...'
+            initialValue={search}
           />
           <section className="database-search-buttons">
             <button type="submit">

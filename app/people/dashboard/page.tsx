@@ -67,6 +67,7 @@ export default async function PeopleDatabase({
             id='search'
             type="search"
             placeholder='Search people...'
+            initialValue={search}
           />
           <section className="database-search-buttons">
             <button type="submit">

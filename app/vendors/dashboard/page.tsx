@@ -63,6 +63,7 @@ export default async function VendorDatabase(
             id='search'
             type="search"
             placeholder='Search vendors...'
+            initialValue={search}
           />
           <section className="database-search-buttons">
             <button type="submit">
