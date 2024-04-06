@@ -107,7 +107,7 @@ model Vendor {
 
 model Project {
   id         String   @id @default(cuid())
-  projectName String
+  projectName String  @unique
   projectDescription String
   projectRuntime String
   projectAspectRatio String
