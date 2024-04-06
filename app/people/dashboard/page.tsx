@@ -99,7 +99,7 @@ export default async function PeopleDatabase({
                         peopleData.map((user, i) => (
                             <TableRow
                                 key={i}
-                                type='User'
+                                type='people'
                                 id={user.id}
                                 name={user.name}
                                 fields={[
