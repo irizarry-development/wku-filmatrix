@@ -47,7 +47,7 @@ export default function Header({
                         </Link>
                         <Link
                             className="nav-link"
-                            href="/people"
+                            href="/people/dashboard"
                             onClick={() => setHeaderOpen(false)}
                         >
                             <MdPeopleAlt />
@@ -55,7 +55,7 @@ export default function Header({
                         </Link>
                         <Link
                             className="nav-link"
-                            href="/locations"
+                            href="/locations/dashboard"
                             onClick={() => setHeaderOpen(false)}
                         >
                             <FaMapMarkerAlt />
@@ -63,7 +63,7 @@ export default function Header({
                         </Link>
                         <Link
                             className="nav-link"
-                            href="/vendors"
+                            href="/vendors/dashboard"
                             onClick={() => setHeaderOpen(false)}
                         >
                             <FaSuitcase />
@@ -71,7 +71,7 @@ export default function Header({
                         </Link>
                         <Link
                             className="nav-link"
-                            href="/projects"
+                            href="/projects/dashboard"
                             onClick={() => setHeaderOpen(false)}
                         >
                             <BsCameraReelsFill />

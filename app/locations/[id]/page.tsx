@@ -38,7 +38,7 @@ export default async function LocationProfilePage({
     return (
         <section className="view-resource-page">
             <section className="resource-page-header">
-                <Link href="/locations" className="back-link">
+                <Link href="/locations/dashboard" className="back-link">
                     <FaArrowLeftLong />
                 </Link>
                 <h1>{locationName}</h1>
