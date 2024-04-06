@@ -6,6 +6,41 @@
     grid-template-columns: 1fr 4rem;
 }
 
+.database-page .database-page-header .database-search-form {
+
+    /* 2nd row span all columns */
+
+    grid-area: 2 / 1 / 3 / 3;
+    display: grid;
+    grid-template-columns: 6fr 2fr;
+    column-gap: 0.4rem;
+}
+
+.database-page .database-page-header .database-search-form .database-search-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.database-page .database-page-header .database-search-form .database-search-buttons .clear-search,
+.database-page .database-page-header .database-search-form .database-search-buttons .pagination-button {
+    font-size: 1.8rem;
+    place-self: center;
+}
+
+.database-page .database-page-header .database-search-form .database-search-buttons .clear-search {
+    color: var(--red-darker);
+}
+
+.database-page .database-page-header .database-search-form .database-search-buttons .pagination-button {
+    color: var(--gray-lightest);
+
+}
+
+.database-page .database-page-header .database-search-form label {
+    height: 100%;
+    grid-template-rows: 1fr;
+}
+
 .database-page .database-page-header .database-page-add {
     height: 3.2rem;
     font-size: 3.2rem;

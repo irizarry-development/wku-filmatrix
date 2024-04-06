@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { FaArrowRotateLeft, FaCirclePlus, FaMagnifyingGlass } from "react-icons/fa6";
+import { FaArrowLeftLong, FaArrowRightLong, FaArrowRotateLeft, FaCirclePlus, FaMagnifyingGlass } from "react-icons/fa6";
+import TextInput from "~/components/ui/form/Input";
 import Table from "~/components/ui/table/Table";
 import TableRow from "~/components/ui/table/TableRow";
 import prisma from "~/lib/prisma";
@@ -55,17 +56,33 @@ export default async function LocationDatabase(
         <Link href="/locations/add" className="database-page-add">
             <FaCirclePlus />
         </Link>
-        <form id="location-search-form" action={`/locations/dashboard`} method="GET">
-          <label>
-            <input type="text" name="search" defaultValue={search} placeholder="Search" />
-          </label>
-          <button type="submit">
-            <FaMagnifyingGlass />
-          </button>
-          <Link href="/locations/dashboard" className="clear-search">
-            <FaArrowRotateLeft />
-            Reset Search
-          </Link>
+
+        <form id="location-search-form" className="database-search-form" action={`/locations/dashboard`} method="GET">
+          <TextInput
+            id='search'
+            type="search"
+            placeholder='Search locations...'
+          />
+          <section className="database-search-buttons">
+            <button type="submit">
+              <FaMagnifyingGlass />
+            </button>
+            <Link href="/locations/dashboard" className="clear-search">
+              <FaArrowRotateLeft />
+            </Link>
+            <Link
+              href={`/locations/dashboard?${search ? `search=${search}` : ""}&pageNumber=${parsedPage - 1}`}
+              className="pagination-button"
+            >
+              <FaArrowLeftLong />
+            </Link>
+            <Link
+              href={`/locations/dashboard?${search ? `search=${search}` : ""}&pageNumber=${parsedPage + 1}`}
+              className="pagination-button"
+            >
+              <FaArrowRightLong />
+            </Link>
+          </section>
         </form>
       </section>
       <section className="database-content">
@@ -95,17 +112,6 @@ export default async function LocationDatabase(
             ))
           }
         </Table>
-        <Link 
-          href={`/locations/dashboard?${search ? `search=${search}`: ""}&pageNumber=${parsedPage - 1}`}
-        >
-          Previous
-        </Link>
-        <Link
-          href={`/locations/dashboard?${search ? `search=${search}`: ""}&pageNumber=${parsedPage + 1}`}
-        >
-          Next
-        </Link>
-        
       </section>
     </section>
   );

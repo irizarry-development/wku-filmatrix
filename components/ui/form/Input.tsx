@@ -31,7 +31,7 @@ export default function TextInput({
 }: TextInputProps) {
     return (
         <label htmlFor={id} className="form-group">
-            <span className="label">{label}</span>
+            { label && <span className="label">{label}</span> }
             {helperText && <em className="helper-text">{helperText}</em>}
             {type === "multiline" ? (
                 <textarea id={id} name={id} placeholder={placeholder || ""} defaultValue={initialValue || ""} />

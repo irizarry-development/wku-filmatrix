@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { FaArrowRotateLeft, FaCirclePlus, FaMagnifyingGlass } from 'react-icons/fa6';
+import { FaArrowLeftLong, FaArrowRightLong, FaArrowRotateLeft, FaCirclePlus, FaMagnifyingGlass } from 'react-icons/fa6';
+import TextInput from '~/components/ui/form/Input';
 import Table from '~/components/ui/table/Table';
 import TableRow from '~/components/ui/table/TableRow';
 import prisma from '~/lib/prisma';
@@ -67,16 +68,32 @@ export default async function ProjectPage(
         <Link href="/projects/add" className="database-page-add">
             <FaCirclePlus />
         </Link>
-                <form id="project-search-form" action={`/projects/dashboard`} method="GET">
-          <label>
-            <input type="text" name="search" defaultValue={search} placeholder="Search" />
-          </label>
-          <button type="submit">
-            <FaMagnifyingGlass />
-          </button>
-          <Link href="/projects" className="clear-search">
-            <FaArrowRotateLeft /> Reset Search
+        <form id="project-search-form" className="database-search-form" action={`/projects/dashboard`} method="GET">
+          <TextInput
+            id='search'
+            type="search"
+            placeholder='Search projects...'
+          />
+          <section className="database-search-buttons">
+            <button type="submit">
+              <FaMagnifyingGlass />
+            </button>
+            <Link href="/projects/dashboard" className="clear-search">
+              <FaArrowRotateLeft />
             </Link>
+            <Link
+              href={`/projects/dashboard?${search ? `search=${search}` : ""}&pageNumber=${parsedPage - 1}`}
+              className="pagination-button"
+            >
+              <FaArrowLeftLong />
+            </Link>
+            <Link
+              href={`/projects/dashboard?${search ? `search=${search}` : ""}&pageNumber=${parsedPage + 1}`}
+              className="pagination-button"
+            >
+              <FaArrowRightLong />
+            </Link>
+          </section>
         </form>
       </section>
       <section className="database-content">
@@ -112,16 +129,6 @@ export default async function ProjectPage(
               />
             ))}
         </Table>
-        <Link 
-          href={`/projects/dashboard?${search ? `search=${search}`: ""}&pageNumber=${parsedPage - 1}`}
-          >
-          Previous
-          </Link>
-          <Link
-          href={`/projects/dashboard?${search ? `search=${search}`: ""}&pageNumber=${parsedPage + 1}`}
-          >
-          Next
-          </Link>
       </section>
     </section>
   );

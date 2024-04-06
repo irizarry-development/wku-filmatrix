@@ -1,5 +1,6 @@
 .searchable-table {
     overflow-x: scroll;
+    max-width: calc(100vw - 9rem);
 }
 
 .table {
@@ -8,7 +9,6 @@
     border-collapse: collapse;
     font-size: 1.2rem;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    overflow-x: scroll;
 }
 
 .table .table-header tr {

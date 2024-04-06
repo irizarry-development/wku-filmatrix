@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { FaArrowRotateLeft, FaCirclePlus, FaMagnifyingGlass } from 'react-icons/fa6';
+import { FaArrowLeftLong, FaArrowRightLong, FaArrowRotateLeft, FaCirclePlus, FaMagnifyingGlass } from 'react-icons/fa6';
+import TextInput from '~/components/ui/form/Input';
 import Table from '~/components/ui/table/Table';
-import TableRow from '~/components/ui/table/TableRow'; 
+import TableRow from '~/components/ui/table/TableRow';
 import prisma from '~/lib/prisma';
 
 interface VendorDatabaseProps {
@@ -48,25 +49,41 @@ export default async function VendorDatabase(
       take: perPage,
       skip: (parsedPage - 1) * perPage
     });
-  } 
+  }
 
   return (
     <section className="database-page">
       <section className="database-page-header">
         <h1>Vendors</h1>
         <Link href="/vendors/add" className="database-page-add">
-            <FaCirclePlus />
+          <FaCirclePlus />
         </Link>
-        <form id="vendor-search-form" action={`/vendors/dashboard`} method="GET">
-          <label>
-            <input type="text" name="search" defaultValue={search} placeholder="Search" />
-          </label>
-          <button type="submit">
-            <FaMagnifyingGlass />
-          </button>
-          <Link href="/vendors/dashboard" className="clear-search">
-            <FaArrowRotateLeft /> Reset Search
+        <form id="vendor-search-form" className="database-search-form" action={`/vendors/dashboard`} method="GET">
+          <TextInput
+            id='search'
+            type="search"
+            placeholder='Search vendors...'
+          />
+          <section className="database-search-buttons">
+            <button type="submit">
+              <FaMagnifyingGlass />
+            </button>
+            <Link href="/vendors/dashboard" className="clear-search">
+              <FaArrowRotateLeft />
             </Link>
+            <Link
+              href={`/vendors/dashboard?${search ? `search=${search}` : ""}&pageNumber=${parsedPage - 1}`}
+              className="pagination-button"
+            >
+              <FaArrowLeftLong />
+            </Link>
+            <Link
+              href={`/vendors/dashboard?${search ? `search=${search}` : ""}&pageNumber=${parsedPage + 1}`}
+              className="pagination-button"
+            >
+              <FaArrowRightLong />
+            </Link>
+          </section>
         </form>
       </section>
       <section className="database-content">
@@ -88,20 +105,10 @@ export default async function VendorDatabase(
                   vendor.vendorEmail,
                   vendor.vendorContactName,
                 ]}
-                deleteUrl="/api/v1/vendors" 
+                deleteUrl="/api/v1/vendors"
               />
             ))}
         </Table>
-        <Link 
-          href={`/vendors/dashboard?${search ? `search=${search}`: ""}&pageNumber=${parsedPage - 1}`}
-          >
-          Previous
-          </Link>
-          <Link
-          href={`/vendors/dashboard?${search ? `search=${search}`: ""}&pageNumber=${parsedPage + 1}`}
-          >
-          Next
-          </Link>
       </section>
     </section>
   );

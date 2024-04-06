@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { FaCirclePlus, FaMagnifyingGlass, FaArrowRotateLeft } from "react-icons/fa6";
+import { FaCirclePlus, FaMagnifyingGlass, FaArrowRotateLeft, FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
+import TextInput from "~/components/ui/form/Input";
 import Table from "~/components/ui/table/Table";
 import TableRow from "~/components/ui/table/TableRow";
 import prisma from "~/lib/prisma";
@@ -19,9 +20,7 @@ export default async function PeopleDatabase({
 }: PeopleDatabaseProps) {
 
     let parsedPage = 1;
-    let perPage = 2;
-
-    console.log(search, pageNumber)
+    let perPage = 10;
 
     if (pageNumber) {
         parsedPage = parseInt(pageNumber);
@@ -63,16 +62,32 @@ export default async function PeopleDatabase({
                 <Link href="/people/add" className="database-page-add">
                     <FaCirclePlus />
                 </Link>
-                <form id="people-search-form" action={`/people/dashboard`} method="GET">
-          <label>
-            <input type="text" name="search" defaultValue={search} placeholder="Search" />
-          </label>
-          <button type="submit">
-            <FaMagnifyingGlass />
-          </button>
-          <Link href="/people" className="clear-search">
-            <FaArrowRotateLeft /> Reset Search
+        <form id="people-search-form" className="database-search-form" action={`/people/dashboard`} method="GET">
+          <TextInput
+            id='search'
+            type="search"
+            placeholder='Search people...'
+          />
+          <section className="database-search-buttons">
+            <button type="submit">
+              <FaMagnifyingGlass />
+            </button>
+            <Link href="/people/dashboard" className="clear-search">
+              <FaArrowRotateLeft />
             </Link>
+            <Link
+              href={`/people/dashboard?${search ? `search=${search}` : ""}&pageNumber=${parsedPage - 1}`}
+              className="pagination-button"
+            >
+              <FaArrowLeftLong />
+            </Link>
+            <Link
+              href={`/people/dashboard?${search ? `search=${search}` : ""}&pageNumber=${parsedPage + 1}`}
+              className="pagination-button"
+            >
+              <FaArrowRightLong />
+            </Link>
+          </section>
         </form>
             </section>
             <section className="database-content">
@@ -99,17 +114,6 @@ export default async function PeopleDatabase({
                             />
                         ))}
                 </Table>
-
-                <Link 
-                href={`/people/dashboard?${search ? `search=${search}`: ""}&pageNumber=${parsedPage - 1}`}
-                >
-                Previous
-                </Link>
-                <Link
-                href={`/people/dashboard?${search ? `search=${search}`: ""}&pageNumber=${parsedPage + 1}`}
-                >
-                Next
-                </Link>
             </section>
         </section>
     );
