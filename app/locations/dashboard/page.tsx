@@ -22,7 +22,7 @@ export default async function LocationDatabase(
 ) {
 
   let parsedPage = 1;
-  let perPage = 10 2;
+  let perPage = 10;
 
   if (pageNumber) {
     parsedPage = parseInt(pageNumber);

@@ -37,7 +37,7 @@ export default async function PeopleProfilePage({
     return (
         <section className="view-resource-page">
             <section className="resource-page-header">
-                <Link href="/people" className="back-link">
+                <Link href="/people/dashboard" className="back-link">
                     <FaArrowLeftLong />
                 </Link>
                 <h1>{name}</h1>

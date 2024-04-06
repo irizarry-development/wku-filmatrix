@@ -66,7 +66,7 @@ export default function EditPersonPage({
 
     return (
             <form className="form edit-resource-form" id="edit-person-form" action={updatePersonData}>
-                <Link href="/people" className="back-link">
+                <Link href="/people/dashboard" className="back-link">
                     <FaArrowLeftLong />
                 </Link>
                 <fieldset>

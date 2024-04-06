@@ -27,7 +27,7 @@ export default async function ProjectProfilePage({
     return (
         <section className="view-resource-page">
             <section className="resource-page-header">
-                <Link href="/projects" className="back-link">
+                <Link href="/projects/dashboard" className="back-link">
                     <FaArrowLeftLong />
                 </Link>
                 <h1>{foundProject.projectName}</h1>

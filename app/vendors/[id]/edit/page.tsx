@@ -73,7 +73,7 @@ export default function EditVendorPage({
     
         return (
                 <form className="form edit-resource-form" id="edit-vendor-form" action={updateVendorData}>
-                    <Link href="/vendors" className="back-link">
+                    <Link href="/vendors/dashboard" className="back-link">
                         <FaArrowLeftLong />
                     </Link>
                     <fieldset>

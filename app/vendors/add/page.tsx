@@ -38,7 +38,7 @@ export default function AddVendorPage() {
     return (
         <section className="add-resource-page">
             <form className="form add-resource-form" id="add-vendor-form" action={handleAddVendor}>
-                <Link href="/vendors" className="back-link">
+                <Link href="/vendors/dashboard" className="back-link">
                     <FaArrowLeftLong />
                 </Link>
                 <fieldset>

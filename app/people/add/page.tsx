@@ -32,7 +32,7 @@ export default function CreatePeoplePage() {
 
     return (
             <form className="form add-resource-form" id="add-user-form" action={addPerson}>
-                <Link href="/people" className="back-link">
+                <Link href="/people/dashboard" className="back-link">
                     <FaArrowLeftLong />
                 </Link>
                 <fieldset>

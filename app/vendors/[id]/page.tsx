@@ -36,7 +36,7 @@ export default async function VendorProfilePage({
     return (
         <section className="view-resource-page">
             <section className="resource-page-header">
-                <Link href="/vendors" className="back-link">
+                <Link href="/vendors/dashboard" className="back-link">
                     <FaArrowLeftLong />
                 </Link>
                 <h1>{vendorName}</h1>   
