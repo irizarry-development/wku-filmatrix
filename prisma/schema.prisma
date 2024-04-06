@@ -75,7 +75,7 @@ model User {
 
 model Location {
   id          String   @id @default(cuid())
-  locationName String
+  locationName String  @unique
   locationAddress String
   locationKeywords String
   locationDescription String
@@ -91,7 +91,7 @@ model Location {
 
 model Vendor {
   id         String   @id @default(cuid())
-  vendorName String
+  vendorName String   @unique
   vendorAddress String
   vendorKeywords String
   vendorDescription String
@@ -107,7 +107,7 @@ model Vendor {
 
 model Project {
   id         String   @id @default(cuid())
-  projectName String
+  projectName String  @unique
   projectDescription String
   projectRuntime String
   projectAspectRatio String

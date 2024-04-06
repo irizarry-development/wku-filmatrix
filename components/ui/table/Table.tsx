@@ -14,7 +14,7 @@ export default function Table({
 }: TableProps) {
     return (
         <>
-        <Input placeholder={`Search ${title}`} id="search" type="text" />
+        {/* <Input placeholder={`Search ${title}`} id="search" type="text" /> */}
         <section className="searchable-table">
             <table className="table">
                 <thead className="table-header">
