@@ -1,0 +1,26 @@
+
+.drawer-container {
+    margin-top: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.drawer-container button{
+    margin-top: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    /* width: 100%; */
+}
+
+
+.drawer-content a {
+    padding: 1.2rem 1.5rem;
+    background-color: var(--gray-darker);
+    color: var(--white); /* Applying the theme's blue for links */
+    text-decoration: none;
+}
+
+/* Additional hover effects for links could be defined here */
+.drawer-content a:hover {
+    background-color: var(--gray-lighter);
+}
