@@ -2,11 +2,31 @@ import Button from "~/components/ui/Button";
 import Select from "~/components/ui/form/Select";
 import Radio from "~/components/ui/form/Radio";
 import Input from "~/components/ui/form/Input";
+import Drawer from "~/components/ui/Drawer";
 import { Fragment } from "react";
 
 export default async function Home() {
+    const studentHandbookLinks = [
+        { url: "https://www.wkufilm.com/wp-content/uploads/2024/01/WKU-Film-Student-Handbook-2023.pdf", text: "WKU Film Student Handbook" },
+    ];
+    const productionLinks = [
+        { url: "https://www.wkufilm.com/wp-content/uploads/2021/08/Additional-Photography.zip", text:"Additional Photography"},
+        { url: "https://www.wkufilm.com/wp-content/uploads/2021/08/Agreements.zip", text: "Agreements"},
+        { url: "https://www.wkufilm.com/wp-content/uploads/2021/08/Daily-Production.zip", text: "Daily Paperwork"},
+        { url: "https://www.wkufilm.com/wp-content/uploads/2021/08/Financial.zip", text: "Financial"},
+        { url: "https://www.wkufilm.com/wp-content/uploads/2021/09/Locations.zip", text: "Locations"},
+        { url: "https://www.wkufilm.com/wp-content/uploads/2021/08/Permits.zip", text: "Permits"},
+        { url: "https://www.wkufilm.com/wp-content/uploads/2021/09/Pre-Production.zip", text: "Pre-Production"},
+        { url: "https://www.wkufilm.com/wp-content/uploads/2021/08/Safety.zip", text: "Safety"},
+
+    ];
     return (
         <Fragment>
+            <Drawer title="WKU Film Student Handbook" links={studentHandbookLinks} />
+            <Drawer title="Production" links={productionLinks} />
+            <Drawer title="Production" links={productionLinks} />
+
+
             <h1>Style Guide</h1>
             <p>This is a style guide for the application.</p>
             <h2>Buttons</h2>
@@ -102,7 +122,6 @@ export default async function Home() {
                         options={["Option 1", "Option 2", "Option 3"]}
                         multiple
                     />
-                    {/* 
 
                       
 
@@ -133,7 +152,7 @@ export default async function Home() {
                         label="Search Field"
                         type="search"
                         id="search-field"
-                    /> */}
+                    /> 
                 </fieldset>
             </form>
         </Fragment>
