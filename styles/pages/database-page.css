@@ -1,6 +1,3 @@
-.database-page {
-}
-
 .database-page .database-page-header {
     display: grid;
     grid-template-columns: 1fr 4rem;
@@ -27,13 +24,17 @@
     place-self: center;
 }
 
+.disabled {
+    opacity: .6;
+    cursor: default;
+}
+
 .database-page .database-page-header .database-search-form .database-search-buttons .clear-search {
     color: var(--red-darker);
 }
 
 .database-page .database-page-header .database-search-form .database-search-buttons .pagination-button {
     color: var(--gray-lightest);
-
 }
 
 .database-page .database-page-header .database-search-form label {
