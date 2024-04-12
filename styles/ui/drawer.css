@@ -1,26 +1,49 @@
-
 .drawer-container {
-    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 90%;
+    align-items: stretch;
+    margin: 2rem auto; 
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    margin-left: auto;
-    margin-right: auto;
 }
 
-.drawer-container button{
-    margin-top: 2rem;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    /* width: 100%; */
+.drawer-container button {
+    width: 100%; 
+    padding: 1rem; 
+    background-color: var(--gray-darker); 
+    color: var(--white); 
+    border: none; 
+    cursor: pointer;
+    border-radius: 5px; 
+    font-size: large;
 }
-
 
 .drawer-content a {
     padding: 1.2rem 1.5rem;
-    background-color: var(--gray-darker);
-    color: var(--white); /* Applying the theme's blue for links */
+    background-color: var(--gray-muted);
+    color: var(--white);
     text-decoration: none;
+    border-radius: 5px; 
+    margin-top: 0.5rem; 
+    text-align: center;
+    font-size: larger;
 }
 
-/* Additional hover effects for links could be defined here */
 .drawer-content a:hover {
-    background-color: var(--gray-lighter);
+    background-color: var(--gray-darker);
+}
+
+.drawer-fieldset {
+    border: 0.1rem dotted var(--gray-muted);
+    padding: 2rem;
+}
+
+.drawer-legend {
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: var(--gray-lightest);
+    padding: 0.5rem 1rem;
+    background: var(--gray-darkest);
 }

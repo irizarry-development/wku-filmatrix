@@ -22,12 +22,15 @@ export default async function Home() {
     ];
     return (
         <Fragment>
-            <Drawer title="WKU Film Student Handbook" links={studentHandbookLinks} />
-            <Drawer title="Production" links={productionLinks} />
-            <Drawer title="Production" links={productionLinks} />
+            <fieldset className="drawer-fieldset">
+                <legend className="drawer-legend">Helpful Links</legend>
+                <Drawer title="WKU Film Student Handbook" links={studentHandbookLinks} />
+                <Drawer title="Production" links={productionLinks} />
+                <Drawer title="Production" links={productionLinks} />
+            </fieldset>
 
 
-            <h1>Style Guide</h1>
+            {/* <h1>Style Guide</h1>
             <p>This is a style guide for the application.</p>
             <h2>Buttons</h2>
             <p>Buttons are used to trigger actions.</p>
@@ -154,7 +157,7 @@ export default async function Home() {
                         id="search-field"
                     /> 
                 </fieldset>
-            </form>
+            </form> */}
         </Fragment>
     );
 }
