@@ -11,6 +11,27 @@ export const POST = auth(async (req) => {
         });
     }
 
+    // get requester and validate
+    const requester = await prisma.user.findUnique({
+        where: {
+            email: req.auth.user.email
+        }
+    });
+    if (!requester) {
+        return new Response(JSON.stringify({
+            status: 500,
+            error: 'impossible...',
+        }));
+    }
+
+    // throw error if requester is a graduated student
+    if (requester.role === 3) {
+        return new Response(JSON.stringify({
+            status: 400,
+            error: 'Graduated students may only view content.',
+        }));
+    }
+
     const body = await req.json();
     const parsedBody = createLocationSchema.parse(body);
 

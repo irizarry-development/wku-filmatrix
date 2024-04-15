@@ -12,12 +12,10 @@ export const {
 } = NextAuth({
     adapter: PrismaAdapter(prisma),
     callbacks: {
-        async session(params) {
-
+        async session({session, token}) {
             // @ts-ignore
-            params.session.userId = params.token.sub;
-
-            return params.session;
+            session.userId = token.sub;
+            return session;
         },
         async jwt({ token, user }) {
             if (user) {

@@ -9,17 +9,17 @@ generator client {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
+  id                 String     @id @default(cuid())
   userId             String
   type               String
   provider           String
   providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
+  refresh_token      String?    @db.Text
+  access_token       String?    @db.Text
   expires_at         Int?
   token_type         String?
   scope              String?
-  id_token           String?  @db.Text
+  id_token           String?    @db.Text
   session_state      String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -28,103 +28,99 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id              String      @id @default(cuid())
+  sessionToken    String      @unique
+  userId          String
+  expires         DateTime
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id                        String      @id @default(cuid())
 
   // Auth
-  email         String?   @unique
-  saltedPassword String
+  email                     String?     @unique
+  saltedPassword            String
+  role                      Int         @default(2)
 
   // User Profile
-  name          String?
-  outgoingEmail String?
-  emailVerified DateTime?
-  image         String?
-  biography     String?
-  degree        String?
-  classYear     String?
-  hasOnboarded  Boolean   @default(false)
-  phoneNumber  String?
-  address      String?
-  position    String?
-  credit      String?
-  allergies   String?
-  medications String?
-  conditions  String?
+  name                      String?
+  outgoingEmail             String?
+  emailVerified             DateTime?
+  image                     String?
+  biography                 String?
+  degree                    String?
+  classYear                 String?
+  hasOnboarded              Boolean     @default(false)
+  phoneNumber               String?
+  address                   String?
+  position                  String?
+  credit                    String?
+  allergies                 String?
+  medications               String?
+  conditions                String?
 
   // Emergency Contact
-  emergencyContactName String?
-  emergencyContactPhone String?
-  emergencyContactAddress String?
+  emergencyContactName      String?
+  emergencyContactPhone     String?
+  emergencyContactAddress   String?
 
   // Relations
-
-  accounts      Account[]
-  sessions      Session[]
-
-  // Many to many to a project
-  projects      Project[]
+  accounts                  Account[]
+  sessions                  Session[]
+  projects                  Project[]
 }
 
 model Location {
-  id          String   @id @default(cuid())
-  locationName String  @unique
-  locationAddress String
-  locationKeywords String
-  locationDescription String
-  locationPhone String
-  locationEmail String
-  locationContactName String
+  id                    String    @id @default(cuid())
+  locationName          String    @unique
+  locationAddress       String
+  locationKeywords      String
+  locationDescription   String
+  locationPhone         String
+  locationEmail         String
+  locationContactName   String
 
   // Many to many projects
-
   projects      Project[]
 
 }
 
 model Vendor {
-  id         String   @id @default(cuid())
-  vendorName String   @unique
-  vendorAddress String
-  vendorKeywords String
-  vendorDescription String
-  vendorPhone String
-  vendorEmail String
-  vendorContactName String
+  id                    String     @id @default(cuid())
+  vendorName            String     @unique
+  vendorAddress         String
+  vendorKeywords        String
+  vendorDescription     String
+  vendorPhone           String
+  vendorEmail           String
+  vendorContactName     String
 
   // Many to many projects
-
   projects      Project[]
 
 }
 
 model Project {
-  id         String   @id @default(cuid())
-  projectName String  @unique
-  projectDescription String
-  projectRuntime String
-  projectAspectRatio String
-  projectRating String
-  projectRatingCriteria String
-  projectProductionNumber String @unique
-  projectCategory String
-  projectGenre String
-  projectLanguage String
-  projectShootingFormat String
-  projectFilmSound String
-  projectFilmSubtitled Boolean  @default(false)
-  projectTagline String
-  projectLogLine String
-  project25WordPitch String
-  project50WordPitch String
-  project75WordPitch String
+  id                          String    @id @default(cuid())
+  projectName                 String    @unique
+  projectDescription          String
+  projectRuntime              String
+  projectAspectRatio          String
+  projectRating               String
+  projectRatingCriteria       String
+  projectProductionNumber     String    @unique
+  projectCategory             String
+  projectGenre                String
+  projectLanguage             String
+  projectShootingFormat       String
+  projectFilmSound            String
+  projectFilmSubtitled        Boolean   @default(false)
+  projectTagline              String
+  projectLogLine              String
+  project25WordPitch          String
+  project50WordPitch          String
+  project75WordPitch          String
 
   // Many to many users
   users      User[]
@@ -133,9 +129,9 @@ model Project {
 }
 
 model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+  identifier  String
+  token       String   @unique
+  expires     DateTime
 
   @@unique([identifier, token])
 }

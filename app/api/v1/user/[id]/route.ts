@@ -9,13 +9,14 @@ export const GET = auth(async (req) => {
             error: "Unauthorized"
         }));
     }
+
+    // get user and validate
     const id = req.url.split("/").pop();
     const user = await prisma.user.findUnique({
         where: {
             id
         }
     });
-
     if (!user) {
         return new Response(JSON.stringify({
             status: 404
@@ -36,21 +37,44 @@ export const PATCH = auth(async (req) => {
             error: "Unauthorized"
         }));
     }
+
+    // get requester and validate
+    const requester = await prisma.user.findUnique({
+        where: {
+            email: req.auth.user.email
+        }
+    });
+    if (!requester) {
+        return new Response(JSON.stringify({
+            status: 500,
+            error: 'impossible...',
+        }));
+    }
+
+    // get user to be edited and validate
     const id = req.url.split("/").pop();
     const user = await prisma.user.findUnique({
         where: {
             id
         }
     });
-
     if (!user) {
         return new Response(JSON.stringify({
-            status: 404
+            status: 404,
+            error: 'Person not found. Either someone deleted this person while you were editing, or there were network issues.',
         }));
     }
+
+    // throw error if user to be edited is not requester and requester is not admin
+    if (user.email !== req.auth.user.email && requester.role !== 1) {
+        return new Response(JSON.stringify({
+            status: 400,
+            error: 'You cannot edit other people.',
+        }));
+    }
+
     const body = await req.json();
     const parsedBody = createUserSchema.parse(body);
-
     try {
         await prisma.user.update({
             where: {
@@ -58,7 +82,6 @@ export const PATCH = auth(async (req) => {
             },
             data: parsedBody
         });
-
         return new Response(JSON.stringify({
             status: 200,
             message: "User updated"
@@ -79,17 +102,34 @@ export const DELETE = auth(async (req) => {
         }));
     }
 
-    // get user id from url
-    const id = req.url.split("/").pop()!;
+    // get requester and validate
+    const requester = await prisma.user.findUnique({
+        where: {
+            email: req.auth.user.email
+        }
+    });
+    if (!requester) {
+        return new Response(JSON.stringify({
+            status: 500,
+            error: 'impossible...',
+        }));
+    }
 
-    // find user
+    // throw error if requester is not admin
+    if (requester.role !== 1) {
+        return new Response(JSON.stringify({
+            status: 400,
+            error: 'You cannot delete people.',
+        }));
+    }
+
+    // get user and validate
+    const id = req.url.split("/").pop();
     const user = await prisma.user.findUnique({
         where: {
             id
         }
     });
-
-    // if user does not exist, return error
     if (!user) {
         return new Response(JSON.stringify({
             status: 404,

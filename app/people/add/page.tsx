@@ -20,10 +20,8 @@ export default function CreatePeoplePage() {
 
         try {
             await axios.post(`/api/v1/user`, newPerson);
-
             toast.success("Person added");
-
-            router.push(`/people`);
+            router.push(`/people/dashboard`);
             router.refresh();
         } catch (error) {
             toast.error("Failed to add person");

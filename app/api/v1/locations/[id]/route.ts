@@ -39,9 +39,29 @@ export const PATCH = auth(async (req) => {
                 error: "Unauthorized"
             }))
         }
+
+        // get requester and validate
+        const requester = await prisma.user.findUnique({
+            where: {
+                email: req.auth.user.email
+            }
+        });
+        if (!requester) {
+            return new Response(JSON.stringify({
+                status: 500,
+                error: 'impossible...',
+            }));
+        }
+
+        // throw error if requester is not admin
+        if (requester.role !== 1) {
+            return new Response(JSON.stringify({
+                status: 400,
+                error: 'You cannot edit locations.',
+            }));
+        }
     
-        const id = req.url.split("/").pop()
-    
+        const id = req.url.split("/").pop()    
         const location = await prisma.location.findUnique({
             where: {
                 id
@@ -85,9 +105,29 @@ export const DELETE = auth(async (req) => {
         }));
     }
 
+    // get requester and validate
+    const requester = await prisma.user.findUnique({
+        where: {
+            email: req.auth.user.email
+        }
+    });
+    if (!requester) {
+        return new Response(JSON.stringify({
+            status: 500,
+            error: 'impossible...',
+        }));
+    }
+
+    // throw error if requester is not admin
+    if (requester.role !== 1) {
+        return new Response(JSON.stringify({
+            status: 400,
+            error: 'You cannot delete locations.',
+        }));
+    }
+
     // get location id from url
     const id = req.url.split("/").pop()!;
-
     // find location
     const loc = await prisma.location.findUnique({
         where: {

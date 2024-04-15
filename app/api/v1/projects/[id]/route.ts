@@ -39,9 +39,29 @@ export const PATCH = auth(async (req) => {
                 error: "Unauthorized"
             }))
         }
-    
+
+        // get requester and validate
+        const requester = await prisma.user.findUnique({
+            where: {
+                email: req.auth.user.email
+            }
+        });
+        if (!requester) {
+            return new Response(JSON.stringify({
+                status: 500,
+                error: 'impossible...',
+            }));
+        }
+
+        // throw error if requester is not admin
+        if (requester.role !== 1) {
+            return new Response(JSON.stringify({
+                status: 400,
+                error: 'You cannot edit projects.',
+            }));
+        }
+
         const id = req.url.split("/").pop()
-    
         const project = await prisma.project.findUnique({
             where: {
                 id
@@ -85,9 +105,29 @@ export const DELETE = auth(async (req) => {
         }));
     }
 
+    // get requester and validate
+    const requester = await prisma.user.findUnique({
+        where: {
+            email: req.auth.user.email
+        }
+    });
+    if (!requester) {
+        return new Response(JSON.stringify({
+            status: 500,
+            error: 'impossible...',
+        }));
+    }
+
+    // throw error if requester is not admin
+    if (requester.role !== 1) {
+        return new Response(JSON.stringify({
+            status: 400,
+            error: 'You cannot delete projects.',
+        }));
+    }
+
     // get project id from url
     const id = req.url.split("/").pop()!;
-
     // find project
     const project = await prisma.project.findUnique({
         where: {

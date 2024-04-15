@@ -19,7 +19,8 @@ async function main() {
                 name: "WKU FJ Admin",
                 email: "wkufj@wku.edu",
                 image: "https://images.ctfassets.net/e5382hct74si/2P1iOve0LZJRZWUzfXpi9r/9d4d27765764fb1ad7379d7cbe5f1043/ucxb4lHy_400x400.jpg",
-                saltedPassword: saltedAdminPassword
+                saltedPassword: saltedAdminPassword,
+                role: 1,
             }
         }),
         prisma.project.upsert({
@@ -136,6 +137,7 @@ async function main() {
                 emergencyContactName: 'Jane Doe',
                 emergencyContactPhone: '123-456-7890',
                 emergencyContactAddress: '456 Elm St, Anytown, USA',
+                role: 2,
             },
         }),
         prisma.user.upsert({
@@ -156,6 +158,7 @@ async function main() {
                 emergencyContactName: 'John Smith',
                 emergencyContactPhone: '234-567-8901',
                 emergencyContactAddress: '567 Pine St, Othertown, USA',
+                role: 2,
             },
         }),
         prisma.user.upsert({
@@ -176,6 +179,7 @@ async function main() {
                 emergencyContactName: 'Eve Adams',
                 emergencyContactPhone: '345-678-9012',
                 emergencyContactAddress: '678 Spruce St, New City, USA',
+                role: 2,
             },
         }),
         prisma.user.upsert({
@@ -196,6 +200,7 @@ async function main() {
                 emergencyContactName: 'Bob Brown',
                 emergencyContactPhone: '456-789-0123',
                 emergencyContactAddress: '789 Oak St, Another City, USA',
+                role: 2,
             },
         }),
         prisma.user.upsert({
@@ -216,6 +221,7 @@ async function main() {
                 emergencyContactName: 'Alice Green',
                 emergencyContactPhone: '567-890-1234',
                 emergencyContactAddress: '890 Maple St, Tech City, USA',
+                role: 2,
             },
         }),
         prisma.user.upsert({
@@ -236,6 +242,7 @@ async function main() {
                 emergencyContactName: 'Gary White',
                 emergencyContactPhone: '678-901-2345',
                 emergencyContactAddress: '901 Birch St, Commerce City, USA',
+                role: 2,
             },
         }),
         prisma.user.upsert({
@@ -256,6 +263,7 @@ async function main() {
                 emergencyContactName: 'Helen Brown',
                 emergencyContactPhone: '789-012-3456',
                 emergencyContactAddress: '012 Willow St, Art Town, USA',
+                role: 2,
             },
         }),
         prisma.user.upsert({
@@ -276,6 +284,7 @@ async function main() {
                 emergencyContactName: 'Isaac Newton',
                 emergencyContactPhone: '890-123-4567',
                 emergencyContactAddress: '123 Cedar St, Science City, USA',
+                role: 3,
             },
         }),
         prisma.user.upsert({
@@ -296,6 +305,7 @@ async function main() {
                 emergencyContactName: 'Nikola Tesla',
                 emergencyContactPhone: '901-234-5678',
                 emergencyContactAddress: '234 Pine St, Engineer City, USA',
+                role: 3,
             },
         }),
         prisma.user.upsert({
@@ -316,6 +326,7 @@ async function main() {
                 emergencyContactName: 'Rachel Carson',
                 emergencyContactPhone: '101-345-6789',
                 emergencyContactAddress: '345 Oak St, Green City, USA',
+                role: 3,
             },
         }),
         prisma.location.upsert({

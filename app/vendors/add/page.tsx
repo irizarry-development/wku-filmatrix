@@ -25,10 +25,8 @@ export default function AddVendorPage() {
 
         try {
             await axios.post("/api/v1/vendors/add", newVendorData);
-            
             toast.success("Vendor added");
-
-            router.push("/vendors"); 
+            router.push("/vendors/dashboard"); 
             router.refresh();
         } catch (error) {
             toast.error("Failed to add vendor");

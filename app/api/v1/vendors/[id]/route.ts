@@ -39,9 +39,29 @@ export const PATCH = auth(async (req) => {
                 error: "Unauthorized"
             }))
         }
+
+        // get requester and validate
+        const requester = await prisma.user.findUnique({
+            where: {
+                email: req.auth.user.email
+            }
+        });
+        if (!requester) {
+            return new Response(JSON.stringify({
+                status: 500,
+                error: 'impossible...',
+            }));
+        }
+
+        // throw error if requester is not admin
+        if (requester.role !== 1) {
+            return new Response(JSON.stringify({
+                status: 400,
+                error: 'You cannot edit vendors.',
+            }));
+        }
     
-        const id = req.url.split("/").pop()
-    
+        const id = req.url.split("/").pop();
         const vendor = await prisma.vendor.findUnique({
             where: {
                 id
@@ -83,6 +103,27 @@ export const DELETE = auth(async (req) => {
         return new Response(JSON.stringify({
             status: 401,
             error: "Unauthorized"
+        }));
+    }
+
+    // get requester and validate
+    const requester = await prisma.user.findUnique({
+        where: {
+            email: req.auth.user.email
+        }
+    });
+    if (!requester) {
+        return new Response(JSON.stringify({
+            status: 500,
+            error: 'impossible...',
+        }));
+    }
+
+    // throw error if requester is not admin
+    if (requester.role !== 1) {
+        return new Response(JSON.stringify({
+            status: 400,
+            error: 'You cannot delete vendors.',
         }));
     }
 
