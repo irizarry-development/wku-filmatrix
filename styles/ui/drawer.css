@@ -22,7 +22,7 @@
 
 .drawer-content a {
     padding: 1.2rem 1.5rem;
-    background-color: var(--gray-muted);
+    background-color: var(--gray-text);
     color: var(--white);
     text-decoration: none;
     border-radius: 5px; 
@@ -32,7 +32,7 @@
 }
 
 .drawer-content a:hover {
-    background-color: var(--gray-darker);
+    background-color: var(--red-dark);
 }
 
 .drawer-fieldset {
