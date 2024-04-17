@@ -8,6 +8,7 @@
 @import 'ui/table.css';
 @import 'ui/projectTodo.css';
 @import 'ui/drawer.css';
+@import 'ui/projectTodo.css';
 
 @import "pages/login.css";
 @import "pages/onboarding.css";
