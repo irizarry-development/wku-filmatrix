@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-import prisma from "~/lib/prisma";
-import { createUserSchema } from "~/lib/z";
-import { hash } from "bcrypt";
+import { NextRequest, NextResponse } from 'next/server';
+import prisma from '~/lib/prisma';
+import { createUserSchema } from '~/lib/z';
+import { hash } from 'bcrypt';
 
 export async function POST(req: NextRequest) {
 
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
         // TODO: change back to constants
 
-        const { email, saltedPassword = "dummy", name } = createUserSchema.parse(body);
+        const { email, saltedPassword = 'dummy', name } = createUserSchema.parse(body);
 
         const existingUserByEmail = await prisma.user.findUnique({
             where: {
@@ -21,7 +21,10 @@ export async function POST(req: NextRequest) {
         });
 
         if (existingUserByEmail) {
-            return NextResponse.json({ user: null, status: 409 });
+            return NextResponse.json(
+                `User with email \'${email}\' already exists`,
+                { status: 409 },
+            );
         }
 
         // TODO: remove dummy password
@@ -36,17 +39,15 @@ export async function POST(req: NextRequest) {
                     saltedPassword: hashedPassword
                 }
             });
-
-        return NextResponse.json({
-            user: rest,
-            status: 201,
-            message: "User created."
-        });
+        
+        return NextResponse.json(
+            rest,
+            { status: 201 }
+        );
     } catch (error) {
-        return NextResponse.json({
-            user: null,
-            status: 500,
-            message: "Error occured during user creation."
-        });
+        return NextResponse.json(
+            'Error occured during user creation.',
+            { status: 500 },
+        );
     }
 }

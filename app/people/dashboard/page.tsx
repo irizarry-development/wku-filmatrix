@@ -122,13 +122,14 @@ export default async function PeopleDatabase({
             </form>
             </section>
             <section className="database-content">
-                <Table title="People" headers={["Name", "Email", "Degree", "Class Year", "Onboarded", "Address", "Credit", ""]}>
+                <Table title="People" headers={["Name", "Email", "Degree", "Class Year", "Onboarded", "Address", "Credit"]}>
                     {
                         (peopleData.length > 0) && (
                             peopleData.map((user, i) => (
                                 <TableRow
                                     key={i}
-                                    type='people'
+                                    type='People'
+                                    singular='Person'
                                     id={user.id}
                                     name={user.name}
                                     fields={[

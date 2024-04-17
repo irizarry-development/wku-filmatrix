@@ -118,13 +118,14 @@ export default async function LocationDatabase(
       </section>
       <section className="database-content">
 
-        <Table title="Locations" headers={["Name", "Address", "Description", "Phone", "Email", "Contact", "Keywords", ""]}>
+        <Table title="Locations" headers={["Name", "Address", "Description", "Phone", "Email", "Contact", "Keywords"]}>
           {
             (locationData.length > 0) && (
               locationData.map((loc, i) => (
                 <TableRow
                   key={i}
                   type='Locations'
+                  singular='Location'
                   id={loc.id}
                   name={loc.locationName}
                   fields={[

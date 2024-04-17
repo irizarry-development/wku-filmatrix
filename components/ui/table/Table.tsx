@@ -19,7 +19,7 @@ export default function Table({
             <table className="table">
                 <thead className="table-header">
                     <tr>
-                        {headers.map((header,i) => (
+                        {headers.concat('').map((header,i) => (
                             <th key={i}>{header}</th>
                         ))}
                     </tr>

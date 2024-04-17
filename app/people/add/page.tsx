@@ -1,6 +1,6 @@
 "use client";
 
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -13,18 +13,18 @@ export default function CreatePeoplePage() {
     const router = useRouter();
 
     async function addPerson(formData: FormData) {
-        const newPerson = {
+        const newPersonData = {
             name: formData.get("name"),
             email: formData.get("email")
         };
 
         try {
-            await axios.post(`/api/v1/user`, newPerson);
+            await axios.post(`/api/v1/user`, newPersonData);
             toast.success("Person added");
             router.push(`/people/dashboard`);
             router.refresh();
         } catch (error) {
-            toast.error("Failed to add person");
+            toast.error(`Failed to add person - ${(error as AxiosError).response?.data}`);
         }
     }
 

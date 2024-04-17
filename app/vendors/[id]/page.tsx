@@ -10,7 +10,9 @@ interface VendorProfilePageProps {
 }
 
 export default async function VendorProfilePage({
-    params: { id }
+    params: {
+        id
+    }
 }: VendorProfilePageProps) {
 
     const foundVendor = await prisma.vendor.findUnique({

@@ -1,27 +1,25 @@
 "use client";
 
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Button from "~/components/ui/Button";
 import Input from "~/components/ui/form/Input";
-
 import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function AddLocationPage() {
-
     const router = useRouter();
 
     async function handleAddLocation(formData: FormData) {
         const newLocationData = {
-            locationName: formData.get("locationName") as string,
-            locationDescription: formData.get("locationDescription") as string,
-            locationAddress: formData.get("locationAddress") as string,
-            locationPhone: formData.get("locationPhone") as string,
-            locationEmail: formData.get("locationEmail") as string,
-            locationContactName: formData.get("locationContactName") as string,
-            locationKeywords: formData.get("locationKeywords") as string
+            locationName: formData.get("locationName"),
+            locationDescription: formData.get("locationDescription"),
+            locationAddress: formData.get("locationAddress"),
+            locationPhone: formData.get("locationPhone"),
+            locationEmail: formData.get("locationEmail"),
+            locationContactName: formData.get("locationContactName"),
+            locationKeywords: formData.get("locationKeywords"),
         };
 
         try {
@@ -30,13 +28,13 @@ export default function AddLocationPage() {
             router.push("/locations/dashboard");
             router.refresh();
         } catch (error) {
-            toast.error("Failed to add location");
+            toast.error(`Failed to add location - ${(error as AxiosError).response?.data}`);
         }
     }
 
     return (
         <form className="form add-resource-form" id="add-location-form" action={handleAddLocation}>
-            <Link href="/locations" className="back-link">
+            <Link href="/locations/dashboard" className="back-link">
                 <FaArrowLeftLong />
             </Link>
             <fieldset>

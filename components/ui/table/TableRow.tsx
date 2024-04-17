@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { FaEye, FaPenToSquare, FaTrashCan } from "react-icons/fa6";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { toggleModal } from "~/lib/modal";
 import Modal from "../Modal";
@@ -16,6 +16,7 @@ import "~/styles/ui/tablerow.css";
 
 export default function TableRow(props: {
   type: string,
+  singular: string,
   id: string,
   name: string|null,
   fields: any[],
@@ -28,13 +29,10 @@ export default function TableRow(props: {
   async function deleteItem(id: string) {
     try {
       const url = props.deleteUrl.endsWith('/') ? props.deleteUrl : props.deleteUrl.concat('/');
-      const res = await axios.delete(`${url}${id}`, {data: {id}});
-      if (res.data.status >= 100 && res.data.status <= 299)
-        toast.success(`${props.type} ${props.name ? `'${props.name}'` : props.id} deleted`);
-      else
-        toast.error(res.data.error);
+      await axios.delete(`${url}${id}`, {data: {id}});
+      toast.success(`Deleted ${props.singular.toLowerCase()} ${props.name ? `'${props.name}'` : props.id}`)
     } catch (error) {
-      toast.error(`Failed to delete ${props.type.toLowerCase()} ${props.name ? `'${props.name}'` : props.id}`);
+      toast.error(`Failed to delete ${props.singular.toLowerCase()} ${props.name ? `'${props.name}'` : props.id} - ${(error as AxiosError).response?.data}`);
     }
     toggleModal(dialogRef);
     router.refresh();

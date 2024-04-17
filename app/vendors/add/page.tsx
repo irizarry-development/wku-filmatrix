@@ -1,6 +1,6 @@
 "use client";
 
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -9,18 +9,17 @@ import Button from "~/components/ui/Button";
 import Input from "~/components/ui/form/Input";
 
 export default function AddVendorPage() {
-
     const router = useRouter();
 
     async function handleAddVendor(formData: FormData) {
         const newVendorData = {
-            vendorName: formData.get("vendorName") as string,
-            vendorDescription: formData.get("vendorDescription") as string,
-            vendorAddress: formData.get("vendorAddress") as string,
-            vendorPhone: formData.get("vendorPhone") as string,
-            vendorEmail: formData.get("vendorEmail") as string,
-            vendorContactName: formData.get("vendorContactName") as string,
-            vendorKeywords: formData.get("vendorKeywords") as string
+            vendorName: formData.get("vendorName"),
+            vendorDescription: formData.get("vendorDescription"),
+            vendorAddress: formData.get("vendorAddress"),
+            vendorPhone: formData.get("vendorPhone"),
+            vendorEmail: formData.get("vendorEmail"),
+            vendorContactName: formData.get("vendorContactName"),
+            vendorKeywords: formData.get("vendorKeywords"),
         };
 
         try {
@@ -29,7 +28,7 @@ export default function AddVendorPage() {
             router.push("/vendors/dashboard"); 
             router.refresh();
         } catch (error) {
-            toast.error("Failed to add vendor");
+            toast.error(`Failed to add vendor - ${(error as AxiosError).response?.data}`);
         }
     }
 

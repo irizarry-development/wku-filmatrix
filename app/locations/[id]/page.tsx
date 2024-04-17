@@ -44,7 +44,7 @@ export default async function LocationProfilePage({
                 <h1>{locationName}</h1>
             </section>
             <section className="location-info">
-            <p>{locationDescription}</p>
+                <p>{locationDescription}</p>
                 <p><strong>Address: </strong>{locationAddress}</p>
                 <p><strong>Phone: </strong>{locationPhone}</p>
                 <p><strong>Email: </strong>{locationEmail}</p>

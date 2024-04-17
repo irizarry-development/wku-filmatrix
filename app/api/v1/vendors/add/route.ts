@@ -5,10 +5,10 @@ import { createVendorSchema } from "~/lib/z";
 
 export const POST = auth(async (req) => {
     if (!req.auth || !req.auth.user || !req.auth.user.email) {
-        return NextResponse.json({
-            status: 401,
-            error: "Unauthorized"
-        });
+        return NextResponse.json(
+            'Unauthorized',
+            { status: 401 },
+        );
     }
 
     // get requester and validate
@@ -18,34 +18,48 @@ export const POST = auth(async (req) => {
         }
     });
     if (!requester) {
-        return new Response(JSON.stringify({
-            status: 500,
-            error: 'impossible...',
-        }));
+        return NextResponse.json(
+            'impossible...',
+            { status: 500 },
+        );
     }
 
     // throw error if requester is a graduated student
     if (requester.role === 3) {
-        return new Response(JSON.stringify({
-            status: 400,
-            error: 'Graduated students may only view content.',
-        }));
+        return NextResponse.json(
+            'Graduated students may only view content',
+            { status: 400 },
+        );
     }
 
     const body = await req.json();
     const parsedBody = createVendorSchema.parse(body);
+
+    // if vendor with given name already exists, throw error
+    const existing = await prisma.vendor.findUnique({
+        where: {
+            vendorName: parsedBody.vendorName
+        }
+    });
+    if (existing) {
+        return NextResponse.json(
+            `Vendor with name \'${parsedBody.vendorName}\' already exists`,
+            { status: 409 },
+        );
+    }
+
     try {
-        await prisma.vendor.create({
+        const vendor = await prisma.vendor.create({
             data: { ...parsedBody }
         });
-        return NextResponse.json({
-            status: 200,
-            message: "Vendor added"
-        });
+        return NextResponse.json(
+            vendor,
+            { status: 200 },
+        );
     } catch (error) {
-        return NextResponse.json({
-            status: 500,
-            error: "Internal Server Error"
-        });
+        return NextResponse.json(
+            'Internal server error',
+            { status: 500 },
+        );
     }
 }) as any;

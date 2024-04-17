@@ -1,3 +1,4 @@
+import { Project } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { auth } from "~/lib/auth";
 import prisma from "~/lib/prisma";
@@ -66,7 +67,7 @@ const todos = [
 export const POST = auth(async (req) => {
   if (!req.auth || !req.auth.user || !req.auth.user.email) {
     return NextResponse.json(
-      { error: "Unauthorized" },
+      'Unauthorized',
       { status: 401 },
     );
   }
@@ -80,8 +81,16 @@ export const POST = auth(async (req) => {
   if (!requester) {
     console.log(req.auth.user.email);
     return NextResponse.json(
-      { error: 'impossible...' },
+      'impossible...',
       { status: 500 },
+    );
+  }
+
+  // throw error if requester is a graduated student
+  if (requester.role === 3) {
+    return NextResponse.json(
+      'Graduated students may only view content',
+      { status: 400 },
     );
   }
 
@@ -95,9 +104,27 @@ export const POST = auth(async (req) => {
 
   const body = await req.json();
   const parsedBody = createProjectSchema.parse(body);
+
+  // if project with given name already exists, throw error
+  const existing = await prisma.project.findFirst({
+    where: {
+      OR: [
+        { projectName: parsedBody.projectName },
+        { projectProductionNumber: parsedBody.projectProductionNumber },
+      ]
+    }
+  });
+  if (existing) {
+    return NextResponse.json(
+      `Project with name \'${parsedBody.projectName}\' already exists`,
+      { status: 409 },
+    );
+  }
+
   try {
+    let project: Project;
     await prisma.$transaction(async prisma => {
-      const project = await prisma.project.create({
+      project = await prisma.project.create({
         data: { ...parsedBody }
       });
       for (let p = 0; p < todos.length; p++) {
@@ -111,13 +138,12 @@ export const POST = auth(async (req) => {
       }
     });
     return NextResponse.json(
-      { message: "Project added" },
+      project!,
       { status: 200 },
-    );
+  );
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      'Internal server error',
       { status: 500 },
     );
   }

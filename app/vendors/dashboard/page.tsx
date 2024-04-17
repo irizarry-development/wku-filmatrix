@@ -118,12 +118,13 @@ export default async function VendorDatabase(
         </form>
       </section>
       <section className="database-content">
-        <Table title="Vendors" headers={["Name", "Description", "Address", "Phone", "Email", "Contact", ""]}>
+        <Table title="Vendors" headers={["Name", "Description", "Address", "Phone", "Email", "Contact"]}>
           {vendorData.length > 0 &&
             vendorData.map((vendor, i) => (
               <TableRow
                 key={i}
                 type="Vendors"
+                singular='Vendor'
                 id={vendor.id}
                 name={vendor.vendorName}
                 fields={[

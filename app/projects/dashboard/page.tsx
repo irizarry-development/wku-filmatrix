@@ -127,13 +127,14 @@ export default async function ProjectPage({
       </section>
       <section className="database-content">
         <Table title="Projects" headers={
-          ['Name', 'Description', 'Runtime', 'Aspect Ratio', 'Rating', 'Category', 'Genre', 'Language', 'Shooting Format', 'Sound', 'Subtitled', 'Tagline', 'Log Line', '25 Word Pitch', '50 Word Pitch', '75 Word Pitch', '']
+          ['Name', 'Description', 'Runtime', 'Aspect Ratio', 'Rating', 'Category', 'Genre', 'Language', 'Shooting Format', 'Sound', 'Subtitled', 'Tagline', 'Log Line', '25 Word Pitch', '50 Word Pitch', '75 Word Pitch']
         }>
           {projectData.length > 0 &&
             projectData.map((project, i) => (
               <TableRow
                 key={i}
                 type="Projects"
+                singular='Project'
                 id={project.id}
                 name={project.projectName}
                 fields={[

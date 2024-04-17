@@ -10,12 +10,14 @@ interface PeopleProfilePageProps {
 }
 
 export default async function PeopleProfilePage({
-    params
+    params: {
+        id
+    }
 }: PeopleProfilePageProps) {
 
     const foundPerson = await prisma.user.findUnique({
         where: {
-            id: params.id
+            id: id
         }
     })
 

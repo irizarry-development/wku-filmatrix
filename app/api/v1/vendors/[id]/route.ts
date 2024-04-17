@@ -1,3 +1,4 @@
+import { NextResponse } from "next/server";
 import { auth } from "~/lib/auth";
 import prisma from "~/lib/prisma";
 import { createVendorSchema } from "~/lib/z";
@@ -5,10 +6,10 @@ import { createVendorSchema } from "~/lib/z";
 export const GET = auth(async (req) => {
 
     if (!req.auth || !req.auth.user || !req.auth.user.email) {
-        return new Response(JSON.stringify({ 
-            status: 401,
-            error: "Unauthorized"
-         }))
+        return NextResponse.json( 
+            'Unauthorized',
+            { status: 401 },
+        );
     }
 
     const id = req.url.split("/").pop()
@@ -20,90 +21,25 @@ export const GET = auth(async (req) => {
     });
 
     if (!vendor) {
-        return new Response(JSON.stringify({ 
-            status: 404
-         }))
+        return NextResponse.json(
+            'Vendor not found',
+            { status: 404 }
+        );
     }
 
-    return new Response(JSON.stringify({ 
-        status: 200,
-        vendor
-     }))
+    return NextResponse.json(
+        { vendor },
+        { status: 200 },
+    );
 }) as any
 
 export const PATCH = auth(async (req) => {
     
-        if (!req.auth || !req.auth.user || !req.auth.user.email) {
-            return new Response(JSON.stringify({ 
-                status: 401,
-                error: "Unauthorized"
-            }))
-        }
-
-        // get requester and validate
-        const requester = await prisma.user.findUnique({
-            where: {
-                email: req.auth.user.email
-            }
-        });
-        if (!requester) {
-            return new Response(JSON.stringify({
-                status: 500,
-                error: 'impossible...',
-            }));
-        }
-
-        // throw error if requester is not admin
-        if (requester.role !== 1) {
-            return new Response(JSON.stringify({
-                status: 400,
-                error: 'You cannot edit vendors.',
-            }));
-        }
-    
-        const id = req.url.split("/").pop();
-        const vendor = await prisma.vendor.findUnique({
-            where: {
-                id
-            }
-        });
-    
-        if (!vendor) {
-            return new Response(JSON.stringify({ 
-                status: 404
-            }))
-        }
-    
-        const body = await req.json()
-        const parsedBody = createVendorSchema.parse(body)
-
-        try {
-            await prisma.vendor.update({
-                where: {
-                    id
-                },
-                data: { ...parsedBody }
-            });
-
-            return new Response(JSON.stringify({ 
-                status: 200,
-                message: "Vendor updated"
-            }))
-        } catch (error) {
-            return new Response(JSON.stringify({ 
-                status: 500,
-                error: "Internal Server Error"
-            }))
-        }
-    }
-) as any
-
-export const DELETE = auth(async (req) => {
     if (!req.auth || !req.auth.user || !req.auth.user.email) {
-        return new Response(JSON.stringify({
-            status: 401,
-            error: "Unauthorized"
-        }));
+        return NextResponse.json(
+            'Unauthorized',
+            { status: 401 },
+        );
     }
 
     // get requester and validate
@@ -113,18 +49,111 @@ export const DELETE = auth(async (req) => {
         }
     });
     if (!requester) {
-        return new Response(JSON.stringify({
-            status: 500,
-            error: 'impossible...',
-        }));
+        return NextResponse.json(
+            'impossible...',
+            { status: 500 },
+        );
+    }
+
+    // throw error if requester is a graduated student
+    if (requester.role === 3) {
+        return NextResponse.json(
+            'Graduated students may only view content',
+            { status: 400 },
+        );
     }
 
     // throw error if requester is not admin
     if (requester.role !== 1) {
-        return new Response(JSON.stringify({
-            status: 400,
-            error: 'You cannot delete vendors.',
-        }));
+        return NextResponse.json(
+            'You cannot edit vendors.',
+            { status: 400 },
+        );
+    }
+
+    const id = req.url.split("/").pop();
+    const vendor = await prisma.vendor.findUnique({
+        where: {
+            id
+        }
+    });
+
+    if (!vendor) {
+        return NextResponse.json(
+            {}, { status: 404 },
+        );
+    }
+
+    const body = await req.json()
+    const parsedBody = createVendorSchema.parse(body)
+
+    // if vendor with given name already exists, throw error
+    const existing = await prisma.vendor.findUnique({
+        where: {
+            vendorName: parsedBody.vendorName
+        }
+    });
+    if (existing) {
+        return NextResponse.json(
+            `Vendor with name \'${parsedBody.vendorName}\' already exists`,
+            { status: 409 },
+        );
+    }
+
+    try {
+        await prisma.vendor.update({
+            where: {
+                id
+            },
+            data: { ...parsedBody }
+        });
+
+        return NextResponse.json(
+            {}, { status: 200 },
+        );
+    } catch (error) {
+        return NextResponse.json(
+            'Unexpected error updating vendor',
+            { status: 500 }
+        );
+    }
+}) as any
+
+export const DELETE = auth(async (req) => {
+    if (!req.auth || !req.auth.user || !req.auth.user.email) {
+        return NextResponse.json(
+            'Unauthorized',
+            { status: 401 },
+        );
+    }
+
+    // get requester and validate
+    const requester = await prisma.user.findUnique({
+        where: {
+            email: req.auth.user.email
+        }
+    });
+    if (!requester) {
+        return NextResponse.json(
+            'impossible...',
+            { status: 500 },
+        );
+    }
+
+    // throw error if requester is a graduated student
+    if (requester.role === 3) {
+        return NextResponse.json(
+            'Graduated students may only view content',
+            { status: 400 },
+        );
+    }
+
+    // throw error if requester is not admin
+    if (requester.role !== 1) {
+        return NextResponse.json(
+            'You cannot delete vendors',
+            { status: 400 },
+        );
     }
 
     // get vendor id from url
@@ -139,10 +168,10 @@ export const DELETE = auth(async (req) => {
 
     // if vendor does not exist, return error
     if (!vendor) {
-        return new Response(JSON.stringify({
-            status: 404,
-            error: 'Vendor not found',
-        }));
+        return NextResponse.json(
+            'Vendor not found',
+            { status: 404 },
+        );
     }
 
     // delete vendor
@@ -154,12 +183,12 @@ export const DELETE = auth(async (req) => {
 
     // return error if vendor was not deleted
     if (!deleted) {
-        return new Response(JSON.stringify({
-            status: 500,
-            error: `Unexpected error while deleting vendor ${id}`,
-        }));
+        return NextResponse.json(
+            `Unexpected error while deleting vendor ${id}`,
+            { status: 500 },
+        );
     }
-    return new Response(JSON.stringify({
-        status: 200,
-    }));
+    return NextResponse.json(
+        {}, { status: 200 },
+    );
 }) as any

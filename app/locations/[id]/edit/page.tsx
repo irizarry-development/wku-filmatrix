@@ -1,9 +1,9 @@
 "use client";
 
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import toast from "react-hot-toast";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import Button from "~/components/ui/Button";
@@ -15,66 +15,68 @@ interface EditLocationPageProps {
     }
 }
 
+type LocationData = {
+    locationName: string,
+    locationDescription: string,
+    locationAddress: string,
+    locationPhone: string,
+    locationEmail: string,
+    locationContactName: string,
+    locationKeywords: string,
+}
+
 export default function EditLocationPage({
     params: {
         id
     }
 }: EditLocationPageProps) {
-        
-            const router = useRouter();
+    const router = useRouter();
 
-            async function fetchLocationData() {
-                const foundLocation = await axios.get(`/api/v1/locations/${id}`); 
+    const fetchLocationData = useCallback(async () => {
+        try {
+            const foundLocation = await axios.get(`/api/v1/locations/${id}`);
+            setLocationData(foundLocation.data.location);
+        } catch (error) {
+            toast.error(`Error retrieving location ${id} - ${(error as AxiosError).response?.data}`);
+            router.push('/404');
+        }
+    }, [id, router]);
 
-                if (!foundLocation) {
-                    router.push('/404')
-                }
+    async function updateLocationData(formData: FormData) {
+        const updatedLocationData = {
+            locationName: formData.get("locationName"),
+            locationDescription: formData.get("locationDescription"),
+            locationAddress: formData.get("locationAddress"),
+            locationPhone: formData.get("locationPhone"),
+            locationEmail: formData.get("locationEmail"),
+            locationContactName: formData.get("locationContactName"),
+            locationKeywords: formData.get("locationKeywords")
+        };
 
-                setLocationData(foundLocation.data.location);
-            }
+        try {
+            await axios.patch(`/api/v1/locations/${id}`, updatedLocationData);
+            toast.success("Location updated");
+            router.push(`/locations/${id}`);  
+            router.refresh();
+        } catch (error) {
+            toast.error(`Failed to update location - ${((error as AxiosError).response?.data)}`);
+        }
+    }
 
-            async function updateLocationData(formData: FormData) {
-                const updatedLocationData = {
-                    locationName: formData.get("locationName"),
-                    locationDescription: formData.get("locationDescription"),
-                    locationAddress: formData.get("locationAddress"),
-                    locationPhone: formData.get("locationPhone"),
-                    locationEmail: formData.get("locationEmail"),
-                    locationContactName: formData.get("locationContactName"),
-                    locationKeywords: formData.get("locationKeywords")
-                };
+    const [locationData, setLocationData] = useState<LocationData|null>(null);
 
-                try {
-                    await axios.patch(`/api/v1/locations/${id}`, updatedLocationData);
+    useEffect(() => {
+        fetchLocationData();
+    }, [fetchLocationData]);
 
-                    toast.success("Location updated");
-
-                    router.push(`/locations/${id}`);  
-                    router.refresh();
-                } catch (error) {
-                    toast.error("Failed to update location");
-                }
-            }
-
-            const [locationData, setLocationData] = useState({
-                locationName: "",
-                locationDescription: "",
-                locationAddress: "",
-                locationPhone: "",
-                locationEmail: "",
-                locationContactName: "",
-                locationKeywords: ""
-            });
-
-            useEffect(() => {
-                fetchLocationData();
-            }, [id]);
-
-            return (
-                    <form className="form edit-resource-form" id="edit-location-form" action={updateLocationData}>
-                        <Link href="/locations" className="back-link">
-                            <FaArrowLeftLong />
-                        </Link>
+    return (
+        <form className="form edit-resource-form" id="edit-location-form" action={updateLocationData}>
+            <Link href="/locations/dashboard" className="back-link">
+                <FaArrowLeftLong />
+            </Link>
+            {
+                (locationData !== null) && (
+                    <>
                         <fieldset>
                             <legend>Edit Location</legend>
                             <Input
@@ -121,6 +123,9 @@ export default function EditLocationPage({
                             />
                         </fieldset>
                         <Button color="primary" content="Edit Location" />
-                    </form>
-            )
+                    </>
+                )
+            }
+        </form>
+    )
 }
