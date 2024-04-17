@@ -1,0 +1,22 @@
+section.project-checklist {
+
+  table {
+
+    tr {
+
+      td:not(.checklist-category) {
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: var(--gray-lighter);
+        padding: 0 1rem;
+      }
+
+      td.checklist-category {
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--gray-lighter);
+        padding: 1rem 0;
+      }
+    }
+  }
+}

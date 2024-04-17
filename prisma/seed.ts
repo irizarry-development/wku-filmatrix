@@ -114,7 +114,7 @@ async function main() {
                 projectFilmSubtitled: true,
                 projectTagline: 'Dive into the unknown.',
                 projectLogLine: 'A team of scientists and explorers ventures into the uncharted depths of the ocean, discovering wonders and terrors beyond imagination.',
-                project25WordPitch: 'Join an extraordinary expedition into the Earth’s last unexplored frontier, revealing the ocean’s deepest secrets and marvels.',
+                project25WordPitch: 'Join an extraordinary expedition into the Earth\'s last unexplored frontier, revealing the ocean\'s deepest secrets and marvels.',
                 project50WordPitch: 'Embarking on a perilous journey, a courageous crew explores the deepest parts of the ocean, uncovering new species and ancient mysteries.',
                 project75WordPitch: 'In an unprecedented exploration, scientists dive into the abyss of the oceans, facing challenges and making discoveries that change our understanding of life on Earth.',
             },

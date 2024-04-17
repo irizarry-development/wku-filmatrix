@@ -37,6 +37,11 @@ export default async function ProjectProfilePage({
                     projectData={foundProject}
                 />
             </section>
+            <section className="resource-page-content">
+                <Link href={`/projects/${params.id}/checklist`}>
+                    Checklist
+                </Link>
+            </section>
         </section>
     );
 }

@@ -69,6 +69,8 @@ model User {
   accounts                  Account[]
   sessions                  Session[]
   projects                  Project[]
+
+  approvals                 ProjectTodo[]
 }
 
 model Location {
@@ -123,14 +125,29 @@ model Project {
   project75WordPitch          String
 
   // Many to many users
-  users      User[]
-  locations  Location[]
-  vendors    Vendor[]
+  users       User[]
+  locations   Location[]
+  vendors     Vendor[]
+
+  todos       ProjectTodo[]
+}
+
+model ProjectTodo {
+  id            String      @id @default(cuid())
+  project       Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId     String
+
+  name          String
+  category      String
+  complete      Boolean     @default(false)
+  approvedDT    DateTime?
+  approver      User?       @relation(fields: [approverId], references: [id])
+  approverId    String?
 }
 
 model VerificationToken {
   identifier  String
-  token       String   @unique
+  token       String        @unique
   expires     DateTime
 
   @@unique([identifier, token])

@@ -154,7 +154,7 @@ export default async function ProjectPage({
                   project.project50WordPitch,
                   project.project75WordPitch,
                 ]}
-                deleteUrl="/api/v1/project" 
+                deleteUrl="/api/v1/projects"
               />
             ))}
         </Table>
