@@ -1,27 +1,25 @@
-import { ForwardedRef, forwardRef } from "react";
-import { MdClose } from "react-icons/md";
+import { ForwardedRef, forwardRef } from "react"
+import { MdClose } from "react-icons/md"
 
 interface ModalProps {
-    children: React.ReactNode;
-    toggleHandler: () => void;
+  children: React.ReactNode
+  toggleHandler: () => void
 }
 
-const Modal = ({ children, toggleHandler }: ModalProps,
-        ref: ForwardedRef<HTMLDialogElement>
-    ) => {
-        return (
-            <dialog className="modal" ref={ref}>
-                <section className="modal-body">
-                    <section className="modal-header">
-                        <MdClose
-                            className="modal-close"
-                            onClick={toggleHandler}
-                        />
-                    </section>
-                    <section className="modal-content">{children}</section>
-                </section>
-            </dialog>
-        );
-    }
+const Modal = (
+  { children, toggleHandler }: ModalProps,
+  ref: ForwardedRef<HTMLDialogElement>
+) => {
+  return (
+    <dialog className="modal" ref={ref}>
+      <section className="modal-body">
+        <section className="modal-header">
+          <MdClose className="modal-close" onClick={toggleHandler} />
+        </section>
+        <section className="modal-content">{children}</section>
+      </section>
+    </dialog>
+  )
+}
 
-export default forwardRef(Modal);
+export default forwardRef(Modal)

@@ -10,7 +10,7 @@ section.project-checklist {
   .project-todo {
     padding: 0.5rem 2rem 0.5rem;
     display: grid;
-    grid-template-columns: 1fr 10rem; 
+    grid-template-columns: 1fr 10rem;
 
     .todo-name {
       font-size: 1.4rem;

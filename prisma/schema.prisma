@@ -143,6 +143,7 @@ model ProjectTodo {
   approvedDT    DateTime?
   approver      User?       @relation(fields: [approverId], references: [id])
   approverId    String?
+  approverName  String?
 }
 
 model VerificationToken {

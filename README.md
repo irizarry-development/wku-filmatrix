@@ -120,17 +120,17 @@ If you run into an error, such as the credentials provided for `postgres` are no
 
 1. `sudo -u postgres psql`
 
-    This launches psql under the postgres username
+   This launches psql under the postgres username
 
 2. Make the prompt should look as below:
 
-    ```
-    postgres=# ALTER USER postgres PASSWORD 'postgres';
-    ALTER ROLE
-    postgres=#
-    ```
+   ```
+   postgres=# ALTER USER postgres PASSWORD 'postgres';
+   ALTER ROLE
+   postgres=#
+   ```
 
-    You can use a different password if you want.
+   You can use a different password if you want.
 
 Now you should be able to use the default URL provided above. If you wish to user a different user, or perhaps a different database all together, just make sure you replace the proper sections in the database URL, that way you can properly connect to the database.
 

@@ -1,5 +1,5 @@
 .login-form fieldset .login-buttons {
-    display: grid;
-    column-gap: 2rem;
-    grid-template-columns: 1fr 1fr;
+  display: grid;
+  column-gap: 2rem;
+  grid-template-columns: 1fr 1fr;
 }

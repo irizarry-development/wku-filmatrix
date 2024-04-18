@@ -1,115 +1,137 @@
 .people-header {
-    display: grid;
-    grid-template-columns: 1fr 10rem;
+  display: grid;
+  grid-template-columns: 1fr 10rem;
 }
 
 .people-header .btn {
-    justify-self: end;
-    align-self: center;
+  justify-self: end;
+  align-self: center;
 }
 
 .people-table {
-    display: grid;
-    row-gap: 1.6rem;
+  display: grid;
+  row-gap: 1.6rem;
 }
 
 .people-table .people-cards {
-    display: grid;
-    row-gap: 0.2rem;
-    background: var(--gray-darker);
+  display: grid;
+  row-gap: 0.2rem;
+  background: var(--gray-darker);
 }
 
 .people-table .people-cards .people-card {
-    display: grid;
-    grid-template-columns: 1fr 5rem;
-    justify-content: space-between;
-    background: #444;
+  display: grid;
+  grid-template-columns: 1fr 5rem;
+  justify-content: space-between;
+  background: #444;
 }
 
 .people-table .people-cards .people-card .people-card-meta {
-    display: grid;
-    grid-template-columns: 8rem auto;
-    color: white;
-    column-gap: 0.4rem;
+  display: grid;
+  grid-template-columns: 8rem auto;
+  color: white;
+  column-gap: 0.4rem;
 }
 
 .people-table .people-cards .people-card .people-card-open-details {
-    color: var(--red);
-    height: 3.2rem;
-    width: 3.2rem;
-    cursor: pointer;
-    align-self: center;
-    justify-self: end;
-    margin-right: 0.8rem;
+  color: var(--red);
+  height: 3.2rem;
+  width: 3.2rem;
+  cursor: pointer;
+  align-self: center;
+  justify-self: end;
+  margin-right: 0.8rem;
 }
 
 .people-table .people-cards .people-card .people-details {
-    grid-template-columns: 1fr 5rem;
-    grid-column: 1/3;
-    background: var(--gray-darker);
-    display: none;
+  grid-template-columns: 1fr 5rem;
+  grid-column: 1/3;
+  background: var(--gray-darker);
+  display: none;
 }
 
 .people-table .people-cards .people-card .people-details.open {
-    display: grid;
+  display: grid;
 }
 
-.people-table .people-cards .people-card .people-details .people-details-content {
-    padding: 0.4rem 1.2rem;
+.people-table
+  .people-cards
+  .people-card
+  .people-details
+  .people-details-content {
+  padding: 0.4rem 1.2rem;
 }
 
-.people-table .people-cards .people-card .people-details .people-details-content a {
-    text-decoration: none;
-    color: var(--red)
+.people-table
+  .people-cards
+  .people-card
+  .people-details
+  .people-details-content
+  a {
+  text-decoration: none;
+  color: var(--red);
 }
 
-.people-table .people-cards .people-card .people-details .people-action-buttons {
-    display: grid;
-    justify-self: end;
+.people-table
+  .people-cards
+  .people-card
+  .people-details
+  .people-action-buttons {
+  display: grid;
+  justify-self: end;
 }
 
 .people-table .people-cards .people-card .people-card-meta .people-card-image {
-    width: 8rem;
-    height: 8rem;
-    background: #aaa;
+  width: 8rem;
+  height: 8rem;
+  background: #aaa;
 }
 
-.people-table .people-cards .people-card .people-card-meta .people-card-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr; 
-    overflow: hidden;
+.people-table
+  .people-cards
+  .people-card
+  .people-card-meta
+  .people-card-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  overflow: hidden;
 }
 
-.people-table .people-cards .people-card .people-card-meta .people-card-details p {
-    font-size: 1.4rem;
-    align-self: center;
+.people-table
+  .people-cards
+  .people-card
+  .people-card-meta
+  .people-card-details
+  p {
+  font-size: 1.4rem;
+  align-self: center;
 }
 
 .people-card-edit,
 .people-card-view,
 .people-card-delete,
 .people-card-archive {
-    display: grid;
-    place-self: center;
-    padding: 1rem;
-    height: 2.4rem;
-    width: 2.4rem;
-    border-radius: 0.4rem;
-    cursor: pointer;
+  display: grid;
+  place-self: center;
+  padding: 1rem;
+  height: 2.4rem;
+  width: 2.4rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
 }
 
 .people-card-delete {
-    color: var(--danger-red);
+  color: var(--danger-red);
 }
 
 .people-card-view {
-    color: var(--bright-blue);
+  color: var(--bright-blue);
 }
 
 .people-card-edit {
-    color: var(--gold-dark);
+  color: var(--gold-dark);
 }
 
 .people-card-archive {
-    color: var(--gray-lightest);
+  color: var(--gray-lightest);
 }

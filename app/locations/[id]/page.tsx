@@ -1,56 +1,68 @@
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { FaArrowLeftLong } from 'react-icons/fa6';
-import prisma from '~/lib/prisma';
+import Link from "next/link"
+import { notFound } from "next/navigation"
+import { FaArrowLeftLong } from "react-icons/fa6"
+import prisma from "~/lib/prisma"
 
 interface LocationProfilePageProps {
-    params: {
-        id: string
-    }
+  params: {
+    id: string
+  }
 }
 
 export default async function LocationProfilePage({
-    params: {
-        id
-    }
+  params: { id }
 }: LocationProfilePageProps) {
-
-    const foundLocation = await prisma.location.findUnique({
-        where: {
-            id
-        }
-    });
-
-    if (!foundLocation) {
-        return notFound()
+  const foundLocation = await prisma.location.findUnique({
+    where: {
+      id
     }
+  })
 
-    const {
-        locationName,
-        locationDescription,
-        locationAddress,
-        locationPhone,
-        locationEmail,
-        locationContactName,
-        locationKeywords
-    } = foundLocation;
+  if (!foundLocation) {
+    return notFound()
+  }
 
-    return (
-        <section className="view-resource-page">
-            <section className="resource-page-header">
-                <Link href="/locations/dashboard" className="back-link">
-                    <FaArrowLeftLong />
-                </Link>
-                <h1>{locationName}</h1>
-            </section>
-            <section className="location-info">
-                <p>{locationDescription}</p>
-                <p><strong>Address: </strong>{locationAddress}</p>
-                <p><strong>Phone: </strong>{locationPhone}</p>
-                <p><strong>Email: </strong>{locationEmail}</p>
-                <p><strong>Contact Name: </strong>{locationContactName}</p>
-                <p><strong>Keywords: </strong>{locationKeywords}</p>
-            </section>
-        </section>
-    )
+  const {
+    locationName,
+    locationDescription,
+    locationAddress,
+    locationPhone,
+    locationEmail,
+    locationContactName,
+    locationKeywords
+  } = foundLocation
+
+  return (
+    <section className="view-resource-page">
+      <section className="resource-page-header">
+        <Link href="/locations/dashboard" className="back-link">
+          <FaArrowLeftLong />
+        </Link>
+        <h1>{locationName}</h1>
+      </section>
+      <section className="location-info">
+        <p>{locationDescription}</p>
+        <p>
+          <strong>Address: </strong>
+          {locationAddress}
+        </p>
+        <p>
+          <strong>Phone: </strong>
+          {locationPhone}
+        </p>
+        <p>
+          <strong>Email: </strong>
+          {locationEmail}
+        </p>
+        <p>
+          <strong>Contact Name: </strong>
+          {locationContactName}
+        </p>
+        <p>
+          <strong>Keywords: </strong>
+          {locationKeywords}
+        </p>
+      </section>
+    </section>
+  )
 }
