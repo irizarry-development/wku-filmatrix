@@ -10,6 +10,7 @@
 @import 'ui/drawer.css';
 @import 'ui/projectTodo.css';
 
+@import "pages/main.css";
 @import "pages/login.css";
 @import "pages/onboarding.css";
 @import "pages/people.css";

@@ -1,3 +1,47 @@
+.drawer {
+    display: grid;
+    background: var(--gray-darker);
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.15);
+}
+
+.drawer .drawer-header {
+    display: grid;
+    grid-template-columns: 1fr 3rem;
+    margin: 2rem;
+    cursor: pointer;
+}
+
+.drawer .drawer-header h2 {
+    align-self: center;
+    margin: 0;
+}
+
+.drawer .drawer-header .drawer-header-icon {
+    font-size: 2.4rem;
+    align-self: center;
+    color: var(--red-dark);
+    cursor: pointer;
+    transition: transform 150ms ease-in-out;
+}
+
+.drawer .drawer-header .drawer-header-icon.open {
+    transform: rotate(180deg);
+}
+
+.drawer .drawer-content {
+    height: 0;
+    overflow-y: hidden;
+    transition: height 150ms ease-in-out;
+    background: var(--gray-text);
+}
+
+.drawer.open .drawer-content {
+    height: 100%;
+    overflow-y:visible;
+}
+
+/*
+
 .drawer-container {
     display: flex;
     flex-direction: column;
@@ -6,7 +50,6 @@
     max-width: 90%;
     align-items: stretch;
     margin: 2rem auto; 
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .drawer-container button {
@@ -46,4 +89,4 @@
     color: var(--gray-lightest);
     padding: 0.5rem 1rem;
     background: var(--gray-darkest);
-}
+} */

@@ -1,22 +1,42 @@
 section.project-checklist {
+  display: grid;
+  row-gap: 1rem;
 
-  table {
+  .drawer-content {
+    display: grid;
+    grid-auto-flow: row;
+  }
 
-    tr {
+  .project-todo {
+    padding: 0.5rem 2rem 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 10rem; 
 
-      td:not(.checklist-category) {
-        font-size: 1.4rem;
-        font-weight: 400;
-        color: var(--gray-lighter);
-        padding: 0 1rem;
-      }
+    .todo-name {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin: 0;
+      align-self: center;
+      color: var(--gray-lightest);
+    }
 
-      td.checklist-category {
-        font-size: 2rem;
-        font-weight: 600;
-        color: var(--gray-lighter);
-        padding: 1rem 0;
-      }
+    .todo-approver {
+      place-self: center;
+      margin: 0;
+      color: var(--gray-lightest);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+    }
+
+    &.approved {
+      column-gap: 2rem;
+      grid-template-columns: 2fr 1fr 10rem;
+    }
+
+    &:nth-child(even) {
+      background: #444;
     }
   }
 }
