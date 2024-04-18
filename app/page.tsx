@@ -127,7 +127,7 @@ export default async function Home() {
     const _renderLinks = (links: HomepageLink[]) => {
         return links.map(({ url, text }, index) => {
             return (
-                <section className="homepage-link">
+                <section className="homepage-link" key={index}>
                     <p>{text}</p>
                     <Link className="btn" href={url}>
                         Visit
