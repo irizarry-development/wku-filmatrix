@@ -32,9 +32,21 @@ export default async function PeopleProfilePage({
         classYear,
         hasOnboarded,
         address,
-        credit
+        credit,
+        role
     } = foundPerson
 
+    const _renderRole = (role: number) => {
+        switch( role ) {
+            case 1: 
+                return "Admin"
+            case 3:
+                return "Graduate"
+            case 2:
+            default:
+                return "Student"
+        }
+    }
 
     return (
         <section className="view-resource-page">
@@ -43,6 +55,7 @@ export default async function PeopleProfilePage({
                     <FaArrowLeftLong />
                 </Link>
                 <h1>{name}</h1>
+                <p>{_renderRole(role)}</p>
             </section>
             
             <section className="resource-page-content">
