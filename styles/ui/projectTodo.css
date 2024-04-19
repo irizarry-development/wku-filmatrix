@@ -11,6 +11,7 @@ section.project-checklist {
     padding: 0.5rem 2rem 0.5rem;
     display: grid;
     grid-template-columns: 1fr 10rem;
+    background: #444;
 
     .todo-name {
       font-size: 1.4rem;
@@ -36,7 +37,7 @@ section.project-checklist {
     }
 
     &:nth-child(even) {
-      background: #444;
+      background: #555;
     }
   }
 }

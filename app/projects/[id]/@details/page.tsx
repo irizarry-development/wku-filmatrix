@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation"
-import Drawer from "~/components/ui/Drawer";
+import { BsCameraReelsFill } from "react-icons/bs"
+import DashboardContainer from "~/components/ui/DashboardContainer"
+import Drawer from "~/components/ui/Drawer"
 import prisma from "~/lib/prisma"
 
 interface ProjectDetailsProps {
@@ -16,55 +18,89 @@ export default async function ProjectDetails({
       id
     },
     select: {
-        projectName: true,
-        projectDescription: true,
-        projectRuntime: true,
-        projectAspectRatio: true,
-        projectRating: true,
-        projectRatingCriteria: true,
-        projectProductionNumber: true,
-        projectCategory: true,
-        projectGenre: true,
-        projectLanguage: true,
-        projectShootingFormat: true,
-        projectFilmSound: true,
-        projectFilmSubtitled: true,
-        projectTagline: true,
-        projectLogLine: true,
-        project25WordPitch: true,
-        project50WordPitch: true,
-        project75WordPitch: true, 
+      projectName: true,
+      projectDescription: true,
+      projectRuntime: true,
+      projectAspectRatio: true,
+      projectRating: true,
+      projectRatingCriteria: true,
+      projectProductionNumber: true,
+      projectCategory: true,
+      projectGenre: true,
+      projectLanguage: true,
+      projectShootingFormat: true,
+      projectFilmSound: true,
+      projectFilmSubtitled: true,
+      projectTagline: true,
+      projectLogLine: true,
+      project25WordPitch: true,
+      project50WordPitch: true,
+      project75WordPitch: true
     }
-  });
+  })
 
   if (!foundProject) {
     return notFound()
   }
 
   return (
-    <section className="project-details">
-        <h3>{foundProject.projectName}</h3>
-        <Drawer
-            title="Project Details"
-        >
-        <p>Description: {foundProject.projectDescription}</p>
-        <p>Runtime: {foundProject.projectRuntime}</p>
-        <p>Aspect Ratio: {foundProject.projectAspectRatio}</p>
-        <p>Rating: {foundProject.projectRating}</p>
-        <p>Rating Criteria: {foundProject.projectRatingCriteria}</p>
-        <p>Production Number: {foundProject.projectProductionNumber}</p>
-        <p>Category: {foundProject.projectCategory}</p>
-        <p>Genre: {foundProject.projectGenre}</p>
-        <p>Language: {foundProject.projectLanguage}</p>
-        <p>Shooting Format: {foundProject.projectShootingFormat}</p>
-        <p>Film Sound: {foundProject.projectFilmSound}</p>
-        <p>Film Subtitled: {foundProject.projectFilmSubtitled}</p>
-        <p>Tagline: {foundProject.projectTagline}</p>
-        <p>Log Line: {foundProject.projectLogLine}</p>
-        <p>25 Word Pitch: {foundProject.project25WordPitch}</p>
-        <p>50 Word Pitch: {foundProject.project50WordPitch}</p>
-        <p>75 Word Pitch: {foundProject.project75WordPitch}</p>
-        </Drawer>
-    </section>
+    <DashboardContainer
+      headerText="Project Details"
+      headerIcon={<BsCameraReelsFill />}
+    >
+      <p>
+        <strong>Description:</strong> {foundProject.projectDescription}
+      </p>
+      <p>
+        <strong>Runtime:</strong> {foundProject.projectRuntime}
+      </p>
+      <p>
+        <strong>Aspect Ratio:</strong> {foundProject.projectAspectRatio}
+      </p>
+      <p>
+        <strong>Rating:</strong> {foundProject.projectRating}
+      </p>
+      <p>
+        <strong>Rating Criteria:</strong> {foundProject.projectRatingCriteria}
+      </p>
+      <p>
+        <strong>Production Number:</strong>{" "}
+        {foundProject.projectProductionNumber}
+      </p>
+      <p>
+        <strong>Category:</strong> {foundProject.projectCategory}
+      </p>
+      <p>
+        <strong>Genre:</strong> {foundProject.projectGenre}
+      </p>
+      <p>
+        <strong>Language:</strong> {foundProject.projectLanguage}
+      </p>
+      <p>
+        <strong>Shooting Format:</strong> {foundProject.projectShootingFormat}
+      </p>
+      <p>
+        <strong>Film Sound:</strong> {foundProject.projectFilmSound}
+      </p>
+      <p>
+        <strong>Film Subtitled:</strong>{" "}
+        {foundProject.projectFilmSubtitled ? "Yes" : "No"}
+      </p>
+      <p>
+        <strong>Tagline:</strong> {foundProject.projectTagline}
+      </p>
+      <p>
+        <strong>Log Line:</strong> {foundProject.projectLogLine}
+      </p>
+      <p>
+        <strong>25 Word Pitch:</strong> {foundProject.project25WordPitch}
+      </p>
+      <p>
+        <strong>50 Word Pitch:</strong> {foundProject.project50WordPitch}
+      </p>
+      <p>
+        <strong>75 Word Pitch:</strong> {foundProject.project75WordPitch}
+      </p>
+    </DashboardContainer>
   )
 }

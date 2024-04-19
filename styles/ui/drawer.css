@@ -2,12 +2,14 @@
   display: grid;
   background: var(--gray-darker);
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.15);
+  position: relative;
 
   .drawer-header {
     display: grid;
     grid-template-columns: 1fr 3rem;
     margin: 2rem;
     cursor: pointer;
+    z-index: 1;
 
     h2 {
       align-self: center;
@@ -32,6 +34,10 @@
     overflow-y: hidden;
     transition: height 150ms ease-in-out;
     background: var(--gray-text);
+    position: absolute;
+    top: 7.2rem;
+    width: 100%;
+    z-index: 2;
   }
 
   &.open .drawer-content {

@@ -4,13 +4,11 @@ import { ProjectTodo } from "@prisma/client"
 import axios, { AxiosError } from "axios"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
-import { formatFromISO8601 } from "~/lib/utils"
 
 export default function ProjectTodoComponent({
   id,
   name,
   complete,
-  approverId,
   approvedDT,
   approverName
 }: ProjectTodo) {
@@ -29,15 +27,9 @@ export default function ProjectTodoComponent({
   }
 
   return (
-    <section className={`project-todo ${complete && "approved"}`}>
+    <section className="project-todo" title={complete ? `Approved by ${approverName} on ${new Date(approvedDT || "").toLocaleString()}` : "Available to mark as completed"}>
       <p className="todo-name">{name}</p>
 
-      {approverId && (
-        <p className="todo-approver">
-          Approved by <strong>{approverName}</strong> on{" "}
-          <em>{new Date(approvedDT || "").toLocaleString()}</em>
-        </p>
-      )}
       {complete ? (
         <button className="btn sm outline" disabled={true}>
           Approved

@@ -1,12 +1,13 @@
 import prisma from "~/lib/prisma"
 import Link from "next/link"
-import { FaArrowLeftLong } from "react-icons/fa6"
+import { FaArrowLeftLong, FaRegCircleCheck } from "react-icons/fa6"
 import { notFound } from "next/navigation"
 import React, { Fragment } from "react"
 import { formatFromISO8601 } from "~/lib/utils"
 import Drawer from "~/components/ui/Drawer"
 import { ProjectTodo } from "@prisma/client"
 import ProjectTodoComponent from "~/components/projects/ProjectTodoComponent"
+import DashboardContainer from "~/components/ui/DashboardContainer"
 
 interface ProjectChecklistPageProps {
   params: {
@@ -45,11 +46,14 @@ export default async function ProjectChecklistPage({
   }
 
   return (
-    <Fragment>
-        <h1>Project Checklist</h1>
-        <section className="project-checklist">
-          {_renderCategories(todos)}
-        </section>
-    </Fragment>
+    <DashboardContainer
+      headerText="Project Checklist"
+      headerIcon={<FaRegCircleCheck />}
+      additionalClasses="project-checklist-container"
+    >
+      <section className="project-checklist">
+        {_renderCategories(todos)}
+      </section>
+    </DashboardContainer>
   )
 }

@@ -9,10 +9,12 @@
 @import "ui/projectTodo.css";
 @import "ui/drawer.css";
 @import "ui/projectTodo.css";
+@import "ui/dashboard.css";
 
 @import "pages/main.css";
 @import "pages/login.css";
 @import "pages/onboarding.css";
+@import "pages/project-view.css";
 @import "pages/resources/resource-dashboard.css";
 @import "pages/resources/add-resource.css";
 @import "pages/resources/view-resource.css";

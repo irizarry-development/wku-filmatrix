@@ -1,6 +1,8 @@
 import Drawer from "~/components/ui/Drawer";
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma"
+import DashboardContainer from "~/components/ui/DashboardContainer";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 export default async function LocationList({
     params: { id }
@@ -21,9 +23,10 @@ export default async function LocationList({
     })
 
     return (
-        <section className="project-locations">
-            <Drawer title="Locations">
-
+        <DashboardContainer
+            headerText="Locations"
+            headerIcon={<FaMapMarkerAlt />}
+        >
             {
                 associatedLocations.map(({ id, locationName }) => {
                     return (
@@ -31,7 +34,6 @@ export default async function LocationList({
                     )
                 })
             }
-            </Drawer>
-        </section>
+        </DashboardContainer>
     )
 }

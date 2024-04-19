@@ -1,6 +1,8 @@
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma"
 import Drawer from "~/components/ui/Drawer";
+import DashboardContainer from "~/components/ui/DashboardContainer";
+import { FaSuitcase } from "react-icons/fa6";
 
 export default async function ProjectVendors({
     params: { id }
@@ -21,9 +23,10 @@ export default async function ProjectVendors({
     })
 
     return (
-        <section className="project-vendors">
-            <Drawer title="Vendors">
-
+        <DashboardContainer
+            headerText="Vendors"
+            headerIcon={<FaSuitcase />}
+        >
             {
                 associatedVendors.map(({ id, vendorName }) => {
                     return (
@@ -31,7 +34,6 @@ export default async function ProjectVendors({
                     )
                 })
             }
-            </Drawer>
-        </section>
+        </DashboardContainer>
     )
 }

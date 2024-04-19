@@ -1,3 +1,5 @@
+import { FaUserFriends } from "react-icons/fa"
+import DashboardContainer from "~/components/ui/DashboardContainer"
 import Drawer from "~/components/ui/Drawer"
 import prisma from "~/lib/prisma"
 
@@ -26,12 +28,14 @@ export default async function PeopleList({ params: { id } }: PeopleListProps) {
   console.log(associatedPeople)
 
   return (
-    <section className="people-list">
-      <Drawer title="People">
-        {associatedPeople.map(({ id, name }) => {
-          return <p key={id}>{name}</p>
-        })}
-      </Drawer>
-    </section>
+    <DashboardContainer
+      headerText="Associated People"
+      headerIcon={<FaUserFriends />}
+    >
+      {associatedPeople.map(({ id, name }) => {
+        return <p key={id}>{name}</p>
+      })}
+
+    </DashboardContainer>
   )
 }
