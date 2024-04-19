@@ -35,7 +35,7 @@ export default function ProjectTodoComponent({
       {approverId && (
         <p className="todo-approver">
           Approved by <strong>{approverName}</strong> on{" "}
-          <em>{formatFromISO8601(new Date(approvedDT || "").toISOString())}</em>
+          <em>{new Date(approvedDT || "").toLocaleString()}</em>
         </p>
       )}
       {complete ? (
