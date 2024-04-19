@@ -27,13 +27,7 @@ export default function ProjectTabs({ projectData }: ProjectTabProps) {
           className={activeTab === "crew" ? "active" : ""}
           onClick={() => _handleTab("crew")}
         >
-          Crew
-        </button>
-        <button
-          className={activeTab === "cast" ? "active" : ""}
-          onClick={() => _handleTab("cast")}
-        >
-          Cast
+          People
         </button>
         <button
           className={activeTab === "locations" ? "active" : ""}

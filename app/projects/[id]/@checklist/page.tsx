@@ -2,7 +2,7 @@ import prisma from "~/lib/prisma"
 import Link from "next/link"
 import { FaArrowLeftLong } from "react-icons/fa6"
 import { notFound } from "next/navigation"
-import React from "react"
+import React, { Fragment } from "react"
 import { formatFromISO8601 } from "~/lib/utils"
 import Drawer from "~/components/ui/Drawer"
 import { ProjectTodo } from "@prisma/client"
@@ -21,13 +21,6 @@ interface ProjectTodoCategory {
 export default async function ProjectChecklistPage({
   params
 }: ProjectChecklistPageProps) {
-  const project = await prisma.project.findUnique({
-    where: {
-      id: params.id
-    }
-  })
-
-  if (!project) return notFound()
 
   const todos = await prisma.projectTodo.findMany({
     where: { projectId: params.id }
@@ -52,18 +45,11 @@ export default async function ProjectChecklistPage({
   }
 
   return (
-    <section className="view-resource-page">
-      <section className="resource-page-header">
-        <Link href={`/projects/dashboard`} className="back-link">
-          <FaArrowLeftLong />
-        </Link>
-        <h1>{project.projectName} Checklist</h1>
-      </section>
-      <section className="resource-page-content">
+    <Fragment>
+        <h1>Project Checklist</h1>
         <section className="project-checklist">
           {_renderCategories(todos)}
         </section>
-      </section>
-    </section>
+    </Fragment>
   )
 }

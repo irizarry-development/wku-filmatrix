@@ -33,6 +33,8 @@ export async function POST(req: NextRequest) {
 
     const hashedPassword = await hash(saltedPassword, 10)
 
+    // TODO: Select only the fields that are needed
+
     const { saltedPassword: _saltedPassword, ...rest } =
       await prisma.user.create({
         data: {
