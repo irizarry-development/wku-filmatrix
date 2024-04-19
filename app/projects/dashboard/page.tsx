@@ -104,7 +104,7 @@ export default async function ProjectPage({
         </Link>
         <form
           id="project-search-form"
-          className="database-search-form"
+          className="form database-search-form"
           action={`/projects/dashboard`}
           method="GET"
         >

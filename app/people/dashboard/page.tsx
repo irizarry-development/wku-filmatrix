@@ -70,7 +70,7 @@ export default async function PeopleDatabase({
         </Link>
         <form
           id="people-search-form"
-          className="database-search-form"
+          className="form database-search-form"
           action={`/people/dashboard`}
           method="GET"
         >

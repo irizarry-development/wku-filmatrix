@@ -13,8 +13,7 @@
 @import "pages/main.css";
 @import "pages/login.css";
 @import "pages/onboarding.css";
-@import "pages/people.css";
-@import "pages/database-page.css";
-@import "pages/add-resource.css";
-@import "pages/view-resource.css";
-@import "pages/edit-resource.css";
+@import "pages/resources/resource-dashboard.css";
+@import "pages/resources/add-resource.css";
+@import "pages/resources/view-resource.css";
+@import "pages/resources/edit-resource.css";
