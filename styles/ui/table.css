@@ -1,6 +1,8 @@
 .searchable-table {
   overflow-x: scroll;
   max-width: calc(100vw - 9rem);
+
+  
 }
 
 .table {
@@ -9,45 +11,44 @@
   border-collapse: collapse;
   font-size: 1.2rem;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
 
-.table .table-header tr {
-  background-color: var(--red);
-  color: #ffffff;
-  text-align: left;
-}
+  th, td {
+    padding: 1.2rem 1.5rem;
+  }
 
-.table th,
-.table td {
-  padding: 1.2rem 1.5rem;
-}
+  .table-header tr {
+    background-color: var(--red);
+    color: #ffffff;
+    text-align: left;
+  }
 
-.table .table-body tr {
-  background: var(--gray-lighter);
-}
+  .table-body {
+    tr {
+      background: var(--gray-lighter);
 
-.table .table-body tr:nth-of-type(even) {
-  background-color: var(--gray-lightest);
-}
+      &:nth-of-type(even) {
+        background: var(--gray-lightest);
+      }
+    }
 
-.table .table-body .database-actions {
-  text-decoration: none;
-  font-size: 2rem;
-  display: grid;
-  grid-auto-flow: column;
-  column-gap: 1rem;
-  place-content: center;
-  vertical-align: middle;
-}
+    .database-actions {
+      text-decoration: none;
+      font-size: 2rem;
+      display: grid;
+      grid-auto-flow: column;
+      column-gap: 1rem;
 
-.table .table-body .database-actions .database-action-view {
-  color: var(--bright-blue-dark);
-}
+      .database-action-view {
+        color: var(--bright-blue-dark);
+      }
 
-.table .table-body .database-actions .database-action-edit {
-  color: var(--gold-dark);
-}
+      .database-action-edit {
+        color: var(--gold-dark);
+      }
 
-.table .table-body .database-actions .database-action-delete {
-  color: var(--danger-red);
+      .database-action-delete {
+        color: var(--danger-red);
+      }
+    }
+  }
 }

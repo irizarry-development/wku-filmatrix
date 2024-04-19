@@ -2,91 +2,40 @@
   display: grid;
   background: var(--gray-darker);
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.15);
-}
 
-.drawer .drawer-header {
-  display: grid;
-  grid-template-columns: 1fr 3rem;
-  margin: 2rem;
-  cursor: pointer;
-}
-
-.drawer .drawer-header h2 {
-  align-self: center;
-  margin: 0;
-}
-
-.drawer .drawer-header .drawer-header-icon {
-  font-size: 2.4rem;
-  align-self: center;
-  color: var(--red-dark);
-  cursor: pointer;
-  transition: transform 150ms ease-in-out;
-}
-
-.drawer .drawer-header .drawer-header-icon.open {
-  transform: rotate(180deg);
-}
-
-.drawer .drawer-content {
-  height: 0;
-  overflow-y: hidden;
-  transition: height 150ms ease-in-out;
-  background: var(--gray-text);
-}
-
-.drawer.open .drawer-content {
-  height: 100%;
-  overflow-y: visible;
-}
-
-/*
-
-.drawer-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 90%;
-    align-items: stretch;
-    margin: 2rem auto; 
-}
-
-.drawer-container button {
-    width: 100%; 
-    padding: 1rem; 
-    background-color: var(--gray-darker); 
-    color: var(--white); 
-    border: none; 
+  .drawer-header {
+    display: grid;
+    grid-template-columns: 1fr 3rem;
+    margin: 2rem;
     cursor: pointer;
-    border-radius: 5px; 
-    font-size: large;
-}
 
-.drawer-content a {
-    padding: 1.2rem 1.5rem;
-    background-color: var(--gray-text);
-    color: var(--white);
-    text-decoration: none;
-    border-radius: 5px; 
-    margin-top: 0.5rem; 
-    text-align: center;
-    font-size: larger;
-}
+    h2 {
+      align-self: center;
+      margin: 0;
+    }
 
-.drawer-content a:hover {
-    background-color: var(--red-dark);
-}
+    .drawer-header-icon {
+      font-size: 2.4rem;
+      align-self: center;
+      color: var(--red-dark);
+      cursor: pointer;
+      transition: transform 150ms ease-in-out;
 
-.drawer-fieldset {
-    border: 0.1rem dotted var(--gray-muted);
-    padding: 2rem;
-}
+      &.open {
+        transform: rotate(180deg);
+      }
+    }
+  }
 
-.drawer-legend {
-    font-size: 2.6rem;
-    font-weight: 600;
-    color: var(--gray-lightest);
-    padding: 0.5rem 1rem;
-    background: var(--gray-darkest);
-} */
+  .drawer-content {
+    height: 0;
+    overflow-y: hidden;
+    transition: height 150ms ease-in-out;
+    background: var(--gray-text);
+  }
+
+  &.open .drawer-content {
+    height: 100%;
+    overflow-y: visible;
+  }
+}

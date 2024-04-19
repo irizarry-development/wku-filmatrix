@@ -11,8 +11,6 @@ import { toggleModal } from "~/lib/modal"
 import Modal from "../Modal"
 import Button from "../Button"
 
-import "~/styles/ui/tablerow.css"
-
 export default function TableRow(props: {
   type: string
   singular: string
@@ -61,13 +59,10 @@ export default function TableRow(props: {
         >
           <FaPenToSquare />
         </Link>
-
-        <button
-          className="delete-button"
+        <FaTrashCan
+          className="database-action-delete"
           onClick={() => toggleModal(dialogRef)}
-        >
-          <FaTrashCan className="database-action-delete" />
-        </button>
+        />
 
         <Modal ref={dialogRef} toggleHandler={() => toggleModal(dialogRef)}>
           <section className="delete-confirmation">

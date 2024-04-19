@@ -1,43 +1,4 @@
-.preview-buttons {
-  display: grid;
-}
-
-.preview-button {
-  display: grid;
-  grid-gap: 2rem;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
-  justify-items: start;
-}
-
-.btn.sm {
-  padding: 0.5rem 1.5rem;
-  font-size: 1.2rem;
-}
-
-.btn.lg {
-  padding: 1rem 3rem;
-  font-size: 1.6rem;
-}
-
-.btn.left {
-  justify-self: start;
-}
-
-.btn.right {
-  justify-self: end;
-}
-
-.btn.top {
-  align-self: start;
-}
-
-.btn.bottom {
-  align-self: end;
-}
-
-.btn,
-input[type="file"]::file-selector-button {
+.btn {
   font-size: 1.4rem;
   font-weight: 400;
   background: var(--red-dark);
@@ -47,82 +8,108 @@ input[type="file"]::file-selector-button {
   border: 0.1rem solid var(--red-dark);
   line-height: 2rem;
   transition: 300ms ease-in-out;
-}
 
-.btn:disabled {
-  cursor: default;
-}
+  &.sm {
+    padding: 0.5rem 1.5rem;
+    font-size: 1.2rem;
+  }
 
-.btn:hover,
-input[type="file"]::file-selector-button:hover {
-  background: var(--red-darker);
-  border: 0.1rem solid var(--red-darker);
-}
+  &.lg {
+    padding: 1rem 3rem;
+    font-size: 1.6rem;
+  }
 
-.btn.secondary {
-  background: var(--gray-darkest);
-  border: 0.1rem solid var(--gray-muted);
-  color: var(--gray-muted);
-}
+  &.left {
+    justify-self: start;
+  }
 
-.btn.secondary:not(:disabled):hover {
-  background: var(--red);
-  border: 0.1rem solid var(--red-darker);
-  color: var(--white);
-}
+  &.right {
+    justify-self: end;
+  }
 
-.btn.outline {
-  background: var(--gray-darkest);
-  border: 0.1rem solid var(--red-dark);
-  color: var(--red-dark);
-}
+  &.top {
+    align-self: start;
+  }
 
-.btn.outline:not(:disabled):hover {
-  background: var(--red-dark);
-  border: 0.1rem solid var(--red-darker);
-  color: var(--white);
-}
+  &.bottom {
+    align-self: end;
+  }
 
-.btn.success {
-  background: var(--green);
-  border: 0.1rem solid var(--green);
-  color: var(--white);
-}
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 
-.btn.success:not(:disabled):hover {
-  background: var(--green-dark);
-  border: 0.1rem solid var(--green-dark);
-}
+  &:hover {
+    background: var(--red);
+    border: 0.1rem solid var(--red-darker);
+  }
 
-.btn.info {
-  background: var(--bright-blue);
-  border: 0.1rem solid var(--bright-blue);
-  color: var(--gray-darkest);
-}
+  &.secondary {
+    background: var(--gray-darkest);
+    border: 0.1rem solid var(--gray-muted);
+    color: var(--gray-muted);
 
-.btn.info:not(:disabled):hover {
-  background: var(--bright-blue-dark);
-  border: 0.1rem solid var(--bright-blue-dark);
-}
+    &:hover {
+      background: var(--red);
+      border: 0.1rem solid var(--red-darker);
+      color: var(--white);
+    }
+  }
 
-.btn.warning {
-  background: var(--gold);
-  border: 0.1rem solid var(--gold);
-  color: var(--gray-darkest);
-}
+  &.outline {
+    background: var(--gray-darkest);
+    border: 0.1rem solid var(--red-dark);
+    color: var(--red-dark);
 
-.btn.warning:not(:disabled):hover {
-  background: var(--gold-dark);
-  border: 0.1rem solid var(--gold-dark);
-}
+    &:hover {
+      background: var(--red-dark);
+      border: 0.1rem solid var(--red-darker);
+      color: var(--white);
+    }
+  }
 
-.btn.danger {
-  background: var(--danger-red);
-  border: 0.1rem solid var(--danger-red);
-  color: var(--white);
-}
+  &.success {
+    background: var(--green);
+    border: 0.1rem solid var(--green);
+    color: var(--white);
 
-.btn.danger:not(:disabled):hover {
-  background: var(--light-red);
-  border: 0.1rem solid var(--light-red);
+    &:hover {
+      background: var(--green-dark);
+      border: 0.1rem solid var(--green-dark);
+    }
+  }
+
+  &.info {
+    background: var(--bright-blue);
+    border: 0.1rem solid var(--bright-blue);
+    color: var(--gray-darkest);
+
+    &:hover {
+      background: var(--bright-blue-dark);
+      border: 0.1rem solid var(--bright-blue-dark);
+    }
+  }
+
+  &.warning {
+    background: var(--gold);
+    border: 0.1rem solid var(--gold);
+    color: var(--gray-darkest);
+
+    &:hover {
+      background: var(--gold-dark);
+      border: 0.1rem solid var(--gold-dark);
+    }
+  }
+
+  &.danger {
+    background: var(--danger-red);
+    border: 0.1rem solid var(--danger-red);
+    color: var(--white);
+
+    &:hover {
+      background: var(--light-red);
+      border: 0.1rem solid var(--light-red);
+    }
+  }
 }

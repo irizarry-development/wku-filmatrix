@@ -67,7 +67,7 @@ export default async function VendorDatabase({
         </Link>
         <form
           id="vendor-search-form"
-          className="database-search-form"
+          className="form database-search-form"
           action={`/vendors/dashboard`}
           method="GET"
         >

@@ -68,7 +68,7 @@ export default async function LocationDatabase({
 
         <form
           id="location-search-form"
-          className="database-search-form"
+          className="form database-search-form"
           action={`/locations/dashboard`}
           method="GET"
         >
