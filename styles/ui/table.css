@@ -48,6 +48,7 @@
 
       .database-action-delete {
         color: var(--danger-red);
+        cursor: pointer;
       }
     }
   }
