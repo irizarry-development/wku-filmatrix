@@ -133,7 +133,7 @@ model Project {
   crew        Crew[]
   cast        Cast[]
   todos       ProjectTodo[]
-  festivals   FestivalProject[]
+  festivals   Festival[]
 }
 
 model ProjectMedia {
@@ -144,15 +144,16 @@ model ProjectMedia {
 }
 
 model Crew {
+  id            String      @id @default(cuid())
   user          User        @relation(fields: [userId], references: [id])
   userId        String
   project       Project     @relation(fields: [projectId], references: [id])
   projectId     String
 
   category      String
-  position      String
+  role          String
 
-  @@id([userId, projectId])
+  @@unique([userId, projectId])
 }
 
 model Actor {
@@ -166,6 +167,7 @@ model Actor {
 }
 
 model Cast {
+  id            String      @id @default(cuid())
   actor         Actor       @relation(fields: [actorId], references: [id])
   actorId       String
   project       Project     @relation(fields: [projectId], references: [id])
@@ -174,7 +176,7 @@ model Cast {
   role          String
   type          String
 
-  @@id([actorId, projectId])
+  @@unique([actorId, projectId])
 }
 
 model ProjectTodo {
@@ -192,27 +194,18 @@ model ProjectTodo {
 }
 
 model Festival {
-  id          String    @id @default(cuid())
-  name        String
-  fflink      String?
-
-  projects    FestivalProject[]
-}
-
-model FestivalProject {
-  festival          Festival    @relation(fields: [festivalId], references: [id])
-  festivalId        String
+  id                String      @id @default(cuid())
   project           Project     @relation(fields: [projectId], references: [id])
   projectId         String
 
+  name              String
+  fflink            String?
   strategy          String?
   email             String?
   status            String?
   deadline          DateTime?
   earlyDeadline     DateTime?
   submitted         DateTime?
-
-  @@id([festivalId, projectId])
 }
 
 model VerificationToken {
