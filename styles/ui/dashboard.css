@@ -1,6 +1,10 @@
 .dashboard-layout {
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 2rem;
+
     .dashboard-jumbotron {
-        grid-area: 1 / 1 / 2 / 4;
+        /* TODO: ADD THIS BACK grid-area: 1 / 1 / 2 / 4; */
         height: 24rem;
         position: relative;
     

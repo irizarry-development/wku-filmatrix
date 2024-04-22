@@ -2,8 +2,9 @@ import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma"
 import Drawer from "~/components/ui/Drawer";
 import DashboardContainer from "~/components/ui/DashboardContainer";
-import { FaSuitcase } from "react-icons/fa6";
+import { FaEye, FaLinkSlash, FaSuitcase } from "react-icons/fa6";
 import Button from "~/components/ui/Button";
+import Link from "next/link";
 
 export default async function ProjectVendors({
     params: { id }
@@ -27,6 +28,7 @@ export default async function ProjectVendors({
         <DashboardContainer
             headerText="Vendors"
             headerIcon={<FaSuitcase />}
+            additionalClasses="project-vendors-container"
             button={
                 <Button 
                     content="Link Vendors"
@@ -37,7 +39,17 @@ export default async function ProjectVendors({
             {
                 associatedVendors.map(({ id, vendorName }) => {
                     return (
-                        <p key={id}>{vendorName}</p>
+                        <section className="vendor-information" key={id}>
+
+                            <p key={id}>{vendorName}</p>
+                            <section className="vendor-buttons">
+                                <Link
+                                href={`/vendors/${id}`}>
+                                    <FaEye />
+                                </Link>
+                                <FaLinkSlash className="unlink-vendor" />  
+                            </section>
+                        </section>
                     )
                 })
             }

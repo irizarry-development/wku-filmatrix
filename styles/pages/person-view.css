@@ -1,9 +1,9 @@
-.dashboard-layout.people-view {
+.people-view {
     display: grid;
     grid-gap: 2rem;
 
     .person-biography {
-        grid-area: 2 / 3 / 4 / 3;
+        /* TODO: ADD THIS BACK grid-area: 2 / 3 / 4 / 3; */
     }
 
     .person-projects {

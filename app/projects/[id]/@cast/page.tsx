@@ -49,7 +49,7 @@ export default async function CastList({ params: { id } }: CastListProps) {
                   {
                     categorized[key].map(member => {
                       return (
-                        <li className="project-nested-list-bottom">
+                        <li className="project-nested-list-bottom" key={member.id}>
                           <p><strong>{member.role}</strong>&nbsp;&nbsp;&nbsp;{member.actor.name}</p>
                         </li>
                       )
