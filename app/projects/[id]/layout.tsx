@@ -11,17 +11,22 @@ interface PeopleDashboardProps {
   details: ReactNode
   vendors: ReactNode
   checklist: ReactNode
-  people: ReactNode
+  crew: ReactNode
   locations: ReactNode
+  festivals: ReactNode
+  cast: ReactNode
 }
 
 export default async function Layout({
+  children,
   details,
   vendors,
   checklist,
-  people,
+  crew,
   locations,
-  params
+  festivals,
+  cast,
+  params,
 }: PeopleDashboardProps & RouteParams) {
 
   const found = await prisma.project.findUnique({
@@ -55,9 +60,11 @@ export default async function Layout({
         </section>
       </section>
       {details}
-      {vendors}
-      {people}
+      {crew}
       {locations}
+      {vendors}
+      {cast}
+      {festivals}
       {checklist}
     </section>
   )

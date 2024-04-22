@@ -31,9 +31,8 @@ export default function AddProjectPage() {
     }
 
     try {
-      const x = await axios.post("/api/v1/projects/add", newProjectData)
-      console.log(x.status)
-      toast.success("Project added toast")
+      const x = await axios.post("/api/v1/projects/add", newProjectData);
+      toast.success("Project added")
     } catch (error) {
       toast.error("Failed to add project")
     }

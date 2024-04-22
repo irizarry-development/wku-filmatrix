@@ -68,8 +68,7 @@ model User {
   // Relations
   accounts                  Account[]
   sessions                  Session[]
-  projects                  Project[]
-
+  crewOf                    Crew[]
   approvals                 ProjectTodo[]
 }
 
@@ -83,9 +82,15 @@ model Location {
   locationEmail         String
   locationContactName   String
 
-  // Many to many projects
+  media         LocationMedia[]
   projects      Project[]
+}
 
+model LocationMedia {
+  id            String      @id @default(cuid())
+  location      Location    @relation(fields: [locationId], references: [id])
+  locationId    String
+  url           String
 }
 
 model Vendor {
@@ -98,9 +103,7 @@ model Vendor {
   vendorEmail           String
   vendorContactName     String
 
-  // Many to many projects
   projects      Project[]
-
 }
 
 model Project {
@@ -124,12 +127,56 @@ model Project {
   project50WordPitch          String
   project75WordPitch          String
 
-  // Many to many users
-  users       User[]
+  media       ProjectMedia[]
   locations   Location[]
   vendors     Vendor[]
-
+  crew        Crew[]
+  cast        Cast[]
   todos       ProjectTodo[]
+  festivals   Festival[]
+}
+
+model ProjectMedia {
+  id            String      @id @default(cuid())
+  project       Project     @relation(fields: [projectId], references: [id])
+  projectId     String
+  url           String
+}
+
+model Crew {
+  id            String      @id @default(cuid())
+  user          User        @relation(fields: [userId], references: [id])
+  userId        String
+  project       Project     @relation(fields: [projectId], references: [id])
+  projectId     String
+
+  category      String
+  role          String
+
+  @@unique([userId, projectId])
+}
+
+model Actor {
+  id            String    @id @default(cuid())
+  name          String
+  image         String?
+  email         String?
+  phone         String?
+
+  projects      Cast[]
+}
+
+model Cast {
+  id            String      @id @default(cuid())
+  actor         Actor       @relation(fields: [actorId], references: [id])
+  actorId       String
+  project       Project     @relation(fields: [projectId], references: [id])
+  projectId     String
+
+  role          String
+  type          String
+
+  @@unique([actorId, projectId])
 }
 
 model ProjectTodo {
@@ -144,6 +191,21 @@ model ProjectTodo {
   approver      User?       @relation(fields: [approverId], references: [id])
   approverId    String?
   approverName  String?
+}
+
+model Festival {
+  id                String      @id @default(cuid())
+  project           Project     @relation(fields: [projectId], references: [id])
+  projectId         String
+
+  name              String
+  fflink            String?
+  strategy          String?
+  email             String?
+  status            String?
+  deadline          DateTime?
+  earlyDeadline     DateTime?
+  submitted         DateTime?
 }
 
 model VerificationToken {

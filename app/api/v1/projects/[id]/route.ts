@@ -58,7 +58,7 @@ export const PATCH = auth(async (req) => {
   })
 
   if (!project) {
-    return NextResponse.json({}, { status: 404 })
+    return NextResponse.json("Project not found", { status: 404 })
   }
 
   const body = await req.json()
