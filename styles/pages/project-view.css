@@ -93,6 +93,42 @@
           background: #555;
         }
       }
+
+      
+    }
+  }
+
+  .project-crew-container {
+
+    .dashboard-container-content {
+
+      .drawer-content {
+        display: grid;
+        grid-auto-flow: row;
+
+        .drawer.open {
+          overflow-y: visible;
+        }
+
+        .crew-component {
+          padding: 0.5rem 2rem 0.5rem;
+          display: grid;
+          grid-template-columns: 1fr 10rem;
+          background: #444;
+
+          &:nth-child(even) {
+            background: #555;
+          }
+        }
+
+        p {
+          margin: 0;
+          
+          strong {
+            margin-right: 2rem;
+          }
+        }
+      }
     }
   }
 }
