@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { ZodError } from "zod"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { actorSchema } from "~/lib/z"
@@ -20,8 +21,12 @@ export const POST = auth(async (req) => {
     return NextResponse.json("You cannot create actors", { status: 403 });
 
   const body = await req.json();
-  const parsedBody = actorSchema.parse(body);
-
+  let parsedBody;
+  try {
+    parsedBody = actorSchema.parse(body);
+  } catch (errors) {
+    return NextResponse.json((errors as ZodError).issues.at(0)!.message, { status: 400 });
+  }
   try {
     return NextResponse.json(
       await prisma.actor.create({

@@ -671,7 +671,107 @@ async function main() {
         vendorKeywords:
           "VFX, digital effects, practical effects, film, television"
       }
-    })
+    }),
+    prisma.actor.upsert({
+      where: { id: "hfgjcghkdsedgsdgzdf7ir67" },
+      update: {},
+      create: {
+        name: "Alex Smith",
+        image: "alex_smith.jpg",
+        email: "alex.smith@email.com",
+        phone: "+1234567890",
+      }
+    }),
+    prisma.actor.upsert({
+      where: { id: "kniphbt8374ht9whg97whrgaw" },
+      update: {},
+      create: {
+        name: "Jordan Blue",
+        image: "jordan_blue.jpg",
+        email: "jordan.blue@email.com",
+        phone: "+0987654321",
+      }
+    }),
+    prisma.actor.upsert({
+      where: { id: "8730405w083794tb50w837t60w8v73" },
+      update: {},
+      create: {
+        name: "Chris Green",
+        image: "chris_green.jpg",
+        email: "chris.green@email.com",
+        phone: "+1122334455",
+      }
+    }),
+    prisma.actor.upsert({
+      where: { id: "lseijry8w7v45ty38974ytv" },
+      update: {},
+      create: {
+        name: "Taylor White",
+        image: "taylor_white.jpg",
+        email: "taylor.white@email.com",
+        phone: "+1223344556",
+      }
+    }),
+    prisma.actor.upsert({
+      where: { id: "40w5v789ynv6w04756ynw459" },
+      update: {},
+      create: {
+        name: "Sam Paterson",
+        image: "sam_paterson.jpg",
+        email: "sam.paterson@email.com",
+        phone: "+1445566778",
+      }
+    }),
+    prisma.actor.upsert({
+      where: { id: "4v87ts8e5tv80se50svva5sbys6nm" },
+      update: {},
+      create: {
+        name: "Casey Johnson",
+        image: "casey_johnson.jpg",
+        email: "casey.johnson@email.com",
+        phone: "+1667788990",
+      }
+    }),
+    prisma.actor.upsert({
+      where: { id: "39875y48975yn8947854fsdg" },
+      update: {},
+      create: {
+        name: "Morgan Bailey",
+        image: "morgan_bailey.jpg",
+        email: "morgan.bailey@email.com",
+        phone: "+1778899001",
+      }
+    }),
+    prisma.actor.upsert({
+      where: { id: "734vn734cv9nwc98w9cvcvcvv" },
+      update: {},
+      create: {
+        name: "Jamie Parker",
+        image: "jamie_parker.jpg",
+        email: "jamie.parker@email.com",
+        phone: "+1889900112",
+      }
+    }),
+    prisma.actor.upsert({
+      where: { id: "4v70n87vw83083hrc8q3c8r3c" },
+      update: {},
+      create: {
+        name: "Alexis King",
+        image: "alexis_king.jpg",
+        email: "alexis.king@email.com",
+        phone: "+1990011223",
+      }
+    }),
+    prisma.actor.upsert({
+      where: { id: "cujiaenhv9374n9v849t38h48" },
+      update: {},
+      create: {
+        name: "Taylor Reed",
+        image: "taylor_reed.jpg",
+        email: "taylor.reed@email.com",
+        phone: "+1011121314",
+      }
+    }),
   ])
 }
 main()
