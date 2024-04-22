@@ -4,22 +4,18 @@ import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import { FaEye, FaLinkSlash } from "react-icons/fa6";
 import Link from "next/link";
+import Button from "~/components/ui/Button";
 
 export default async function ProfileProjects({
     params: { id }
 }: RouteParams) {
 
-    const associatedProjects = await prisma.project.findMany({
+    const associatedProjects = await prisma.crew.findMany({
         where: {
-            crew: {
-                some: {
-                    id
-                }
-            }
+            userId: id
         },
         select: {
-            id: true,
-            projectName: true,
+            project: true
         }
     })
 
@@ -28,9 +24,15 @@ export default async function ProfileProjects({
             headerText="Projects"
             headerIcon={<BsCameraReelsFill />}
             additionalClasses="person-projects"
+            button={
+                <Button 
+                    color="secondary"
+                    content="Link Project"
+                />
+            }
         >
             {
-                associatedProjects.map(({ id, projectName }) => {
+                associatedProjects.map(({project: { id, projectName }}) => {
                     return (
                         <section className="associated-project" key={id}>
                             <section className="associated-project-image">

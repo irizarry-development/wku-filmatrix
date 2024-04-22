@@ -3,6 +3,7 @@ import DashboardContainer from "~/components/ui/DashboardContainer";
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import { notFound } from "next/navigation";
+import Button from "~/components/ui/Button";
 
 export default async function PersonEmergencyContact({
     params: { id }
@@ -34,6 +35,12 @@ export default async function PersonEmergencyContact({
             headerText="Emergency Contact"
             headerIcon={<FaUserShield />}
             additionalClasses="person-emergency-contact"
+            button={
+                <Button 
+                    color="secondary"
+                    content="Edit Contact"
+                />
+            }
         >
             <section className="emergency-contact-details">
                 <p>

@@ -3,6 +3,7 @@ import DashboardContainer from "~/components/ui/DashboardContainer";
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import { notFound } from "next/navigation";
+import Button from "~/components/ui/Button";
 
 export default async function MedicalInformation({
     params: { id }
@@ -34,6 +35,12 @@ export default async function MedicalInformation({
             headerText="Medical Information"
             headerIcon={<FaNotesMedical />}
             additionalClasses="person-medical-information"
+            button={
+                <Button 
+                    color="secondary"
+                    content="Edit Medical Info"
+                />
+            }
         >
             <section className="medical-details">
                 <p>
