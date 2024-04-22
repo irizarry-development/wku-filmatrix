@@ -64,7 +64,6 @@ export const POST = auth(async (req) => {
 
   // set todo as complete and approver as requester
   try {
-    console.log(new Date().toISOString())
     await prisma.projectTodo.update({
       where: {
         id: todo.id

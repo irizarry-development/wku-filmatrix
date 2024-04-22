@@ -76,7 +76,6 @@ export const POST = auth(async (req) => {
     }
   })
   if (!requester) {
-    console.log(req.auth.user.email)
     return NextResponse.json("impossible...", { status: 500 })
   }
 
