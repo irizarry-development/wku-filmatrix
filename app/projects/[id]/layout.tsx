@@ -43,16 +43,16 @@ export default async function Layout({
   }
 
   return (
-    <section className="project-dashboard-layout">
-      <section className="project-dashboard-jumbotron">
+    <section className="dashboard-layout project-view">
+      <section className="dashboard-jumbotron">
         <Image 
           src="https://www.wku.edu/marketingandcommunications/images/social-hero-3.jpg"
           alt="Project Jumbotron"
-          className="project-dashboard-jumbotron-image"
+          className="dashboard-jumbotron-image"
           width={1200}
           height={800}
         />
-        <section className="project-dashboard-jumbotron-content">
+        <section className="dashboard-jumbotron-content">
           <Link href="/projects/dashboard">
               <FaArrowLeftLong />
           </Link>

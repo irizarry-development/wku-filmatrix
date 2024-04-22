@@ -1,4 +1,5 @@
 import { FaAward } from "react-icons/fa6"
+import Button from "~/components/ui/Button"
 import DashboardContainer from "~/components/ui/DashboardContainer"
 import prisma from "~/lib/prisma"
 import { dateFromISO8601 } from "~/lib/utils"
@@ -20,6 +21,12 @@ export default async function FestivalsList({ params: { id } }: FestivalsListPro
     <DashboardContainer
       headerText="Festivals"
       headerIcon={<FaAward />}
+      button={
+        <Button 
+          content="Link Festivals"
+          color="secondary"
+        />
+      }
     >
       <ul className="project-nested-list">
         {

@@ -3,6 +3,7 @@ import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma"
 import DashboardContainer from "~/components/ui/DashboardContainer";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import Button from "~/components/ui/Button";
 
 export default async function LocationList({
     params: { id }
@@ -26,6 +27,12 @@ export default async function LocationList({
         <DashboardContainer
             headerText="Locations"
             headerIcon={<FaMapMarkerAlt />}
+            button={
+                <Button 
+                    content="Link Locations"
+                    color="secondary"
+                />
+            }
         >
             {
                 associatedLocations.map(({ id, locationName }) => {

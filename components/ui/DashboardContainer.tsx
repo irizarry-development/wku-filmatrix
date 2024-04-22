@@ -16,7 +16,7 @@ export default function DashboardContainer({
     button
 }: DashboardContainerProps) {
     return (
-        <section className={`dashboard-container ${additionalClasses}`}>
+        <section className={`dashboard-container ${additionalClasses} ${button ? "has-button" : ""}`}>
             <section className="dashboard-container-header">
                 {headerIcon}
                 <h2>{headerText}</h2>

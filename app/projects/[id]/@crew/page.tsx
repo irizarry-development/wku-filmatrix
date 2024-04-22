@@ -1,6 +1,9 @@
 import { Crew, User } from "@prisma/client"
+import { notFound } from "next/navigation"
 import { FaUserFriends } from "react-icons/fa"
+import Button from "~/components/ui/Button"
 import DashboardContainer from "~/components/ui/DashboardContainer"
+import Drawer from "~/components/ui/Drawer"
 import prisma from "~/lib/prisma"
 
 interface CrewListProps {
@@ -9,59 +12,77 @@ interface CrewListProps {
   }
 }
 
+interface RedactedUser {
+  name: string | null
+}
+
+interface CrewResponse extends Crew{
+  user: RedactedUser
+}
+
 interface CrewCategory {
-  [key: string]: ({ user: User } & Crew)[],
+  [key: string]: ({ user: {
+    name: string | null
+  } } & Crew)[]
+}
+
+function CrewComponent({
+  user: {
+    name
+  },
+  role
+}: CrewResponse) {
+  return (
+    <section className="crew-component">
+      <p><strong>{role}</strong>{name}</p>
+    </section>
+  )
 }
 
 export default async function CrewList({ params: { id } }: CrewListProps) {
-  const crew = await prisma.crew.findMany({
+  const crew: CrewResponse[] = await prisma.crew.findMany({
     where: {
-      projectId: id,
+      projectId: id
     },
     include: {
-      user: true,
-    }
-  });
-
-  const _renderCrew = (crew: ({ user: User } & Crew)[]) => {
-    let categorized: CrewCategory = {};
-    crew.forEach(member => {
-      categorized[member.category]
-      ? categorized[member.category].push(member)
-      : categorized[member.category] = [member]
-    });
-    return (
-      <ul className="project-nested-list">
-        {
-          Object.keys(categorized).map(key => {
-            return (
-              <li className="project-nested-list-top">
-                <p className="project-nested-item-name"><strong>{key}</strong></p>
-                <ul>
-                  {
-                    categorized[key].map(member => {
-                      return (
-                        <li>
-                          <p><strong>{member.role}</strong>&nbsp;&nbsp;&nbsp;{member.user.name}</p>
-                        </li>
-                      )
-                    })
-                  }
-                </ul>
-              </li>
-            )
-          })
+      user: {
+        select: {
+          name: true
         }
-      </ul>
-    );
-  };
+      }
+    }
+  })
+
+  const _renderCrew = (crew: CrewResponse[]) => {
+    
+    let categorized: CrewCategory = {}
+
+    crew.forEach((member) => {
+      categorized[member.category]
+        ? categorized[member.category].push(member)
+        : (categorized[member.category] = [member])
+    })
+    return Object.keys(categorized).map((key) => (
+      <Drawer title={key}>
+        {categorized[key].map((member, i) => (
+          <CrewComponent key={i} {...member} />
+        ))}
+      </Drawer>
+    ))
+  }
 
   return (
-    <DashboardContainer
-      headerText="Crew"
-      headerIcon={<FaUserFriends />}
+    <DashboardContainer 
+      headerText="Crew" headerIcon={<FaUserFriends />}
+      additionalClasses="project-crew-container"
+      button={
+        <Button 
+          content="Link Crew Member"
+          color="secondary"
+        />
+      }
     >
-      { _renderCrew(crew) }
+      {_renderCrew(crew)}
     </DashboardContainer>
   )
 }

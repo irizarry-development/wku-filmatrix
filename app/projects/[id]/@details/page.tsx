@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
 import { BsCameraReelsFill } from "react-icons/bs"
+import Button from "~/components/ui/Button"
 import DashboardContainer from "~/components/ui/DashboardContainer"
 import Drawer from "~/components/ui/Drawer"
 import prisma from "~/lib/prisma"
@@ -47,6 +48,12 @@ export default async function ProjectDetails({
     <DashboardContainer
       headerText="Project Details"
       headerIcon={<BsCameraReelsFill />}
+      button={
+        <Button
+          content="Edit Details"
+          color="secondary"
+        />
+      }
     >
       <p>
         <strong>Description:</strong> {foundProject.projectDescription}
