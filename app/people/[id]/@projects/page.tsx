@@ -11,7 +11,7 @@ export default async function ProfileProjects({
 
     const associatedProjects = await prisma.project.findMany({
         where: {
-            users: {
+            crew: {
                 some: {
                     id
                 }

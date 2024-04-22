@@ -3,6 +3,7 @@ import DashboardContainer from "~/components/ui/DashboardContainer";
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import { notFound } from "next/navigation";
+import Button from "~/components/ui/Button";
 
 export default async function PersonBiography({
     params: { id }
@@ -26,6 +27,12 @@ export default async function PersonBiography({
             headerText="Biography"
             headerIcon={<FaCircleInfo />}
             additionalClasses="person-biography"
+            button={
+                <Button
+                    color="secondary"
+                    content="Edit Biography"
+                />
+            }
         >
             <p>{user.biography}</p>
         </DashboardContainer>
