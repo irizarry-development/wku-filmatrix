@@ -154,20 +154,8 @@ export default async function ProjectPage({
           headers={[
             "Name",
             "Description",
-            "Runtime",
-            "Aspect Ratio",
-            "Rating",
             "Category",
             "Genre",
-            "Language",
-            "Shooting Format",
-            "Sound",
-            "Subtitled",
-            "Tagline",
-            "Log Line",
-            "25 Word Pitch",
-            "50 Word Pitch",
-            "75 Word Pitch"
           ]}
         >
           {projectData.length > 0 &&
@@ -181,20 +169,8 @@ export default async function ProjectPage({
                 fields={[
                   project.projectName,
                   project.projectDescription,
-                  project.projectRuntime,
-                  project.projectAspectRatio,
-                  project.projectRating,
                   project.projectCategory,
                   project.projectGenre,
-                  project.projectLanguage,
-                  project.projectShootingFormat,
-                  project.projectFilmSound,
-                  project.projectFilmSubtitled ? "Yes" : "No",
-                  project.projectTagline,
-                  project.projectLogLine,
-                  project.project25WordPitch,
-                  project.project50WordPitch,
-                  project.project75WordPitch
                 ]}
                 deleteUrl="/api/v1/projects"
               />

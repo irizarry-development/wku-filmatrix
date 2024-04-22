@@ -8,6 +8,7 @@
   border: 0.1rem solid var(--red-dark);
   line-height: 2rem;
   transition: 300ms ease-in-out;
+  text-decoration: none;
 
   &.sm {
     padding: 0.5rem 1.5rem;
