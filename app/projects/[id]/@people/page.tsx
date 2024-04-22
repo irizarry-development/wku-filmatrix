@@ -22,13 +22,11 @@ export default async function PeopleList({ params: { projectId } }: PeopleListPr
       name: true,
       image: true
     }
-  })
-
-  console.log(associatedPeople)
+  });
 
   return (
     <DashboardContainer
-      headerText="Associated People"
+      headerText="Crew"
       headerIcon={<FaUserFriends />}
     >
       {associatedPeople.map(({ id, name }) => {
