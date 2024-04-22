@@ -4,14 +4,14 @@ import prisma from "~/lib/prisma"
 
 interface FestivalsListProps {
   params: {
-    projectId: string
+    id: string
   }
 }
 
-export default async function FestivalsList({ params: { projectId } }: FestivalsListProps) {
+export default async function FestivalsList({ params: { id } }: FestivalsListProps) {
   const festivals = await prisma.festival.findMany({
     where: {
-      projectId
+      projectId: id,
     },
   })
 
