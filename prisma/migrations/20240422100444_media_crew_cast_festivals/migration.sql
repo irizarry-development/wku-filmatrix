@@ -33,12 +33,13 @@ CREATE TABLE "ProjectMedia" (
 
 -- CreateTable
 CREATE TABLE "Crew" (
+    "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "projectId" TEXT NOT NULL,
     "category" TEXT NOT NULL,
-    "position" TEXT NOT NULL,
+    "role" TEXT NOT NULL,
 
-    CONSTRAINT "Crew_pkey" PRIMARY KEY ("userId","projectId")
+    CONSTRAINT "Crew_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -54,27 +55,21 @@ CREATE TABLE "Actor" (
 
 -- CreateTable
 CREATE TABLE "Cast" (
+    "id" TEXT NOT NULL,
     "actorId" TEXT NOT NULL,
     "projectId" TEXT NOT NULL,
     "role" TEXT NOT NULL,
     "type" TEXT NOT NULL,
 
-    CONSTRAINT "Cast_pkey" PRIMARY KEY ("actorId","projectId")
+    CONSTRAINT "Cast_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Festival" (
     "id" TEXT NOT NULL,
+    "projectId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "fflink" TEXT,
-
-    CONSTRAINT "Festival_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "FestivalProject" (
-    "festivalId" TEXT NOT NULL,
-    "projectId" TEXT NOT NULL,
     "strategy" TEXT,
     "email" TEXT,
     "status" TEXT,
@@ -82,8 +77,14 @@ CREATE TABLE "FestivalProject" (
     "earlyDeadline" TIMESTAMP(3),
     "submitted" TIMESTAMP(3),
 
-    CONSTRAINT "FestivalProject_pkey" PRIMARY KEY ("festivalId","projectId")
+    CONSTRAINT "Festival_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Crew_userId_projectId_key" ON "Crew"("userId", "projectId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Cast_actorId_projectId_key" ON "Cast"("actorId", "projectId");
 
 -- AddForeignKey
 ALTER TABLE "LocationMedia" ADD CONSTRAINT "LocationMedia_locationId_fkey" FOREIGN KEY ("locationId") REFERENCES "Location"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -104,7 +105,4 @@ ALTER TABLE "Cast" ADD CONSTRAINT "Cast_actorId_fkey" FOREIGN KEY ("actorId") RE
 ALTER TABLE "Cast" ADD CONSTRAINT "Cast_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "FestivalProject" ADD CONSTRAINT "FestivalProject_festivalId_fkey" FOREIGN KEY ("festivalId") REFERENCES "Festival"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "FestivalProject" ADD CONSTRAINT "FestivalProject_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Festival" ADD CONSTRAINT "Festival_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -1,20 +1,19 @@
 import { FaUserFriends } from "react-icons/fa"
 import DashboardContainer from "~/components/ui/DashboardContainer"
-import Drawer from "~/components/ui/Drawer"
 import prisma from "~/lib/prisma"
 
 interface PeopleListProps {
   params: {
-    id: string
+    projectId: string
   }
 }
 
-export default async function PeopleList({ params: { id } }: PeopleListProps) {
+export default async function PeopleList({ params: { projectId } }: PeopleListProps) {
   const associatedPeople = await prisma.user.findMany({
     where: {
-      projects: {
+      crewOf: {
         some: {
-          id
+          projectId
         }
       }
     },

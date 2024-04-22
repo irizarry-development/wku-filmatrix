@@ -16,7 +16,7 @@ export const createUserSchema = z.object({
   emergencyContactName: z.string().optional(),
   emergencyContactPhone: z.string().optional(),
   emergencyContactAddress: z.string().optional()
-})
+});
 
 export const createVendorSchema = z.object({
   vendorName: z.string().min(1, "Vendor name is required"),
@@ -29,7 +29,7 @@ export const createVendorSchema = z.object({
     .email("Invalid email"),
   vendorContactName: z.string().min(1, "Vendor contact name is required"),
   vendorKeywords: z.string().min(1, "Vendor keywords are required")
-})
+});
 
 export const createLocationSchema = z.object({
   locationName: z.string().min(1, "Location name is required"),
@@ -42,7 +42,7 @@ export const createLocationSchema = z.object({
     .email("Invalid email"),
   locationContactName: z.string().min(1, "Location contact name is required"),
   locationKeywords: z.string().min(1, "Location keywords are required")
-})
+});
 
 export const onboardingBodySchema = z.object({
   name: z.string().min(1, "Name is required").max(128, "Name is too long"),
@@ -74,7 +74,7 @@ export const onboardingBodySchema = z.object({
   allergies: z.string(),
   medications: z.string(),
   conditions: z.string()
-})
+});
 
 export const createProjectSchema = z.object({
   projectName: z.string().min(1, "Project name is required"),
@@ -101,4 +101,57 @@ export const createProjectSchema = z.object({
   project25WordPitch: z.string().min(1, "Project 25 word pitch is required"),
   project50WordPitch: z.string().min(1, "Project 50 word pitch is required"),
   project75WordPitch: z.string().min(1, "Project 75 word pitch is required")
-})
+});
+
+export const createCrewSchema = z.object({
+  userId: z.string().min(1, "User ID is required"),
+  projectId: z.string().min(1, "Project ID is required"),
+  category: z.string().min(1, "Category is required"),
+  role: z.string().min(1, "Role is required"),
+});
+
+export const editCrewSchema = z.object({
+  category: z.string().min(1, "Category is required"),
+  role: z.string().min(1, "Role is required"),
+});
+
+export const actorSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().optional(),
+  phone: z.string().optional(),
+});
+
+export const createCastSchema = z.object({
+  actorId: z.string().min(1, "Actor ID is required"),
+  projectId: z.string().min(1, "Project ID is required"),
+  role: z.string().min(1, "Role is required"),
+  type: z.string().min(1, "Type is required"),
+});
+
+export const editCastSchema = z.object({
+  role: z.string().min(1, "Role is required"),
+  type: z.string().min(1, "Type is required"),
+});
+
+export const createFestivalSchema = z.object({
+  projectId: z.string().min(1, "Project ID is required"),
+  name: z.string().min(1, "Name is required"),
+  fflink: z.string().optional(),
+  strategy: z.string().optional(),
+  email: z.string().optional(),
+  status: z.string().optional(),
+  deadline: z.string().optional(),
+  earlyDeadline: z.string().optional(),
+  submitted: z.string().optional(),
+});
+
+export const editFestivalSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  fflink: z.string().optional(),
+  strategy: z.string().optional(),
+  email: z.string().optional(),
+  status: z.string().optional(),
+  deadline: z.string().optional(),
+  earlyDeadline: z.string().optional(),
+  submitted: z.string().optional(),
+});
