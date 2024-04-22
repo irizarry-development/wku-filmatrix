@@ -63,7 +63,7 @@ export default async function CrewList({ params: { id } }: CrewListProps) {
         : (categorized[member.category] = [member])
     })
     return Object.keys(categorized).map((key) => (
-      <Drawer title={key}>
+      <Drawer title={key} key={key}>
         {categorized[key].map((member, i) => (
           <CrewComponent key={i} {...member} />
         ))}
