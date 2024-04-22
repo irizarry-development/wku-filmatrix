@@ -4,8 +4,9 @@ import Image from "next/image"
 import WkuSquare from "~/public/wkucuptall_w.png"
 import { useState } from "react"
 import Link from "next/link"
-import { signOut, useSession } from "next-auth/react"
+import { signOut } from "next-auth/react"
 import { MdPeopleAlt } from "react-icons/md"
+import { FaMasksTheater } from "react-icons/fa6"
 import { FaMapMarkerAlt } from "react-icons/fa"
 import { FaSuitcase } from "react-icons/fa"
 import { BsCameraReelsFill } from "react-icons/bs"
@@ -66,6 +67,14 @@ export default function Header({ session }: HeaderProps) {
             >
               <FaSuitcase />
               <p>Vendors</p>
+            </Link>
+            <Link
+              className="nav-link"
+              href="/actors/dashboard"
+              onClick={() => setHeaderOpen(false)}
+            >
+              <FaMasksTheater />
+              <p>Actors</p>
             </Link>
             <Link
               className="nav-link"

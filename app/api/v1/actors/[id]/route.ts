@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { ZodError } from "zod"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { actorSchema } from "~/lib/z"
@@ -44,7 +45,12 @@ export const PATCH = auth(async (req) => {
     return NextResponse.json("Actor not found", { status: 404 });
 
   const body = await req.json();
-  const parsedBody = actorSchema.parse(body);
+  let parsedBody;
+  try {
+    parsedBody = actorSchema.parse(body);
+  } catch (errors) {
+    return NextResponse.json((errors as ZodError).issues.at(0)?.message, { status: 400 });
+  }
   try {
     await prisma.actor.update({
       where: {
