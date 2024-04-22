@@ -11,7 +11,7 @@ interface PeopleDashboardProps {
   details: ReactNode
   vendors: ReactNode
   checklist: ReactNode
-  people: ReactNode
+  crew: ReactNode
   locations: ReactNode
   festivals: ReactNode
   cast: ReactNode
@@ -22,7 +22,7 @@ export default async function Layout({
   details,
   vendors,
   checklist,
-  people,
+  crew,
   locations,
   festivals,
   cast,
@@ -60,7 +60,7 @@ export default async function Layout({
         </section>
       </section>
       {details}
-      {people}
+      {crew}
       {locations}
       {vendors}
       {cast}
