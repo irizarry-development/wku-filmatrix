@@ -15,24 +15,37 @@ export async function POST(req: NextRequest) {
 
     try {
         const locations = await req.json();
-        let duplicates = [];
 
-        for (const location of locations) {
-            const existingLocation = await prisma.location.findUnique({
-                where: { locationName: location.locationName },
-            });
+        //TODO: possible logic for working with duplicates to provide a notification?
 
-            if (!existingLocation) {
-                await prisma.location.create({ data: location });
-            } else {
-                duplicates.push(location.locationName);
-            }
-        }
+        // const newLocations = [];
+        // const duplicates = [];
+        // const locationSet = new Set();
 
-        return new Response(JSON.stringify({ message: 'Locations processed. Duplicates skipped.', duplicates: duplicates }), {
+        // locations.forEach(location => {
+        //     if (!locationSet.has(location.locationName)) {
+        //         locationSet.add(location.locationName);
+        //         newLocations.push(location);
+        //     } else {
+        //         duplicates.push(location.locationName);
+        //     }
+        // });
+
+        await prisma.location.createMany({
+            data: locations,
+            skipDuplicates: true,
+        });
+
+        return new Response(JSON.stringify({ message: 'Locations processed. Duplicates skipped. Each location name must be unique'}), {
             status: 200,
             headers: { 'Content-Type': 'application/json' },
         });
+
+
+        // return new Response(JSON.stringify({ message: 'Locations processed. Duplicates skipped. Each location name must be unique', duplicates: duplicates }), {
+        //     status: 200,
+        //     headers: { 'Content-Type': 'application/json' },
+        // });
     } catch (error) {
         console.error('Failed to process locations', error);
         return new Response(JSON.stringify({ message: 'Failed to process locations', error: error.message }), {

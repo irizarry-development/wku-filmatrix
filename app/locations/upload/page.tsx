@@ -47,7 +47,8 @@ const LocationsUpload = () => {
 
             const result = await response.json();
             if (response.ok) {
-                setUploadMessage(`Upload successful. ${result.duplicates.length > 0 ? 'Duplicates skipped: ' + result.duplicates.join(', ') : ''}`);
+                setUploadMessage(`Upload successful.`);
+                // setUploadMessage(`Upload successful. ${result.duplicates.length > 0 ? 'Duplicates skipped: ' + result.duplicates.join(', ') : ''}`);
             } else {
                 setUploadMessage('Upload failed.');
                 console.error('Upload failed');
