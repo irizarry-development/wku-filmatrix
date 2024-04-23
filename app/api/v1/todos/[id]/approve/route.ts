@@ -17,7 +17,7 @@ export const POST = auth(async (req) => {
   if (requester.role !== 1)
     return forbiddenResponse;
 
-  const id = req.url.split("/")[-2]!;
+  const id = req.url.split("/").at(-2);
   const todo = await prisma.projectTodo.findUnique({
     where: {
       id
