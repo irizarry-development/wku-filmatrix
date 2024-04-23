@@ -2,8 +2,10 @@ import Drawer from "~/components/ui/Drawer";
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma"
 import DashboardContainer from "~/components/ui/DashboardContainer";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaEye, FaMapMarkerAlt } from "react-icons/fa";
 import Button from "~/components/ui/Button";
+import Link from "next/link";
+import { FaLinkSlash } from "react-icons/fa6";
 
 export default async function LocationList({
     params: { id }
@@ -27,6 +29,7 @@ export default async function LocationList({
         <DashboardContainer
             headerText="Locations"
             headerIcon={<FaMapMarkerAlt />}
+            additionalClasses="project-locations-container"
             button={
                 <Button 
                     content="Link Locations"
@@ -37,7 +40,15 @@ export default async function LocationList({
             {
                 associatedLocations.map(({ id, locationName }) => {
                     return (
-                        <p key={id}>{locationName}</p>
+                        <section className="location-information" key={id}>
+                            <p key={id}>{locationName}</p>
+                            <section className="location-buttons">
+                                <Link href={`/locations/${id}`}>
+                                    <FaEye />
+                                </Link>
+                                <FaLinkSlash className="unlink-location" />
+                            </section>
+                        </section>
                     )
                 })
             }

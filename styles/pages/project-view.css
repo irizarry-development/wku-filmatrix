@@ -1,134 +1,165 @@
-.dashboard-layout.project-view {
-  display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
-  grid-gap: 2rem;
+.project-view {
+  .project-details-container {
+      .dashboard-container-header {
+          grid-template-columns: 3rem 1fr 20rem;
+      }
+  }
+
+  .project-people-container {
+
+      .dashboard-container-header {
+          grid-template-columns: 3rem 1fr 20rem;
+      }
+
+      .dashboard-container-content {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+          justify-items: start;
+
+          .people-information {                
+              box-shadow: 0 0 2rem rgba(0, 0, 0, 0.15);
+              position: relative;
+              transition: 300ms ease-in-out;
+
+              &:hover {
+                  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
+                  transform: scale(1.02);
+              }
+
+              .people-image {
+                  width: 16rem;
+                  height: 16rem;
+                  background-color: var(--gray-text);
+                  z-index: 1;
+              }
+
+              .people-actions {
+                  position: absolute;
+                  display: grid;
+                  grid-auto-flow: column;
+                  column-gap: 1rem;
+                  z-index: 2;
+                  font-size: 2.4rem;
+                  top: 0.6rem;
+                  right: 0.6rem;
+
+                  .view-person {
+                      color: var(--gray-lightest);
+                  }
+
+                  .unlink-person {
+                      color: var(--red-darker);
+                      cursor: pointer;
+                  }
+              }
+
+              .people-meta {
+
+                  padding: 1.2rem 0.8rem;
+
+                  p {
+                      margin: 0;
+                      align-self: center;
+                      font-size: 1.6rem;
+                      text-align: center;
+                  }
+              }
+          }
+      }
+  }
 
   .project-vendors-container,
   .project-locations-container {
-    .dashboard-container-header {
-      grid-template-columns: 3rem 1fr 20rem;
-    }
 
-    .dashboard-container-content {
-      display: grid;
-      row-gap: 0.8rem;
-
-      .vendor-information,
-      .location-information {
-        display: grid;
-        grid-template-columns: 1fr 6rem;
-        align-items: center;
-
-        p {
-          font-size: 1.6rem;
-          margin: 0;
-        }
-
-        .vendor-buttons,
-        .location-buttons {
-          display: grid;
-          grid-auto-flow: column;
-          column-gap: 1rem;
-          align-items: center;
-
-          a {
-            font-size: 2.4rem;
-            height: 2.4rem;
-            color: var(--gray-lightest);
-            align-self: center;
-          }
-
-          .unlink-vendor,
-          .unlink-location {
-            color: var(--red-darker);
-            font-size: 2.4rem;
-            cursor: pointer;
-          }
-        }
+      .dashboard-container-header {
+          grid-template-columns: 3rem 1fr 20rem;
       }
-    }
+
+      .dashboard-container-content {
+          display: grid;
+          row-gap: 0.8rem;
+      
+          .vendor-information,
+          .location-information {
+              display: grid;
+              grid-template-columns: 1fr 6rem;
+              align-items: center;
+
+              p { 
+                  font-size: 1.6rem; margin: 0; 
+              }
+  
+              .vendor-buttons,
+              .location-buttons {
+                  display: grid;
+                  grid-auto-flow: column;
+                  column-gap: 1rem;
+                  align-items: center;
+
+                  a {
+                      font-size: 2.4rem;
+                      height: 2.4rem;
+                      color: var(--gray-lightest);
+                      align-self: center;
+                  }
+
+                  .unlink-vendor,
+                  .unlink-location {       
+                      color: var(--red-darker);
+                      font-size: 2.4rem;
+                      cursor: pointer;
+                  }
+              }
+          }
+      }
   }
 
   .project-checklist-container {
-    grid-area: 2 / 3 / 5 / 4;
-    .project-checklist {
-      display: grid;
-      row-gap: 1rem;
+    /* TODO: Add this back */
+      /* grid-area: 2 / 3 / 4 / 4; */
 
-      .drawer-content {
+      .project-checklist {
         display: grid;
-        grid-auto-flow: row;
-      }
-
-      .project-todo {
-        padding: 0.5rem 2rem 0.5rem;
-        display: grid;
-        grid-template-columns: 1fr 10rem;
-        background: #444;
-
-        .todo-name {
-          font-size: 1.4rem;
-          font-weight: bold;
-          margin: 0;
-          align-self: center;
-          color: var(--gray-lightest);
-        }
-
-        .todo-approver {
-          place-self: center;
-          margin: 0;
-          color: var(--gray-lightest);
-        }
-
-        button:disabled {
-          cursor: not-allowed;
-        }
-
-        &.approved {
-          column-gap: 2rem;
-          grid-template-columns: 2fr 1fr 10rem;
-        }
-
-        &:nth-child(even) {
-          background: #555;
-        }
-      }
-
+        row-gap: 1rem;
       
-    }
-  }
-
-  .project-crew-container {
-
-    .dashboard-container-content {
-
-      .drawer-content {
-        display: grid;
-        grid-auto-flow: row;
-
-        .drawer.open {
-          overflow-y: visible;
+        .drawer-content {
+          display: grid;
+          grid-auto-flow: row;
         }
-
-        .crew-component {
+      
+        .project-todo {
           padding: 0.5rem 2rem 0.5rem;
           display: grid;
           grid-template-columns: 1fr 10rem;
           background: #444;
-
+      
+          .todo-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin: 0;
+            align-self: center;
+            color: var(--gray-lightest);
+          }
+      
+          .todo-approver {
+            place-self: center;
+            margin: 0;
+            color: var(--gray-lightest);
+          }
+      
+          button:disabled {
+            cursor: not-allowed;
+          }
+      
+          &.approved {
+            column-gap: 2rem;
+            grid-template-columns: 2fr 1fr 10rem;
+          }
+      
           &:nth-child(even) {
             background: #555;
           }
         }
-
-        p {
-          margin: 0;
-          
-          strong {
-            margin-right: 2rem;
-          }
-        }
       }
-    }
   }
 }
