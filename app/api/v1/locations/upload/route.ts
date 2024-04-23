@@ -1,16 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { invalidRequest, successWithMessage, unexpectedError } from '~/lib/api';
 import prisma from "~/lib/prisma"
-
-export const config = {
-    runtime: 'experimental-edge',
-};
   
 export async function POST(req: NextRequest) {
     if (!req.body) {
-        return new Response(JSON.stringify({ message: 'No data provided' }), {
-            status: 400,
-            headers: { 'Content-Type': 'application/json' },
-        });
+        return invalidRequest
     }
 
     try {
@@ -29,15 +23,8 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        return new Response(JSON.stringify({ message: 'Locations processed. Duplicates skipped.', duplicates: duplicates }), {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' },
-        });
+        return successWithMessage({ message: 'Locations processed' });
     } catch (error) {
-        console.error('Failed to process locations', error);
-        return new Response(JSON.stringify({ message: 'Failed to process locations', error: error.message }), {
-            status: 500,
-            headers: { 'Content-Type': 'application/json' },
-        });
+        return unexpectedError
     }
 }

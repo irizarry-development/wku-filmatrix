@@ -1,6 +1,6 @@
 import { Project } from "@prisma/client"
 import { ZodError } from "zod"
-import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, resourceFound, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, successWithMessage, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { createProjectSchema } from "~/lib/z"
@@ -116,7 +116,7 @@ export const POST = auth(async (req) => {
         })
       }
     })
-    return resourceFound({project: project!});
+    return successWithMessage({project: project!});
   } catch (error) {
     return unexpectedError;
   }

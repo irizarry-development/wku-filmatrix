@@ -1,7 +1,7 @@
 import { auth } from "~/lib/auth"
 import { createProjectSchema } from "~/lib/z"
 import prisma from "~/lib/prisma"
-import { checkAuthentication, forbiddenResponse, requestConflict, resourceDeleteSuccess, resourceFound, resourceNotFound, resourceUpdateSuccess, splitUrl, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, forbiddenResponse, requestConflict, resourceDeleteSuccess, successWithMessage, resourceNotFound, resourceUpdateSuccess, splitUrl, unauthorizedResponse, unexpectedError } from "~/lib/api"
 
 export const GET = auth(async (req) => {
   const auth = checkAuthentication(req)
@@ -16,7 +16,7 @@ export const GET = auth(async (req) => {
   })
   if (!project)
     return resourceNotFound;
-  return resourceFound({ project })
+  return successWithMessage({ project })
 }) as any
 
 export const PATCH = auth(async (req) => {

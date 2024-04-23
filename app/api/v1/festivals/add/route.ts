@@ -1,5 +1,5 @@
 import { ZodError } from "zod"
-import { checkAuthentication, forbiddenResponse, invalidRequestWithError, resourceFound, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, successWithMessage, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { createFestivalSchema } from "~/lib/z"
@@ -41,7 +41,7 @@ export const POST = auth(async (req) => {
   }
 
   try {
-    return resourceFound(
+    return successWithMessage(
       await prisma.festival.create({
         data: { ...parsedBody }
       })

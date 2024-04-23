@@ -1,5 +1,5 @@
 import { ZodError } from "zod"
-import { checkAuthentication, forbiddenResponse, invalidRequestWithError, resourceDeleteSuccess, resourceFound, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, resourceDeleteSuccess, successWithMessage, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { editFestivalSchema } from "~/lib/z"
@@ -17,7 +17,7 @@ export const GET = auth(async (req) => {
   });
   if (!festival)
     return resourceNotFound;
-  return resourceFound({ festival });
+  return successWithMessage({ festival });
 }) as any
 
 export const PATCH = auth(async (req) => {
