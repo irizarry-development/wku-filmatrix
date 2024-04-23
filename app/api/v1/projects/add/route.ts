@@ -82,7 +82,7 @@ export const POST = auth(async (req) => {
     return forbiddenResponse;
 
   const body = await req.json();
-  let parsedBody;
+  let parsedBody: any;
   try {
     parsedBody = createProjectSchema.parse(body);
   } catch (errors) {
