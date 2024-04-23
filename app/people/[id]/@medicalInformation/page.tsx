@@ -4,6 +4,7 @@ import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import { notFound } from "next/navigation";
 import Button from "~/components/ui/Button";
+import { FaEdit } from "react-icons/fa";
 
 export default async function MedicalInformation({
     params: { id }
@@ -36,10 +37,7 @@ export default async function MedicalInformation({
             headerIcon={<FaNotesMedical />}
             additionalClasses="person-medical-information"
             button={
-                <Button 
-                    color="secondary"
-                    content="Edit Medical Info"
-                />
+                <FaEdit />
             }
         >
             <section className="medical-details">

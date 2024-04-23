@@ -2,7 +2,7 @@ import { notFound } from "next/navigation"
 import { RouteParams } from "~/lib/types"
 import prisma from "~/lib/prisma"
 import DashboardContainer from "~/components/ui/DashboardContainer"
-import { FaClipboard } from "react-icons/fa"
+import { FaClipboard, FaEdit } from "react-icons/fa"
 import Button from "~/components/ui/Button"
 
 export default async function ProfileDetails({ params: { id } }: RouteParams) {
@@ -33,10 +33,7 @@ export default async function ProfileDetails({ params: { id } }: RouteParams) {
       headerIcon={<FaClipboard />}
       additionalClasses="person-details"
       button={
-        <Button
-          color="secondary"
-          content="Edit Details"
-        />
+        <FaEdit />
       }
     >
       <p>

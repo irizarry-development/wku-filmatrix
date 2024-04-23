@@ -4,6 +4,7 @@ import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import { notFound } from "next/navigation";
 import Button from "~/components/ui/Button";
+import { FaEdit } from "react-icons/fa";
 
 export default async function PersonEmergencyContact({
     params: { id }
@@ -36,10 +37,7 @@ export default async function PersonEmergencyContact({
             headerIcon={<FaUserShield />}
             additionalClasses="person-emergency-contact"
             button={
-                <Button 
-                    color="secondary"
-                    content="Edit Contact"
-                />
+                <FaEdit />
             }
         >
             <section className="emergency-contact-details">

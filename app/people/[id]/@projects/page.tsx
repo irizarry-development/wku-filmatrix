@@ -2,7 +2,7 @@ import { BsCameraReelsFill } from "react-icons/bs";
 import DashboardContainer from "~/components/ui/DashboardContainer";
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
-import { FaEye, FaLinkSlash } from "react-icons/fa6";
+import { FaEye, FaLink, FaLinkSlash } from "react-icons/fa6";
 import Link from "next/link";
 import Button from "~/components/ui/Button";
 
@@ -25,10 +25,7 @@ export default async function ProfileProjects({
             headerIcon={<BsCameraReelsFill />}
             additionalClasses="person-projects"
             button={
-                <Button 
-                    color="secondary"
-                    content="Link Project"
-                />
+                <FaLink />
             }
         >
             {

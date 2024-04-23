@@ -1,12 +1,29 @@
 .people-view {
     display: grid;
     grid-gap: 2rem;
+    grid-template-areas:
+        "jumbotron"
+        "details"
+        "projects"
+        "biography"
+        "medical-information"
+        "emergency";
+
+    .dashboard-jumbotron {
+        grid-area: jumbotron;
+    }
+
 
     .person-biography {
-        /* TODO: ADD THIS BACK grid-area: 2 / 3 / 4 / 3; */
+        grid-area: biography;
+    }
+
+    .person-details {
+        grid-area: details;
     }
 
     .person-projects {
+        grid-area: projects;
         .dashboard-container-content {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
@@ -56,5 +73,31 @@
                 }
             }
         }
+    }
+
+    .person-medical-information {
+        grid-area: medical;
+    }
+
+    .person-emergency-contact {
+        grid-area: emergency;
+    }
+
+    @media screen and (min-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas: 
+            "jumbotron jumbotron"
+            "details biography"
+            "projects projects"
+            "emergency medical";
+    }
+
+    @media screen and (min-width: 1440px) {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas: 
+            "jumbotron jumbotron jumbotron"
+            "details emergency biography"
+            "details medical biography"
+            "projects projects biography";
     }
 }

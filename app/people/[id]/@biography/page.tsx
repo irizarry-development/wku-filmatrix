@@ -4,6 +4,7 @@ import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import { notFound } from "next/navigation";
 import Button from "~/components/ui/Button";
+import { FaEdit } from "react-icons/fa";
 
 export default async function PersonBiography({
     params: { id }
@@ -28,10 +29,7 @@ export default async function PersonBiography({
             headerIcon={<FaCircleInfo />}
             additionalClasses="person-biography"
             button={
-                <Button
-                    color="secondary"
-                    content="Edit Biography"
-                />
+                <FaEdit />
             }
         >
             <p>{user.biography}</p>
