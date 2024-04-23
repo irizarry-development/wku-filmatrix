@@ -405,6 +405,16 @@
     grid-area: festivals;
   }
 
+  grid-template-areas:
+    "jumbotron"
+    "details"
+    "locations"
+    "vendors"
+    "crew"
+    "checklist"
+    "cast"
+    "festivals";
+
   @media screen and (min-width: 1024px) {
     grid-template-columns: repeat(4, 1fr);
     column-gap: 2rem;
