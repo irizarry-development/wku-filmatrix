@@ -3,6 +3,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ReactNode } from "react"
 import { FaArrowLeftLong } from "react-icons/fa6"
+import DashboardLayout from "~/components/ui/DashboardLayout"
 import prisma from "~/lib/prisma"
 import { RouteParams } from "~/lib/types"
 
@@ -18,7 +19,6 @@ interface PeopleDashboardProps {
 }
 
 export default async function Layout({
-  children,
   details,
   vendors,
   checklist,
@@ -43,22 +43,12 @@ export default async function Layout({
   }
 
   return (
-    <section className="dashboard-layout project-view">
-      <section className="dashboard-jumbotron">
-        <Image 
-          src="https://www.wku.edu/marketingandcommunications/images/social-hero-3.jpg"
-          alt="Project Jumbotron"
-          className="dashboard-jumbotron-image"
-          width={1200}
-          height={800}
-        />
-        <section className="dashboard-jumbotron-content">
-          <Link href="/projects/dashboard">
-              <FaArrowLeftLong />
-          </Link>
-          <h1>{found.projectName}</h1>
-        </section>
-      </section>
+    <DashboardLayout
+      jumbotronImage="https://www.wku.edu/marketingandcommunications/images/social-hero-3.jpg"
+      jumbotronTitle={found.projectName}
+      dashboardId="projects"
+      dashboardName={`Project Dashboard for ${found.projectName}`}
+    >
       {details}
       {crew}
       {locations}
@@ -66,6 +56,6 @@ export default async function Layout({
       {cast}
       {festivals}
       {checklist}
-    </section>
+    </DashboardLayout>
   )
 }
