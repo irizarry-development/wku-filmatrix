@@ -4,6 +4,7 @@ import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import { FaEye, FaLink, FaLinkSlash } from "react-icons/fa6";
 import Link from "next/link";
+import DashboardContainerCard from "~/components/ui/DashboardContainerCard";
 
 export default async function ProfileProjects({
     params: { id }
@@ -28,24 +29,14 @@ export default async function ProfileProjects({
             }
         >
             {
-                associatedProjects.map(({project: { id, projectName }}) => {
-                    return (
-                        <section className="associated-project" key={id}>
-                            <section className="associated-project-image">
-
-                            </section>
-                            <section className="associated-project-actions">
-                                <Link href={`/projects/${id}`}>
-                                    <FaEye className="view-project" />
-                                </Link>
-                                <FaLinkSlash className="unlink-project" />
-                            </section>
-                            <section className="associated-project-meta">
-                                <p>{projectName}</p>
-                            </section>
-                        </section>
-                    )
-                })
+                associatedProjects.map(({ project: { id, projectName } }) => (
+                    <DashboardContainerCard
+                        id={id}
+                        key={id}
+                    >
+                        <p>{projectName}</p>
+                    </DashboardContainerCard>
+                ))
             }
         </DashboardContainer>
     )

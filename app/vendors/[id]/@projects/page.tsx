@@ -1,21 +1,22 @@
 import { BsCameraReelsFill } from "react-icons/bs";
-import { FaLink } from "react-icons/fa6";
+import { FaEye, FaLink, FaLinkSlash } from "react-icons/fa6";
 import DashboardContainer from "~/components/ui/DashboardContainer";
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
+import { Project } from "@prisma/client";
+import DashboardContainerCard from "~/components/ui/DashboardContainerCard";
 
 export default async function VendorProjects({
     params
 }: RouteParams) {
 
-    const associatedProjects = await prisma.vendor.findMany(
+    const associatedProjects = await prisma.vendor.findFirst(
         {
             where: {
-                projects: {
-                    some: {
-                        id: params.id
-                    }
-                }
+                id: params.id
+            },
+            select: {
+                projects: true
             }
         }
     )
@@ -28,20 +29,22 @@ export default async function VendorProjects({
             button={
                 <FaLink />
             }
-        >   
+        >
             {
-                associatedProjects.map(({ id, vendorName }) => {
-                    return (
-                        <section className="associated-project" key={id}>
-                            <section className="associated-project-image">
 
-                            </section>
-                            <section className="associated-project-meta">
-                                <p>{vendorName}</p>
-                            </section>
-                        </section>
-                    )
-                })
+                associatedProjects ? 
+                associatedProjects.projects.map((project: Project) => (
+                    <DashboardContainerCard
+                        id={project.id}
+                        key={project.id}
+                    >
+                        <p>{project.projectName}</p>
+                    </DashboardContainerCard>
+                ))
+
+                : 
+
+                <p>No projects associated with this vendor</p>
             }
         </DashboardContainer>
     )

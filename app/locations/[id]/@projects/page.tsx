@@ -3,24 +3,22 @@ import prisma from "~/lib/prisma";
 import DashboardContainer from "~/components/ui/DashboardContainer";
 import { BsCameraReelsFill } from "react-icons/bs";
 import { FaLink } from "react-icons/fa6";
+import DashboardContainerCard from "~/components/ui/DashboardContainerCard";
 
 export default async function LocationProjects({
     params
 }: RouteParams) {
 
-    const associatedProjects = await prisma.location.findMany(
+    const associatedProjects = await prisma.location.findFirst(
         {
             where: {
-                projects: {
-                    some: {
-                        id: params.id
-                    }
-                }
+                id: params.id
+            },
+            select: {
+                projects: true
             }
         }
     )
-
-    console.log(associatedProjects)
 
     return (
         <DashboardContainer
@@ -32,18 +30,21 @@ export default async function LocationProjects({
             }
         >
             {
-                associatedProjects.map(({ id, locationName }) => {
-                    return (
-                        <section className="associated-project" key={id}>
-                            <section className="associated-project-image">
+                associatedProjects ? 
 
-                            </section>
-                            <section className="associated-project-meta">
-                                <p>{locationName}</p>
-                            </section>
-                        </section>
-                    )
-                })
+                associatedProjects.projects.map((project) => (
+                    <DashboardContainerCard
+                        id={project.id}
+                        key={project.id}
+                    >
+                        <p>{project.projectName}</p>
+                    </DashboardContainerCard>
+                ))
+
+                :
+
+                <p>No projects associated with this location</p>
+
             }
         </DashboardContainer>
     )

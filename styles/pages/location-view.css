@@ -17,6 +17,12 @@
 
     .locations-projects {
         grid-area: projects;
+
+        .dashboard-container-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+            column-gap: 1rem;
+        }
     }
 
     .location-media {

@@ -84,7 +84,6 @@ export const DELETE = auth(async (req) => {
     }
   });
   if (!requester) {
-    console.log('ahhh');
     return unexpectedError;
   }
   if (requester.role !== 1)
@@ -107,7 +106,6 @@ export const DELETE = auth(async (req) => {
     });
     return resourceDeleteSuccess;
   } catch (error) {
-    console.log('haaaa');
     return unexpectedError;
   }
 }) as any
