@@ -2,7 +2,7 @@ import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma"
 import Drawer from "~/components/ui/Drawer";
 import DashboardContainer from "~/components/ui/DashboardContainer";
-import { FaEye, FaLinkSlash, FaSuitcase } from "react-icons/fa6";
+import { FaEye, FaLink, FaLinkSlash, FaSuitcase } from "react-icons/fa6";
 import Button from "~/components/ui/Button";
 import Link from "next/link";
 
@@ -30,10 +30,7 @@ export default async function ProjectVendors({
             headerIcon={<FaSuitcase />}
             additionalClasses="project-vendors-container"
             button={
-                <Button 
-                    content="Link Vendors"
-                    color="secondary"
-                />
+                <FaLink />
             }
         >
             {

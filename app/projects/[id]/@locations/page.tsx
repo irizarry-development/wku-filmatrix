@@ -5,7 +5,7 @@ import DashboardContainer from "~/components/ui/DashboardContainer";
 import { FaEye, FaMapMarkerAlt } from "react-icons/fa";
 import Button from "~/components/ui/Button";
 import Link from "next/link";
-import { FaLinkSlash } from "react-icons/fa6";
+import { FaLink, FaLinkSlash } from "react-icons/fa6";
 
 export default async function LocationList({
     params: { id }
@@ -31,10 +31,7 @@ export default async function LocationList({
             headerIcon={<FaMapMarkerAlt />}
             additionalClasses="project-locations-container"
             button={
-                <Button 
-                    content="Link Locations"
-                    color="secondary"
-                />
+                <FaLink />
             }
         >
             {

@@ -5,6 +5,7 @@ import Button from "~/components/ui/Button"
 import DashboardContainer from "~/components/ui/DashboardContainer"
 import Drawer from "~/components/ui/Drawer"
 import prisma from "~/lib/prisma"
+import { FaLink } from "react-icons/fa6";
 
 interface CrewListProps {
   params: {
@@ -76,10 +77,7 @@ export default async function CrewList({ params: { id } }: CrewListProps) {
       headerText="Crew" headerIcon={<FaUserFriends />}
       additionalClasses="project-crew-container"
       button={
-        <Button 
-          content="Link Crew Member"
-          color="secondary"
-        />
+        <FaLink />
       }
     >
       {_renderCrew(crew)}

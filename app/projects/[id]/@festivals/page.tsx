@@ -1,4 +1,4 @@
-import { FaAward } from "react-icons/fa6"
+import { FaAward, FaLink } from "react-icons/fa6"
 import Button from "~/components/ui/Button"
 import DashboardContainer from "~/components/ui/DashboardContainer"
 import prisma from "~/lib/prisma"
@@ -23,10 +23,7 @@ export default async function FestivalsList({ params: { id } }: FestivalsListPro
       headerIcon={<FaAward />}
       additionalClasses="project-festivals-container"
       button={
-        <Button 
-          content="Link Festivals"
-          color="secondary"
-        />
+        <FaLink />
       }
     >
       <ul className="project-nested-list">

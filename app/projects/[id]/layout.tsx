@@ -48,6 +48,7 @@ export default async function Layout({
       jumbotronTitle={found.projectName}
       dashboardId="projects"
       dashboardName={`Project Dashboard for ${found.projectName}`}
+      dashboardClass="project-view"
     >
       {details}
       {crew}

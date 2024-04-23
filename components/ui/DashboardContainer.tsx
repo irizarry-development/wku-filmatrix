@@ -20,9 +20,9 @@ export default function DashboardContainer({
             <section className="dashboard-container-header">
                 {headerIcon}
                 <h2>{headerText}</h2>
-                {
-                    button && button
-                }
+                <section className="dashboard-container-header-button">
+                    {button}
+                </section>
             </section>
             <section className="dashboard-container-content">
                 {children}

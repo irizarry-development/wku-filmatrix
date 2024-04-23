@@ -1,6 +1,6 @@
 import { Actor, Cast } from "@prisma/client"
 import { notFound } from "next/navigation"
-import { FaMasksTheater } from "react-icons/fa6"
+import { FaLink, FaMasksTheater } from "react-icons/fa6"
 import Button from "~/components/ui/Button"
 import DashboardContainer from "~/components/ui/DashboardContainer"
 import prisma from "~/lib/prisma"
@@ -70,10 +70,7 @@ export default async function CastList({ params: { id } }: CastListProps) {
       headerIcon={<FaMasksTheater />}
       additionalClasses="project-cast-container"
       button={
-        <Button
-          content="Link Cast"
-          color="secondary"
-        />
+        <FaLink />
       }
     >
       { _renderCast(project.cast) }

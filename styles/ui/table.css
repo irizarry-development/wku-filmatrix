@@ -1,8 +1,6 @@
 .searchable-table {
-  overflow-x: scroll;
-  max-width: calc(100vw - 9rem);
-
-  
+  overflow-x: auto;
+  max-width: calc(100vw - 9rem); 
 }
 
 .table {

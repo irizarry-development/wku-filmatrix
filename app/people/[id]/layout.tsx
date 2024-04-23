@@ -43,6 +43,7 @@ export default async function PeopleLayout({
             jumbotronTitle={foundPerson.name || id}
             dashboardId="people"
             dashboardName={`People Dashboard for ${foundPerson.name}`}
+            dashboardClass="people-view"
         >
             {details}
             {projects}

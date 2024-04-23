@@ -9,16 +9,18 @@ interface DashboardLayoutProps {
     jumbotronTitle: string
     dashboardId: string
     dashboardName: string
+    dashboardClass: string
 }
 
 export default function DashboardLayout({
     children,
     jumbotronImage,
     jumbotronTitle,
-    dashboardId
+    dashboardId,
+    dashboardClass
 }: DashboardLayoutProps) {
     return (
-        <section className="dashboard-layout project-view">
+        <section className={`dashboard-layout ${dashboardClass} `}>
             <section className="dashboard-jumbotron">
                 <Image
                     src={jumbotronImage}

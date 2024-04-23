@@ -42,7 +42,7 @@
         box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
     
         &.has-button .dashboard-container-header {
-            grid-template-columns: 3.7rem 1fr 20rem;
+            grid-template-columns: 3.7rem 1fr 4rem;
         }
     
         .dashboard-container-header {
@@ -62,10 +62,21 @@
                 margin: 0;
                 align-self: center;
             }
+
+            .dashboard-container-header-button {
+                align-self: center;
+                justify-self: end;
+                cursor: pointer;
+
+                svg {
+                    font-size: 3rem;
+                    color: var(--gray-darkest)
+                }
+            }
         }
     
         .dashboard-container-content {
-            padding: 1rem 2rem;
+            padding: 1rem 1.2rem;
         }
     }
 
