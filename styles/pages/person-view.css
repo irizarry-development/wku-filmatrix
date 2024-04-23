@@ -27,7 +27,7 @@
         .dashboard-container-content {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-            justify-items: start;
+            column-gap: 2rem;
 
             .associated-project {
                 position: relative;
@@ -35,7 +35,7 @@
                 transition: 300ms ease-in-out;
 
                 .associated-project-image {
-                    width: 16rem;
+                    width: 100%;
                     height: 16rem;
                     background-color: var(--gray-text);
                     z-index: 1;
