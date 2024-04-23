@@ -1,5 +1,14 @@
-.login-form fieldset .login-buttons {
-  display: grid;
-  column-gap: 2rem;
-  grid-template-columns: 1fr 1fr;
+.login-form {
+  fieldset .login-buttons {
+    display: grid;
+    column-gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 425px) {
+  .login-form {
+    max-width: 42.5rem;
+    margin: 20vh auto;
+  }
 }
