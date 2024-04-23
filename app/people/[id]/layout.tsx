@@ -5,6 +5,7 @@ import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import DashboardLayout from "~/components/ui/DashboardLayout";
 
 interface PeopleLayoutProps {
     details: ReactNode
@@ -28,7 +29,7 @@ export default async function PeopleLayout({
             id
         },
         select: {
-            name: true,
+            name: true
         }
     })
 
@@ -37,27 +38,17 @@ export default async function PeopleLayout({
     }
 
     return (
-        <section className="dashboard-layout people-view">
-            <section className="dashboard-jumbotron">
-                <Image
-                    src="https://www.wku.edu/marketingandcommunications/images/social-hero-3.jpg"
-                    alt="People Jumbotron"
-                    className="dashboard-jumbotron-image"
-                    width={1200}
-                    height={800}
-                />
-                <section className="dashboard-jumbotron-content">
-                    <Link href="/people/dashboard">
-                        <FaArrowLeftLong />
-                    </Link>
-                    <h1>{foundPerson.name}</h1>
-                </section>
-            </section>
+        <DashboardLayout
+            jumbotronImage="https://www.wku.edu/marketingandcommunications/images/social-hero-3.jpg"
+            jumbotronTitle={foundPerson.name || id}
+            dashboardId="people"
+            dashboardName={`People Dashboard for ${foundPerson.name}`}
+        >
             {details}
             {projects}
             {biography}
             {medicalInformation}
             {emergencyContact}
-        </section>
+        </DashboardLayout>
     )
 }
