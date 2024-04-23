@@ -12,6 +12,7 @@
 @import "pages/main.css";
 @import "pages/login.css";
 @import "pages/onboarding.css";
+@import "pages/vendor-view.css";
 @import "pages/project-view.css";
 @import "pages/person-view.css";
 @import "pages/location-view.css";
