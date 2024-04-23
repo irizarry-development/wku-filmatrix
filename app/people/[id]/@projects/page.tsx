@@ -4,7 +4,6 @@ import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import { FaEye, FaLink, FaLinkSlash } from "react-icons/fa6";
 import Link from "next/link";
-import Button from "~/components/ui/Button";
 
 export default async function ProfileProjects({
     params: { id }

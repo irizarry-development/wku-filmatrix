@@ -1,0 +1,41 @@
+.location-view {
+    display: grid;
+    grid-template-areas:
+        "jumbotron"
+        "details"
+        "projects"
+        "media";
+    column-gap: 2rem;
+
+    .dashboard-jumbotron {
+        grid-area: jumbotron;
+    }
+
+    .location-details {
+        grid-area: details;
+    }
+
+    .locations-projects {
+        grid-area: projects;
+    }
+
+    .location-media {
+        grid-area: media;
+    }
+
+    @media screen and (min-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas:
+            "jumbotron jumbotron"
+            "details media"
+            "projects projects";
+    }
+
+    @media screen and (min-width: 1440px) {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas:
+            "jumbotron jumbotron jumbotron"
+            "details projects projects"
+            "details media media";
+    }
+}
