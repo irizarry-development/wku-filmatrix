@@ -68,6 +68,7 @@ export default async function CastList({ params: { id } }: CastListProps) {
     <DashboardContainer
       headerText="Cast"
       headerIcon={<FaMasksTheater />}
+      additionalClasses="project-cast-container"
       button={
         <Button
           content="Link Cast"

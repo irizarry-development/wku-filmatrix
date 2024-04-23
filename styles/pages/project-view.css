@@ -1,117 +1,164 @@
 .project-view {
-  .project-details-container {
-      .dashboard-container-header {
-          grid-template-columns: 3rem 1fr 20rem;
-      }
-  }
+	.project-details-container {
+		.dashboard-container-header {
+			grid-template-columns: 3rem 1fr 20rem;
+		}
+	}
 
-  .project-people-container {
+	.project-people-container {
 
-      .dashboard-container-header {
-          grid-template-columns: 3rem 1fr 20rem;
-      }
+		.dashboard-container-header {
+			grid-template-columns: 3rem 1fr 20rem;
+		}
 
-      .dashboard-container-content {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
-          justify-items: start;
+		.dashboard-container-content {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+			justify-items: start;
 
-          .people-information {                
-              box-shadow: 0 0 2rem rgba(0, 0, 0, 0.15);
-              position: relative;
-              transition: 300ms ease-in-out;
+			.people-information {                
+				box-shadow: 0 0 2rem rgba(0, 0, 0, 0.15);
+				position: relative;
+				transition: 300ms ease-in-out;
 
-              &:hover {
-                  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
-                  transform: scale(1.02);
-              }
+				&:hover {
+					box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
+					transform: scale(1.02);
+				}
 
-              .people-image {
-                  width: 16rem;
-                  height: 16rem;
-                  background-color: var(--gray-text);
-                  z-index: 1;
-              }
+				.people-image {
+					width: 16rem;
+					height: 16rem;
+					background-color: var(--gray-text);
+					z-index: 1;
+				}
 
-              .people-actions {
-                  position: absolute;
-                  display: grid;
-                  grid-auto-flow: column;
-                  column-gap: 1rem;
-                  z-index: 2;
-                  font-size: 2.4rem;
-                  top: 0.6rem;
-                  right: 0.6rem;
+				.people-actions {
+					position: absolute;
+					display: grid;
+					grid-auto-flow: column;
+					column-gap: 1rem;
+					z-index: 2;
+					font-size: 2.4rem;
+					top: 0.6rem;
+					right: 0.6rem;
 
-                  .view-person {
-                      color: var(--gray-lightest);
-                  }
+					.view-person {
+						color: var(--gray-lightest);
+					}
 
-                  .unlink-person {
-                      color: var(--red-darker);
-                      cursor: pointer;
-                  }
-              }
+					.unlink-person {
+						color: var(--red-darker);
+						cursor: pointer;
+					}
+				}
 
-              .people-meta {
+				.people-meta {
 
-                  padding: 1.2rem 0.8rem;
+					padding: 1.2rem 0.8rem;
 
-                  p {
-                      margin: 0;
-                      align-self: center;
-                      font-size: 1.6rem;
-                      text-align: center;
-                  }
-              }
-          }
-      }
-  }
+					p {
+						margin: 0;
+						align-self: center;
+						font-size: 1.6rem;
+						text-align: center;
+					}
+				}
+			}
+		}
+	}
 
-  .project-vendors-container,
-  .project-locations-container {
+	.project-vendors-container,
+	.project-locations-container {
 
-      .dashboard-container-header {
-          grid-template-columns: 3rem 1fr 20rem;
-      }
+		.dashboard-container-header {
+			grid-template-columns: 3rem 1fr 20rem;
+		}
 
-      .dashboard-container-content {
-          display: grid;
-          row-gap: 0.8rem;
-      
-          .vendor-information,
-          .location-information {
-              display: grid;
-              grid-template-columns: 1fr 6rem;
-              align-items: center;
+		.dashboard-container-content {
+			display: grid;
+			row-gap: 0.8rem;
+		
+			.vendor-information,
+			.location-information {
+				display: grid;
+				grid-template-columns: 1fr 6rem;
+				align-items: center;
 
-              p { 
-                  font-size: 1.6rem; margin: 0; 
-              }
-  
-              .vendor-buttons,
-              .location-buttons {
-                  display: grid;
-                  grid-auto-flow: column;
-                  column-gap: 1rem;
-                  align-items: center;
+				p { 
+					font-size: 1.6rem; margin: 0; 
+				}
+	
+				.vendor-buttons,
+				.location-buttons {
+					display: grid;
+					grid-auto-flow: column;
+					column-gap: 1rem;
+					align-items: center;
 
-                  a {
-                      font-size: 2.4rem;
-                      height: 2.4rem;
-                      color: var(--gray-lightest);
-                      align-self: center;
-                  }
+					a {
+						font-size: 2.4rem;
+						height: 2.4rem;
+						color: var(--gray-lightest);
+						align-self: center;
+					}
 
-                  .unlink-vendor,
-                  .unlink-location {       
-                      color: var(--red-darker);
-                      font-size: 2.4rem;
-                      cursor: pointer;
-                  }
-              }
-          }
-      }
+					.unlink-vendor,
+					.unlink-location {       
+						color: var(--red-darker);
+						font-size: 2.4rem;
+						cursor: pointer;
+					}
+				}
+			}
+		}
+	}
+
+	.project-festivals-container,
+	.project-cast-container {
+
+		ul.project-nested-list {
+			list-style: none;
+			padding-left: 1rem;
+	
+			ul {
+				list-style: none;
+				padding-left: 2rem;
+		
+				p.project-nested-item-name {
+					font-size: 1.5rem;
+				}
+			}
+	
+			li.project-nested-list-top {
+				margin-bottom: 3rem;
+			}
+	
+			li.project-nested-list-bottom {
+	
+				p.project-nested-item-name {
+					font-size: 1.8rem;
+				}
+	
+				section.project-nested-details {
+					padding-left: 2rem;
+		
+					a {
+						font-size: 1.2rem;
+						text-decoration: underline;
+						color: var(--gray-lighter);
+
+						&:hover {
+							color: var(--gray-lighter);
+						}
+		
+						&:active {
+							color: var(--gray-lighter);
+						}
+					}
+				}
+			}
+		}
   }
 
   .project-checklist-container {

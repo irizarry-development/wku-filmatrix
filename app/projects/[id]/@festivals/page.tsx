@@ -21,6 +21,7 @@ export default async function FestivalsList({ params: { id } }: FestivalsListPro
     <DashboardContainer
       headerText="Festivals"
       headerIcon={<FaAward />}
+      additionalClasses="project-festivals-container"
       button={
         <Button 
           content="Link Festivals"
