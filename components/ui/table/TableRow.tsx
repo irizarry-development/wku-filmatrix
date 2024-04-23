@@ -27,7 +27,7 @@ export default function TableRow(props: {
       const url = props.deleteUrl.endsWith("/")
         ? props.deleteUrl
         : props.deleteUrl.concat("/")
-      await axios.delete(`${url}${id}`, { data: { id } })
+      await axios.delete(`${url}${id}`);
       toast.success(
         `Deleted ${props.singular.toLowerCase()} ${props.name ? `'${props.name}'` : props.id}`
       )

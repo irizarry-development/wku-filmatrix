@@ -57,9 +57,8 @@ export const PATCH = auth(async (req) => {
       locationName: parsedBody.locationName
     }
   })
-  if (existing) {
-    return requestConflict;
-  }
+  if (existing)
+    return requestConflict("A location with this name already exists");
 
   try {
     await prisma.location.update({

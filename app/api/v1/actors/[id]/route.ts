@@ -1,5 +1,5 @@
 import { ZodError } from "zod"
-import { checkAuthentication, forbiddenResponse, invalidRequest, invalidRequestWithError, resourceDeleteSuccess, resourceFound, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, forbiddenResponse, invalidRequest, invalidRequestWithError, requestConflict, resourceDeleteSuccess, resourceFound, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { actorSchema } from "~/lib/z"
@@ -36,35 +36,23 @@ export const PATCH = auth(async (req) => {
     where: {
       email: auth
     },
-  })
+  });
+  if (!requester)
+    return invalidRequest;
+  if (requester.role !== 1)
+    return forbiddenResponse;
 
-  // Check to see if there is a valid requester
-  if (!requester) {
-    return invalidRequest
-  }
-  
-  // Check to see if they have the correct role
-  if (requester.role !== 1) {
-    return forbiddenResponse
-  }
-
-  // Get the id from the url
   const id = req.url.split("/").pop()!;
-
-  // Get the actor from the database
   const actor = await prisma.actor.findUnique({
     where: {
       id
     },
-  })
-
-  if (!actor) {
-    return resourceNotFound
-  }
+  });
+  if (!actor)
+    return resourceNotFound;
 
   const body = await req.json();
   let parsedBody;
-
   try {
     parsedBody = actorSchema.parse(body);
   } catch (errors) {
@@ -78,7 +66,6 @@ export const PATCH = auth(async (req) => {
       },
       data: parsedBody,
     })
-
     return resourceUpdateSuccess
   } catch (error) {
     return unexpectedError
@@ -92,26 +79,30 @@ export const DELETE = auth(async (req) => {
 
   const requester = await prisma.user.findUnique({
     where: {
-      email: auth
+      email: auth,
     }
   });
-
-  if (!requester) {
-    return invalidRequest
-  } else if (requester.role !== 1) {
-    return forbiddenResponse
-  }
+  if (!requester)
+    return unexpectedError;
+  if (requester.role !== 1)
+    return forbiddenResponse;
 
   const id = req.url.split("/").pop()!;
   const actor = await prisma.actor.findUnique({
     where: {
       id
     },
-  })
+  });
+  if (!actor)
+    return resourceNotFound;
 
-  if (!actor) {
-    return resourceNotFound
-  }
+  const cast = await prisma.cast.findFirst({
+    where: {
+      actorId: id,
+    }
+  });
+  if (cast)
+    return requestConflict("Actors cannot be deleted while linked to a project");
 
   try {
     await prisma.actor.delete({
@@ -119,9 +110,8 @@ export const DELETE = auth(async (req) => {
         id
       },
     });
-
-    return resourceDeleteSuccess
+    return resourceDeleteSuccess;
   } catch (error) {
-    return unexpectedError
+    return unexpectedError;
   }
 }) as any

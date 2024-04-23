@@ -25,7 +25,7 @@ export const resourceDeleteSuccess = NextResponse.json("The resource was deleted
 
 export const invalidRequest = NextResponse.json("The request that was sent was invalid", { status: 400 })
 export const invalidRequestWithError = (message: string | undefined) => NextResponse.json(message, { status: 400 })
-export const requestConflict = NextResponse.json("This resource already exists", { status: 409 })
+export const requestConflict = (message: string | undefined) => NextResponse.json(message, { status: 409 })
 
 // GLOBAL CONSTS
 

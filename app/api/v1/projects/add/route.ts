@@ -98,7 +98,7 @@ export const POST = auth(async (req) => {
     }
   })
   if (existing)
-    return requestConflict;
+    requestConflict("A project with this name or production number already exists");
 
   try {
     let project: Project

@@ -58,7 +58,7 @@ export const PATCH = auth(async (req) => {
     }
   });
   if (existing)
-    return requestConflict;
+    return requestConflict("A vendor with this name already exists");
 
   try {
     await prisma.vendor.update({
@@ -82,8 +82,9 @@ export const DELETE = auth(async (req) => {
     where: {
       email: auth,
     }
-  })
+  });
   if (!requester) {
+    console.log('ahhh');
     return unexpectedError;
   }
   if (requester.role !== 1)
@@ -93,19 +94,20 @@ export const DELETE = auth(async (req) => {
   const vendor = await prisma.vendor.findUnique({
     where: {
       id
-    }
+    },
   });
   if (!vendor)
     return resourceNotFound;
 
   try {
-    await prisma.location.delete({
+    await prisma.vendor.delete({
       where: {
         id
       },
     });
     return resourceDeleteSuccess;
   } catch (error) {
+    console.log('haaaa');
     return unexpectedError;
   }
 }) as any

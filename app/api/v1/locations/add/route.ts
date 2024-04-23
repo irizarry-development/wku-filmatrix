@@ -38,7 +38,7 @@ export const POST = auth(async (req) => {
     }
   })
   if (existing)
-    return requestConflict;
+    return requestConflict("A location with this name already exists");
 
   try {
     return resourceFound(

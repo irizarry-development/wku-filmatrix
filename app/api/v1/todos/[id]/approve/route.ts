@@ -7,12 +7,11 @@ export const POST = auth(async (req) => {
   if (!auth)
     return unauthorizedResponse;
 
-  // get requester and validate
   const requester = await prisma.user.findUnique({
     where: {
       email: auth,
     }
-  })
+  });
   if (!requester)
     return unexpectedError;
   if (requester.role !== 1)
@@ -30,7 +29,6 @@ export const POST = auth(async (req) => {
   if (todo.complete)
     return invalidRequestWithError("Project todo already complete");
 
-  // set todo as complete and approver as requester
   try {
     await prisma.projectTodo.update({
       where: {

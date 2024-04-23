@@ -49,7 +49,7 @@ export const POST = auth(async (req) => {
     }
   });
   if (existing)
-    return requestConflict;
+    return requestConflict("This actor is already linked to this project");
 
   try {
     return resourceFound(

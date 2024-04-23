@@ -61,7 +61,7 @@ export const POST = auth(async (req) => {
     }
   });
   if (existing)
-    return requestConflict;
+    return requestConflict("This location is already linked to this project");
 
   try {
     return resourceFound(
@@ -142,7 +142,7 @@ export const DELETE = auth(async (req) => {
     }
   });
   if (!existing)
-    return requestConflict;
+    return requestConflict("This location is not linked to this project");
 
   try {
     await prisma.project.update({

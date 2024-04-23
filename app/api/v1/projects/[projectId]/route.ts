@@ -65,10 +65,8 @@ export const PATCH = auth(async (req) => {
       ]
     }
   })
-
-  if (existing) {
-    requestConflict
-  }
+  if (existing)
+    requestConflict("A project with this name or production number already exists");
 
   try {
     await prisma.project.update({
