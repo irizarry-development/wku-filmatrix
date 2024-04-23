@@ -1,15 +1,12 @@
-import { NextResponse } from "next/server"
 import { auth } from "~/lib/auth"
 import { onboardingBodySchema } from "~/lib/z"
 import prisma from "~/lib/prisma"
+import { checkAuthentication, resourceFound, unauthorizedResponse, unexpectedError } from "~/lib/api"
 
 export const PATCH = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email) {
-    return NextResponse.json({
-      status: 401,
-      error: "Unauthorized"
-    })
-  }
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
   const body = await req.json()
   const parsedBody = onboardingBodySchema.parse(body)
@@ -17,19 +14,12 @@ export const PATCH = auth(async (req) => {
   try {
     await prisma.user.update({
       where: {
-        email: req.auth.user.email
+        email: auth,
       },
       data: { ...parsedBody, hasOnboarded: true }
     })
-
-    return NextResponse.json({
-      status: 200,
-      message: "Onboarding form submitted"
-    })
+    return resourceFound("Onboarding form submitted");
   } catch (error) {
-    return NextResponse.json({
-      status: 500,
-      error: "Internal Server Error"
-    })
+    return unexpectedError;
   }
 }) as any

@@ -1,52 +1,47 @@
-import { NextResponse } from "next/server"
+import { ZodError } from "zod"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, resourceFound, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { createVendorSchema } from "~/lib/z"
 
 export const POST = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email) {
-    return NextResponse.json("Unauthorized", { status: 401 })
-  }
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
-  // get requester and validate
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth,
     }
-  })
-  if (!requester) {
-    return NextResponse.json("impossible...", { status: 500 })
+  });
+  if (!requester)
+    return unexpectedError;
+  if (requester.role === 3)
+    return forbiddenResponse;
+
+  const body = await req.json();
+  let parsedBody;
+  try {
+    parsedBody = createVendorSchema.parse(body);
+  } catch (errors) {
+    return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
   }
 
-  // throw error if requester is a graduated student
-  if (requester.role === 3) {
-    return NextResponse.json("Graduated students may only view content", {
-      status: 400
-    })
-  }
-
-  const body = await req.json()
-  const parsedBody = createVendorSchema.parse(body)
-
-  // if vendor with given name already exists, throw error
   const existing = await prisma.vendor.findUnique({
     where: {
       vendorName: parsedBody.vendorName
     }
-  })
-  if (existing) {
-    return NextResponse.json(
-      `Vendor with name \'${parsedBody.vendorName}\' already exists`,
-      { status: 409 }
-    )
-  }
+  });
+  if (existing)
+    return requestConflict;
 
   try {
-    const vendor = await prisma.vendor.create({
-      data: { ...parsedBody }
-    })
-    return NextResponse.json(vendor, { status: 200 })
+    return resourceFound(
+      await prisma.vendor.create({
+        data: { ...parsedBody }
+      })
+    );
   } catch (error) {
-    return NextResponse.json("Internal server error", { status: 500 })
+    return unexpectedError;
   }
 }) as any

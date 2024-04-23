@@ -1,56 +1,48 @@
 import { auth } from "~/lib/auth"
 import { createProjectSchema } from "~/lib/z"
 import prisma from "~/lib/prisma"
-import { NextResponse } from "next/server"
+import { checkAuthentication, forbiddenResponse, requestConflict, resourceDeleteSuccess, resourceFound, resourceNotFound, resourceUpdateSuccess, splitUrl, unauthorizedResponse, unexpectedError } from "~/lib/api"
 
 export const GET = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email) {
-    return NextResponse.json("Unauthorized", { status: 401 })
-  }
+  const auth = checkAuthentication(req)
+  if (!auth)
+    return unauthorizedResponse;
 
-  const id = req.url.split("/").pop()
-
+  const id = splitUrl(req.url)
   const project = await prisma.project.findUnique({
     where: {
       id
     }
   })
-
-  if (!project) {
-    return NextResponse.json("Project not found", { status: 404 })
-  }
-
-  return NextResponse.json({ project }, { status: 200 })
+  if (!project)
+    return resourceNotFound;
+  return resourceFound({ project })
 }) as any
 
 export const PATCH = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email) {
-    return NextResponse.json("Unauthorized", { status: 401 })
+  
+  const auth = checkAuthentication(req)
+
+  if (!auth) {
+    return unauthorizedResponse;
   }
 
   // get requester and validate
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth
     }
   })
+
   if (!requester) {
-    return NextResponse.json("impossible...", { status: 500 })
+    return unexpectedError
   }
 
-  // throw error if requester is a graduated student
-  if (requester.role === 3) {
-    return NextResponse.json("Graduated students may only view content", {
-      status: 400
-    })
-  }
-
-  // throw error if requester is not admin
   if (requester.role !== 1) {
-    return NextResponse.json("You cannot edit projects.", { status: 400 })
+    return forbiddenResponse
   }
 
-  const id = req.url.split("/").pop()
+  const id = splitUrl(req.url)
   const project = await prisma.project.findUnique({
     where: {
       id
@@ -58,7 +50,7 @@ export const PATCH = auth(async (req) => {
   })
 
   if (!project) {
-    return NextResponse.json("Project not found", { status: 404 })
+    return resourceNotFound
   }
 
   const body = await req.json()
@@ -73,11 +65,9 @@ export const PATCH = auth(async (req) => {
       ]
     }
   })
+
   if (existing) {
-    return NextResponse.json(
-      `Project with name \'${parsedBody.projectName}\' OR production number \'${parsedBody.projectProductionNumber}\' already exists`,
-      { status: 409 }
-    )
+    requestConflict
   }
 
   try {
@@ -88,43 +78,37 @@ export const PATCH = auth(async (req) => {
       data: parsedBody
     })
 
-    return NextResponse.json({}, { status: 200 })
+    return resourceUpdateSuccess
   } catch (error) {
-    return NextResponse.json("Unexpected error updating project", {
-      status: 500
-    })
+    return unexpectedError
   }
 }) as any
 
 export const DELETE = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email) {
-    return NextResponse.json("Unauthorized", { status: 401 })
-  }
+  
+  const auth = checkAuthentication(req)
 
+  if (!auth) {
+    return unauthorizedResponse
+  }
   // get requester and validate
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth
     }
   })
-  if (!requester) {
-    return NextResponse.json("impossible...", { status: 500 })
-  }
 
-  // throw error if requester is a graduated student
-  if (requester.role === 3) {
-    return NextResponse.json("Graduated students may only view content", {
-      status: 400
-    })
+  if (!requester) {
+    return unexpectedError
   }
 
   // throw error if requester is not admin
   if (requester.role !== 1) {
-    return NextResponse.json("You cannot delete projects", { status: 400 })
+    return forbiddenResponse
   }
 
   // get project id from url
-  const id = req.url.split("/").pop()!
+  const id = splitUrl(req.url)
   // find project
   const project = await prisma.project.findUnique({
     where: {
@@ -134,22 +118,19 @@ export const DELETE = auth(async (req) => {
 
   // if project does not exist, return error
   if (!project) {
-    return NextResponse.json("Project not found", { status: 404 })
+    return resourceNotFound
   }
 
   // delete project
-  const deleted = await prisma.project.delete({
-    where: {
-      id
-    }
-  })
-
-  // return error if project was not deleted
-  if (!deleted) {
-    return NextResponse.json(`Unexpected error while deleting project ${id}`, {
-      status: 500
+  try {
+    const deleted = await prisma.project.delete({
+      where: {
+        id
+      }
     })
-  }
 
-  return NextResponse.json({}, { status: 200 })
+    return resourceDeleteSuccess
+  } catch (error) {
+    return unexpectedError
+  }
 }) as any

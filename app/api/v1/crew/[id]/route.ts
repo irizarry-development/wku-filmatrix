@@ -1,11 +1,13 @@
-import { NextResponse } from "next/server"
+import { ZodError } from "zod"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, resourceDeleteSuccess, resourceFound, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { editCrewSchema } from "~/lib/z"
 
 export const GET = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email)
-    return NextResponse.json("Unauthorized", { status: 401 });
+  const auth = checkAuthentication(req)
+  if (!auth)
+    return unauthorizedResponse;
 
   const id = req.url.split("/").pop()!;
   const crew = await prisma.crew.findUnique({
@@ -14,25 +16,24 @@ export const GET = auth(async (req) => {
     },
   });
   if (!crew)
-    return NextResponse.json("Crew member not found", { status: 404 });
-  return NextResponse.json({ crew }, { status: 200 });
+    return resourceNotFound;
+  return resourceFound({ crew });
 }) as any
 
 export const PATCH = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email)
-    return NextResponse.json("Unauthorized", { status: 401 });
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth,
     },
   });
   if (!requester)
-    return NextResponse.json("impossible...", { status: 500 });
-  if (requester.role === 3)
-    return NextResponse.json("Graduated students may only view content", { status: 400 });
+    return unexpectedError;
   if (requester.role !== 1)
-    return NextResponse.json("You cannot edit crew members", { status: 400 });
+    return forbiddenResponse;
 
   const id = req.url.split("/").pop()!;
   const crew = await prisma.crew.findUnique({
@@ -41,10 +42,16 @@ export const PATCH = auth(async (req) => {
     },
   });
   if (!crew)
-    return NextResponse.json("Crew member not found", { status: 404 });
+    return resourceNotFound;
 
-  const body = await req.json()
-  const parsedBody = editCrewSchema.parse(body)
+  const body = await req.json();
+  let parsedBody;
+  try {
+    parsedBody = editCrewSchema.parse(body);
+  } catch (errors) {
+    return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
+  }
+
   try {
     await prisma.crew.update({
       where: {
@@ -52,27 +59,26 @@ export const PATCH = auth(async (req) => {
       },
       data: parsedBody,
     });
-    return NextResponse.json({}, { status: 200 });
+    return resourceUpdateSuccess;
   } catch (error) {
-    return NextResponse.json("Unexpected error updating crew member", { status: 500 });
+    return unexpectedError;
   }
 }) as any
 
 export const DELETE = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email)
-    return NextResponse.json("Unauthorized", { status: 401 });
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth,
     }
   });
   if (!requester)
-    return NextResponse.json("impossible...", { status: 500 });
-  if (requester.role === 3)
-    return NextResponse.json("Graduated students may only view content", { status: 400 });
+    return unexpectedError;
   if (requester.role !== 1)
-    return NextResponse.json("You cannot delete crew members", { status: 400 });
+    return forbiddenResponse;
 
   const id = req.url.split("/").pop()!;
   const crew = await prisma.crew.findUnique({
@@ -81,7 +87,7 @@ export const DELETE = auth(async (req) => {
     },
   })
   if (!crew)
-    return NextResponse.json("Crew member not found", { status: 404 });
+    return resourceNotFound;
 
   try {
     await prisma.crew.delete({
@@ -89,8 +95,8 @@ export const DELETE = auth(async (req) => {
         id
       },
     });
-    return NextResponse.json({}, { status: 200 });
+    return resourceDeleteSuccess;
   } catch (error) {
-    return NextResponse.json('Unexpected error while deleting crew member', { status: 500 });
+    return unexpectedError;
   }
 }) as any

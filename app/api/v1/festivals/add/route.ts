@@ -1,29 +1,30 @@
-import { NextResponse } from "next/server"
 import { ZodError } from "zod"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, resourceFound, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { createFestivalSchema } from "~/lib/z"
 
 export const POST = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email)
-    return NextResponse.json("Unauthorized", { status: 401 });
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth,
     }
   });
   if (!requester)
-    return NextResponse.json("impossible...", { status: 500 });
+    return unexpectedError;
   if (requester.role === 3)
-    return NextResponse.json( "Graduated students may only view content", { status: 400 });
+    return forbiddenResponse;
 
   const body = await req.json();
   let parsedBody;
   try {
     parsedBody = createFestivalSchema.parse(body);
   } catch (errors) {
-    return NextResponse.json((errors as ZodError).issues.at(0)?.message, { status: 400 });
+    return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
   }
 
   if (requester.role !== 1) {
@@ -36,17 +37,16 @@ export const POST = auth(async (req) => {
       }
     });
     if (!crew)
-      return NextResponse.json("You cannot add festivals to this project", { status: 403 });
+      return forbiddenResponse;
   }
 
   try {
-    return NextResponse.json(
+    return resourceFound(
       await prisma.festival.create({
         data: { ...parsedBody }
-      }), 
-      { status: 200 }
+      })
     );
   } catch (error) {
-    return NextResponse.json("Unexpected error adding festival to project", { status: 500 });
+    return unexpectedError;
   }
 }) as any

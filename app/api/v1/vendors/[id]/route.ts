@@ -1,152 +1,111 @@
-import { NextResponse } from "next/server"
+import { ZodError } from "zod"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, resourceDeleteSuccess, resourceFound, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { createVendorSchema } from "~/lib/z"
 
 export const GET = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email) {
-    return NextResponse.json("Unauthorized", { status: 401 })
-  }
+  const auth = checkAuthentication(req)
+  if (!auth)
+    return unauthorizedResponse;
 
   const id = req.url.split("/").pop()
-
   const vendor = await prisma.vendor.findUnique({
     where: {
       id
     }
-  })
-
-  if (!vendor) {
-    return NextResponse.json("Vendor not found", { status: 404 })
-  }
-
-  return NextResponse.json({ vendor }, { status: 200 })
+  });
+  if (!vendor)
+    return resourceNotFound;
+  return resourceFound({ vendor });
 }) as any
 
 export const PATCH = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email) {
-    return NextResponse.json("Unauthorized", { status: 401 })
-  }
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
-  // get requester and validate
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth,
     }
   })
-  if (!requester) {
-    return NextResponse.json("impossible...", { status: 500 })
-  }
-
-  // throw error if requester is a graduated student
-  if (requester.role === 3) {
-    return NextResponse.json("Graduated students may only view content", {
-      status: 400
-    })
-  }
-
-  // throw error if requester is not admin
-  if (requester.role !== 1) {
-    return NextResponse.json("You cannot edit vendors.", { status: 400 })
-  }
+  if (!requester)
+    return unexpectedError;
+  if (requester.role !== 1)
+    return forbiddenResponse;
 
   const id = req.url.split("/").pop()
   const vendor = await prisma.vendor.findUnique({
     where: {
       id
     }
-  })
+  });
+  if (!vendor)
+    return resourceNotFound;
 
-  if (!vendor) {
-    return NextResponse.json({}, { status: 404 })
+  const body = await req.json();
+  let parsedBody;
+  try {
+    parsedBody = createVendorSchema.parse(body);
+  } catch (errors) {
+    return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
   }
 
-  const body = await req.json()
-  const parsedBody = createVendorSchema.parse(body)
-
-  // if vendor with given name already exists, throw error
   const existing = await prisma.vendor.findUnique({
     where: {
       vendorName: parsedBody.vendorName
     }
-  })
-  if (existing) {
-    return NextResponse.json(
-      `Vendor with name \'${parsedBody.vendorName}\' already exists`,
-      { status: 409 }
-    )
-  }
+  });
+  if (existing)
+    return requestConflict;
 
   try {
     await prisma.vendor.update({
       where: {
         id
       },
-      data: { ...parsedBody }
+      data: parsedBody
     })
-
-    return NextResponse.json({}, { status: 200 })
+    return resourceUpdateSuccess;
   } catch (error) {
-    return NextResponse.json("Unexpected error updating vendor", {
-      status: 500
-    })
+    return unexpectedError;
   }
 }) as any
 
 export const DELETE = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email) {
-    return NextResponse.json("Unauthorized", { status: 401 })
-  }
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
-  // get requester and validate
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth,
     }
   })
   if (!requester) {
-    return NextResponse.json("impossible...", { status: 500 })
+    return unexpectedError;
   }
+  if (requester.role !== 1)
+    return forbiddenResponse;
 
-  // throw error if requester is a graduated student
-  if (requester.role === 3) {
-    return NextResponse.json("Graduated students may only view content", {
-      status: 400
-    })
-  }
-
-  // throw error if requester is not admin
-  if (requester.role !== 1) {
-    return NextResponse.json("You cannot delete vendors", { status: 400 })
-  }
-
-  // get vendor id from url
-  const id = req.url.split("/").pop()!
-
-  // find vendor
+  const id = req.url.split("/").pop()!;
   const vendor = await prisma.vendor.findUnique({
     where: {
       id
     }
-  })
+  });
+  if (!vendor)
+    return resourceNotFound;
 
-  // if vendor does not exist, return error
-  if (!vendor) {
-    return NextResponse.json("Vendor not found", { status: 404 })
+  try {
+    await prisma.location.delete({
+      where: {
+        id
+      },
+    });
+    return resourceDeleteSuccess;
+  } catch (error) {
+    return unexpectedError;
   }
-
-  // delete vendor
-  const deleted = await prisma.vendor.delete({
-    where: {
-      id
-    }
-  })
-
-  // return error if vendor was not deleted
-  if (!deleted) {
-    return NextResponse.json(`Unexpected error while deleting vendor ${id}`, {
-      status: 500
-    })
-  }
-  return NextResponse.json({}, { status: 200 })
 }) as any

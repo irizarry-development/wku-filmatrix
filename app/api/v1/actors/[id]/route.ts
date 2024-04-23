@@ -5,12 +5,9 @@ import prisma from "~/lib/prisma"
 import { actorSchema } from "~/lib/z"
 
 export const GET = auth(async (req) => {
-
   const auth = checkAuthentication(req)
-
-  if (!auth) {
-    return unauthorizedResponse
-  }
+  if (!auth)
+    return unauthorizedResponse;
 
   // Get the actor id from the url
   const id = req.url.split("/").pop()!;
@@ -20,7 +17,7 @@ export const GET = auth(async (req) => {
     where: {
       id
     },
-  })
+  });
 
   // If the actor is not found, return a 404 response
   if (!actor) {
@@ -31,12 +28,9 @@ export const GET = auth(async (req) => {
 }) as any
 
 export const PATCH = auth(async (req) => {
-
-  const auth = checkAuthentication(req)
-
-  if (!auth) {
-    return unauthorizedResponse
-  }
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
   const requester = await prisma.user.findUnique({
     where: {
@@ -92,18 +86,15 @@ export const PATCH = auth(async (req) => {
 }) as any
 
 export const DELETE = auth(async (req) => {
-
-  const auth = checkAuthentication(req)
-
-  if (!auth) {
-    return unauthorizedResponse
-  }
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
   const requester = await prisma.user.findUnique({
     where: {
       email: auth
     }
-  })
+  });
 
   if (!requester) {
     return invalidRequest

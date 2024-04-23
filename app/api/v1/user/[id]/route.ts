@@ -1,75 +1,65 @@
-import { NextResponse } from "next/server"
+import { ZodError } from "zod"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, resourceDeleteSuccess, resourceFound, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { createUserSchema } from "~/lib/z"
 
 export const GET = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email) {
-    return NextResponse.json("Unauthorized", { status: 401 })
-  }
+  const auth = checkAuthentication(req)
+  if (!auth)
+    return unauthorizedResponse;
 
-  // get user and validate
   const id = req.url.split("/").pop()
   const user = await prisma.user.findUnique({
     where: {
       id
     }
   })
-  if (!user) {
-    return NextResponse.json("Person not found", { status: 404 })
-  }
-
-  return NextResponse.json({ user }, { status: 200 })
+  if (!user)
+    return resourceNotFound;
+  return resourceFound({ user });
 }) as any
 
 export const PATCH = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email) {
-    return NextResponse.json("Unauthorized", { status: 401 })
-  }
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
-  // get requester and validate
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
-    }
-  })
-  if (!requester) {
-    return NextResponse.json("impossible...", { status: 500 })
-  }
+      email: auth,
+    },
+  });
+  if (!requester)
+    return unexpectedError;
 
-  // get user to be edited and validate
   const id = req.url.split("/").pop()
   const user = await prisma.user.findUnique({
     where: {
       id
     }
-  })
-  if (!user) {
-    return NextResponse.json("Person not found", { status: 404 })
+  });
+  if (!user)
+    return resourceNotFound;
+
+  if (user.email !== requester.email && requester.role !== 1)
+    return invalidRequestWithError("You cannot edit people other than yourself");
+
+  const body = await req.json();
+  let parsedBody;
+  try {
+    parsedBody = createUserSchema.parse(body);
+  } catch (errors) {
+    return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
   }
 
-  // throw error if user to be edited is not requester and requester is not admin
-  if (user.email !== requester.email && requester.role !== 1) {
-    return NextResponse.json("You cannot edit people other than yourself", {
-      status: 400
-    })
-  }
-
-  const body = await req.json()
-  const parsedBody = createUserSchema.parse(body)
-
-  // if person with given email already exists, throw error
   const existing = await prisma.user.findUnique({
     where: {
       email: parsedBody.email
     }
-  })
-  if (existing) {
-    return NextResponse.json(
-      `Person with email \'${parsedBody.email}\' already exists`,
-      { status: 409 }
-    )
-  }
+  });
+  if (existing)
+    return requestConflict;
 
   try {
     await prisma.user.update({
@@ -78,62 +68,46 @@ export const PATCH = auth(async (req) => {
       },
       data: parsedBody
     })
-    return NextResponse.json({}, { status: 200 })
+    return resourceUpdateSuccess;
   } catch (error) {
-    return NextResponse.json("Unexpected error updating user", {
-      status: 500
-    })
+    return unexpectedError;
   }
 }) as any
 
 export const DELETE = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email) {
-    return NextResponse.json("Unauthorized", { status: 401 })
-  }
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
-  // get requester and validate
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth,
     }
-  })
-  if (!requester) {
-    return NextResponse.json("impossible...", { status: 500 })
-  }
+  });
+  if (!requester)
+    return unexpectedError;
+  if (requester.role !== 1)
+    return forbiddenResponse;
 
-  // throw error if requester is not admin
-  if (requester.role !== 1) {
-    return NextResponse.json("You cannot delete people", { status: 400 })
-  }
-
-  // get user and validate
-  const id = req.url.split("/").pop()
+  const id = req.url.split("/").pop();
   const user = await prisma.user.findUnique({
     where: {
       id
     }
-  })
-  if (!user) {
-    return NextResponse.json("User not found", { status: 404 })
-  }
+  });
+  if (!user)
+    return resourceNotFound;
+  if (user.email === auth)
+    return invalidRequestWithError("You cannot delete yourself");
 
-  // if user is trying to delete themselves, return error
-  if (user.email === req.auth.user.email) {
-    return NextResponse.json("You cannot delete yourself", { status: 400 })
+  try {
+    await prisma.user.delete({
+      where: {
+        id
+      },
+    });
+    return resourceDeleteSuccess;
+  } catch (error) {
+    return unexpectedError;
   }
-
-  // delete user
-  const deleted = await prisma.user.delete({
-    where: {
-      id
-    }
-  })
-  // return error if user was not deleted
-  if (!deleted) {
-    return NextResponse.json(`Unexpected error while deleting user ${id}`, {
-      status: 500
-    })
-  }
-
-  return NextResponse.json({}, { status: 200 })
 }) as any

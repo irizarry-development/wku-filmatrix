@@ -1,12 +1,13 @@
-import { NextResponse } from "next/server"
 import { ZodError } from "zod"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, resourceDeleteSuccess, resourceFound, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { editFestivalSchema } from "~/lib/z"
 
 export const GET = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email)
-    return NextResponse.json("Unauthorized", { status: 401 });
+  const auth = checkAuthentication(req)
+  if (!auth)
+    return unauthorizedResponse;
 
   const id = req.url.split("/").pop()!;
   const festival = await prisma.festival.findUnique({
@@ -15,23 +16,24 @@ export const GET = auth(async (req) => {
     },
   });
   if (!festival)
-    return NextResponse.json("Festival not found", { status: 404 });
-  return NextResponse.json({ festival }, { status: 200 });
+    return resourceNotFound;
+  return resourceFound({ festival });
 }) as any
 
 export const PATCH = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email)
-    return NextResponse.json("Unauthorized", { status: 401 });
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth,
     },
   });
   if (!requester)
-    return NextResponse.json("impossible...", { status: 500 });
+    return unexpectedError;
   if (requester.role === 3)
-    return NextResponse.json("Graduated students may only view content", { status: 400 });
+    return forbiddenResponse;
 
   const id = req.url.split("/").pop()!;
   const festival = await prisma.festival.findUnique({
@@ -40,7 +42,7 @@ export const PATCH = auth(async (req) => {
     },
   });
   if (!festival)
-    return NextResponse.json("Festival not found", { status: 404 });
+    return resourceNotFound;
 
   if (requester.role !== 1) {
     const crew = await prisma.crew.findFirst({
@@ -52,7 +54,7 @@ export const PATCH = auth(async (req) => {
       }
     });
     if (!crew)
-      return NextResponse.json("You cannot edit festivals from this project", { status: 403 });
+      return forbiddenResponse;
   }
   
   const body = await req.json();
@@ -60,7 +62,7 @@ export const PATCH = auth(async (req) => {
   try {
     parsedBody = editFestivalSchema.parse(body);
   } catch (errors) {
-    return NextResponse.json((errors as ZodError).issues.at(0)?.message, { status: 400 });
+    return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
   }
 
   try {
@@ -70,25 +72,26 @@ export const PATCH = auth(async (req) => {
       },
       data: parsedBody,
     });
-    return NextResponse.json({}, { status: 200 });
+    return resourceUpdateSuccess;
   } catch (error) {
-    return NextResponse.json("Unexpected error updating festivals", { status: 500 });
+    return unexpectedError;
   }
 }) as any
 
 export const DELETE = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email)
-    return NextResponse.json("Unauthorized", { status: 401 });
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth,
     }
   });
   if (!requester)
-    return NextResponse.json("impossible...", { status: 500 });
+    return unexpectedError;
   if (requester.role === 3)
-    return NextResponse.json("Graduated students may only view content", { status: 400 });
+    return forbiddenResponse;
 
   const id = req.url.split("/").pop()!;
   const festival = await prisma.festival.findUnique({
@@ -97,7 +100,7 @@ export const DELETE = auth(async (req) => {
     },
   })
   if (!festival)
-    return NextResponse.json("Festival not found", { status: 404 });
+    return resourceNotFound;
 
   if (requester.role !== 1) {
     const crew = await prisma.crew.findFirst({
@@ -109,7 +112,7 @@ export const DELETE = auth(async (req) => {
       }
     });
     if (!crew)
-      return NextResponse.json("You cannot delete festivals from this project", { status: 403 });
+      return forbiddenResponse;
   }
 
   try {
@@ -118,8 +121,8 @@ export const DELETE = auth(async (req) => {
         id
       },
     });
-    return NextResponse.json({}, { status: 200 });
+    return resourceDeleteSuccess;
   } catch (error) {
-    return NextResponse.json('Unexpected error while deleting festival', { status: 500 });
+    return unexpectedError;
   }
 }) as any

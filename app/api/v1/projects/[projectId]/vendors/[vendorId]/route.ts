@@ -1,24 +1,28 @@
-import { NextResponse } from "next/server"
+import { checkAuthentication, forbiddenResponse, requestConflict, resourceDeleteSuccess, resourceFound, resourceNotFound, unauthorizedResponse, unexpectedError } from "~/lib/api";
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 
 export const POST = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email)
-    return NextResponse.json("Unauthorized", { status: 401 });
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth,
     }
   });
+  
   if (!requester)
-    return NextResponse.json("impossible...", { status: 500 });
+    return unexpectedError;
   if (requester.role === 3)
-    return NextResponse.json( "Graduated students may only view content", { status: 400 });
+    return forbiddenResponse;
 
   const surl = req.url.split("/");
-  const projectId = surl[-3]!;
-  const vendorId = surl[-1]!;
+  
+  const projectId = surl[-3];
+  const vendorId = surl[-1];
+  
   const [project, vendor] = await Promise.all([
     prisma.project.findUnique({
       where: {
@@ -32,11 +36,12 @@ export const POST = auth(async (req) => {
     }),
   ]);
   if (!project)
-    return NextResponse.json("Project not found", { status: 404 });
+    return resourceNotFound;
   if (!vendor)
-    return NextResponse.json("Vendor not found", { status: 404 });
+    return resourceNotFound;
 
   if (requester.role !== 1) {
+    
     const crew = await prisma.crew.findFirst({
       where: {
         AND: [
@@ -46,7 +51,7 @@ export const POST = auth(async (req) => {
       }
     });
     if (!crew)
-      return NextResponse.json("You cannot link vendors to this project", { status: 403 });
+      return forbiddenResponse;
   }
 
   const existing = await prisma.vendor.findFirst({
@@ -60,10 +65,10 @@ export const POST = auth(async (req) => {
     }
   });
   if (existing)
-    return NextResponse.json("This vendor is already linked to this project", { status: 409 });
+    return requestConflict;
 
   try {
-    return NextResponse.json(
+    return resourceFound(
       await prisma.project.update({
         where: {
           id: projectId,
@@ -75,27 +80,27 @@ export const POST = auth(async (req) => {
             },
           },
         },
-      }),
-      { status: 200 },
+      })
     );
   } catch (error) {
-    return NextResponse.json("Unexpected error linking location to project", { status: 500 });
+    return unexpectedError;
   }
 }) as any
 
 export const DELETE = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email)
-    return NextResponse.json("Unauthorized", { status: 401 });
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth,
     }
   });
   if (!requester)
-    return NextResponse.json("impossible...", { status: 500 });
+    return unexpectedError;
   if (requester.role === 3)
-    return NextResponse.json("Graduated students may only view content", { status: 400 });
+    return forbiddenResponse;
 
   const surl = req.url.split("/");
   const projectId = surl[-3]!;
@@ -113,9 +118,9 @@ export const DELETE = auth(async (req) => {
     }),
   ]);
   if (!project)
-    return NextResponse.json("Project not found", { status: 404 });
+    return resourceNotFound;
   if (!vendor)
-    return NextResponse.json("Vendor not found", { status: 404 });
+    return resourceNotFound;
 
   if (requester.role !== 1) {
     const crew = await prisma.crew.findFirst({
@@ -127,7 +132,7 @@ export const DELETE = auth(async (req) => {
       }
     });
     if (!crew)
-      return NextResponse.json("You cannot unlink vendors from this project", { status: 403 });
+      return forbiddenResponse;
   }
 
   const existing = await prisma.vendor.findFirst({
@@ -141,25 +146,23 @@ export const DELETE = auth(async (req) => {
     }
   });
   if (!existing)
-    return NextResponse.json("This vendor is not linked to this project", { status: 409 });
+    return requestConflict;
 
   try {
-    return NextResponse.json(
-      await prisma.project.update({
-        where: {
-          id: projectId,
-        },
-        data: {
-          vendors: {
-            disconnect: {
-              id: vendorId,
-            },
+    await prisma.project.update({
+      where: {
+        id: projectId,
+      },
+      data: {
+        vendors: {
+          disconnect: {
+            id: vendorId,
           },
         },
-      }),
-      { status: 200 },
-    );
+      },
+    });
+    return resourceDeleteSuccess;
   } catch (error) {
-    return NextResponse.json("Unexpected error unlinking vendor from project", { status: 500 });
+    return unexpectedError;
   }
 }) as any

@@ -1,5 +1,6 @@
 import { Project } from "@prisma/client"
-import { NextResponse } from "next/server"
+import { ZodError } from "zod"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, resourceFound, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { createProjectSchema } from "~/lib/z"
@@ -65,39 +66,29 @@ const todos = [
 ]
 
 export const POST = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email) {
-    return NextResponse.json("Unauthorized", { status: 401 })
-  }
+  const auth = checkAuthentication(req)
+  if (!auth)
+    return unauthorizedResponse;
 
   // get requester and validate
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth,
     }
-  })
-  if (!requester) {
-    return NextResponse.json("impossible...", { status: 500 })
+  });
+  if (!requester)
+    return unexpectedError;
+  if (requester.role !== 1)
+    return forbiddenResponse;
+
+  const body = await req.json();
+  let parsedBody;
+  try {
+    parsedBody = createProjectSchema.parse(body);
+  } catch (errors) {
+    return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
   }
 
-  // throw error if requester is a graduated student
-  if (requester.role === 3) {
-    return NextResponse.json("Graduated students may only view content", {
-      status: 400
-    })
-  }
-
-  // throw error if requester is not admin
-  if (requester.role !== 1) {
-    return NextResponse.json(
-      { error: "You cannot create projects." },
-      { status: 403 }
-    )
-  }
-
-  const body = await req.json()
-  const parsedBody = createProjectSchema.parse(body)
-
-  // if project with given name already exists, throw error
   const existing = await prisma.project.findFirst({
     where: {
       OR: [
@@ -106,12 +97,8 @@ export const POST = auth(async (req) => {
       ]
     }
   })
-  if (existing) {
-    return NextResponse.json(
-      `Project with name \'${parsedBody.projectName}\' already exists`,
-      { status: 409 }
-    )
-  }
+  if (existing)
+    return requestConflict;
 
   try {
     let project: Project
@@ -129,8 +116,8 @@ export const POST = auth(async (req) => {
         })
       }
     })
-    return NextResponse.json(project!, { status: 200 })
+    return resourceFound({project: project!});
   } catch (error) {
-    return NextResponse.json("Internal server error", { status: 500 })
+    return unexpectedError;
   }
 }) as any

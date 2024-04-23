@@ -1,26 +1,31 @@
-import { NextResponse } from "next/server"
+import { ZodError } from "zod"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, resourceFound, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { createCrewSchema } from "~/lib/z"
 
 export const POST = auth(async (req) => {
-  if (!req.auth || !req.auth.user || !req.auth.user.email)
-    return NextResponse.json("Unauthorized", { status: 401 });
+  const auth = checkAuthentication(req);
+  if (!auth)
+    return unauthorizedResponse;
 
   const requester = await prisma.user.findUnique({
     where: {
-      email: req.auth.user.email
+      email: auth,
     }
   });
   if (!requester)
-    return NextResponse.json("impossible...", { status: 500 });
-  if (requester.role === 3)
-    return NextResponse.json( "Graduated students may only view content", { status: 400 });
+    return unexpectedError;
   if (requester.role !== 1)
-    return NextResponse.json("You cannot add users to a project crew", { status: 403 });
+    return forbiddenResponse;
 
   const body = await req.json();
-  const parsedBody = createCrewSchema.parse(body);
+  let parsedBody;
+  try {
+    parsedBody = createCrewSchema.parse(body);
+  } catch (errors) {
+    return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
+  }
 
   const existing = await prisma.crew.findFirst({
     where: {
@@ -31,16 +36,15 @@ export const POST = auth(async (req) => {
     }
   });
   if (existing)
-    return NextResponse.json("This user is already a part of the crew of this project", { status: 409 });
+    return requestConflict;
 
   try {
-    return NextResponse.json(
+    return resourceFound(
       await prisma.crew.create({
         data: { ...parsedBody }
-      }), 
-      { status: 200 }
+      })
     );
   } catch (error) {
-    return NextResponse.json("Unexpected error adding user to crew", { status: 500 });
+    return unexpectedError;
   }
 }) as any
