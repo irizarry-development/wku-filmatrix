@@ -1,5 +1,5 @@
 import { ZodError } from "zod"
-import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, resourceFound, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, successWithMessage, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { createLocationSchema } from "~/lib/z"
@@ -41,7 +41,7 @@ export const POST = auth(async (req) => {
     return requestConflict("A location with this name already exists");
 
   try {
-    return resourceFound(
+    return successWithMessage(
       await prisma.location.create({
         data: { ...parsedBody }
       })

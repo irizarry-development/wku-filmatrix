@@ -1,5 +1,5 @@
 import { ZodError } from "zod"
-import { checkAuthentication, forbiddenResponse, invalidRequest, invalidRequestWithError, requestConflict, resourceDeleteSuccess, resourceFound, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, forbiddenResponse, invalidRequest, invalidRequestWithError, requestConflict, resourceDeleteSuccess, successWithMessage, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { actorSchema } from "~/lib/z"
@@ -23,7 +23,7 @@ export const GET = auth(async (req) => {
   if (!actor) {
     return resourceNotFound
   } else {
-    return resourceFound(actor)
+    return successWithMessage(actor)
   }
 }) as any
 

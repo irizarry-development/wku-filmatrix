@@ -1,4 +1,4 @@
-import { checkAuthentication, forbiddenResponse, requestConflict, resourceDeleteSuccess, resourceFound, resourceNotFound, unauthorizedResponse, unexpectedError } from "~/lib/api";
+import { checkAuthentication, forbiddenResponse, requestConflict, resourceDeleteSuccess, successWithMessage, resourceNotFound, unauthorizedResponse, unexpectedError } from "~/lib/api";
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 
@@ -64,7 +64,7 @@ export const POST = auth(async (req) => {
     return requestConflict("This location is already linked to this project");
 
   try {
-    return resourceFound(
+    return successWithMessage(
       await prisma.project.update({
         where: {
           id: projectId,

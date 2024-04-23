@@ -1,5 +1,5 @@
 import { ZodError } from "zod"
-import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, resourceDeleteSuccess, resourceFound, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, resourceDeleteSuccess, successWithMessage, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { createVendorSchema } from "~/lib/z"
@@ -17,7 +17,7 @@ export const GET = auth(async (req) => {
   });
   if (!vendor)
     return resourceNotFound;
-  return resourceFound({ vendor });
+  return successWithMessage({ vendor });
 }) as any
 
 export const PATCH = auth(async (req) => {

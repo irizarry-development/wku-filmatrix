@@ -1,4 +1,4 @@
-import { checkAuthentication, resourceFound, unauthorizedResponse, unexpectedError } from "~/lib/api";
+import { checkAuthentication, successWithMessage, unauthorizedResponse, unexpectedError } from "~/lib/api";
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 
@@ -14,7 +14,7 @@ export const POST = auth(async (req) => {
       },
       data: { hasOnboarded: true }
     })
-    return resourceFound("Onboarding form submitted");
+    return successWithMessage("Onboarding form submitted");
   } catch (error) {
     return unexpectedError;
   }

@@ -16,7 +16,7 @@ export const forbiddenResponse = NextResponse.json("You are not permitted to per
 // RESOURCE FUNCTIONS
 
 export const resourceNotFound = NextResponse.json("The resource you have requested was not found", { status: 404 })
-export const resourceFound = (data: any) => NextResponse.json(data, { status: 200 })
+export const successWithMessage = (data: any) => NextResponse.json(data, { status: 200 })
 
 export const resourceUpdateSuccess = NextResponse.json("The resource was updated successfully", { status: 200 })
 export const resourceDeleteSuccess = NextResponse.json("The resource was deleted successfully", { status: 200 })

@@ -1,5 +1,5 @@
 import { ZodError } from "zod"
-import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, resourceDeleteSuccess, resourceFound, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, resourceDeleteSuccess, successWithMessage, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { createUserSchema } from "~/lib/z"
@@ -17,7 +17,7 @@ export const GET = auth(async (req) => {
   })
   if (!user)
     return resourceNotFound;
-  return resourceFound({ user });
+  return successWithMessage({ user });
 }) as any
 
 export const PATCH = auth(async (req) => {

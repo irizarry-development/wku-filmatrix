@@ -1,7 +1,7 @@
 import { auth } from "~/lib/auth"
 import { createLocationSchema } from "~/lib/z"
 import prisma from "~/lib/prisma"
-import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, resourceDeleteSuccess, resourceFound, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, resourceDeleteSuccess, successWithMessage, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { ZodError } from "zod"
 
 export const GET = auth(async (req) => {
@@ -17,7 +17,7 @@ export const GET = auth(async (req) => {
   });
   if (!location)
     return resourceNotFound;
-  return resourceFound({ location });
+  return successWithMessage({ location });
 }) as any
 
 export const PATCH = auth(async (req) => {

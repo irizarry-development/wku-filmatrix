@@ -1,5 +1,5 @@
 import { ZodError } from "zod"
-import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, resourceFound, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, successWithMessage, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { createVendorSchema } from "~/lib/z"
@@ -36,7 +36,7 @@ export const POST = auth(async (req) => {
     return requestConflict("A vendor with this name already exists");
 
   try {
-    return resourceFound(
+    return successWithMessage(
       await prisma.vendor.create({
         data: { ...parsedBody }
       })

@@ -1,7 +1,7 @@
 import { auth } from "~/lib/auth"
 import { onboardingBodySchema } from "~/lib/z"
 import prisma from "~/lib/prisma"
-import { checkAuthentication, resourceFound, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, successWithMessage, unauthorizedResponse, unexpectedError } from "~/lib/api"
 
 export const PATCH = auth(async (req) => {
   const auth = checkAuthentication(req);
@@ -18,7 +18,7 @@ export const PATCH = auth(async (req) => {
       },
       data: { ...parsedBody, hasOnboarded: true }
     })
-    return resourceFound("Onboarding form submitted");
+    return successWithMessage("Onboarding form submitted");
   } catch (error) {
     return unexpectedError;
   }
