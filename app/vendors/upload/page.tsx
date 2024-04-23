@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import * as XLSX from 'xlsx';
 
-const LocationsUpload = () => {
+const VendorsUpload = () => {
     const [file, setFile] = useState<File | null>(null);
     const [uploadMessage, setUploadMessage] = useState<string>('');
 
@@ -29,17 +29,17 @@ const LocationsUpload = () => {
             const mappedData = jsonData
                 .filter((row: any) => row.Name && row.Address) 
                 .map((row: any) => ({
-                    locationName: row.Name,
-                    locationAddress: row.Address,
-                    locationKeywords: row.Keywords || '',
-                    locationDescription: row.Description || '',
-                    locationContactName: row.Contact || '',
-                    locationPhone: row.Phone ? row.Phone.toString() : '', 
-                    locationEmail: row.Email || '', 
-                    // locationComments: row.Comments || '', 
+                    vendorName: row.Name,
+                    vendorAddress: row.Address,
+                    vendorKeywords: row.Keywords || '',
+                    vendorDescription: row.Description || '',
+                    vendorContactName: row.Contact || '',
+                    vendorPhone: row.Phone ? row.Phone.toString() : '', 
+                    vendorEmail: row.Email || '', 
+                    // vendorComments: row.Comments || '', 
                 }));
 
-            const response = await fetch('/api/v1/locations/upload', {
+            const response = await fetch('/api/v1/vendors/upload', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(mappedData),
@@ -48,7 +48,7 @@ const LocationsUpload = () => {
             const result = await response.json();
             if (response.ok) {
                 setUploadMessage(`Upload successful.`);
-                // setUploadMessage(`Upload successful. ${result.duplicates.length > 0 ? 'Duplicates skipped: ' + result.duplicates.join(', ') : 'Each location name must be unique'}`);
+                // setUploadMessage(`Upload successful. ${result.duplicates.length > 0 ? 'Duplicates skipped: ' + result.duplicates.join(', ') : 'Each vendor name must be unique'}`);
             } else {
                 setUploadMessage('Upload failed.');
                 console.error('Upload failed');
@@ -60,10 +60,10 @@ const LocationsUpload = () => {
     return (
         <div>
             <input type="file" accept=".csv,.xlsx,.xls" onChange={handleFileChange} />
-            <button onClick={handleUpload}>Upload Locations</button>
+            <button onClick={handleUpload}>Upload Vendors</button>
             {uploadMessage && <p>{uploadMessage}</p>}
         </div>
     );
 };
 
-export default LocationsUpload;
+export default VendorsUpload;

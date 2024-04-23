@@ -14,35 +14,35 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-        const locations = await req.json();
+        const vendors = await req.json();
 
         //TODO: possible logic for working with duplicates to provide a notification?
 
-        // const newLocations = [];
+        // const newVendors = [];
         // const duplicates = [];
-        // const locationSet = new Set();
+        // const vendorSet = new Set();
 
-        // locations.forEach(location => {
-        //     if (!locationSet.has(location.locationName)) {
-        //         locationSet.add(location.locationName);
-        //         newLocations.push(location);
+        // vendors.forEach(vendor => {
+        //     if (!vendorSet.has(vendor.vendorName)) {
+        //         vendorSet.add(vendor.vendorName);
+        //         newVendors.push(vendor);
         //     } else {
-        //         duplicates.push(location.locationName);
+        //         duplicates.push(vendor.vendorName);
         //     }
         // });
 
-        await prisma.location.createMany({
-            data: locations,
+        await prisma.vendor.createMany({
+            data: vendors,
             skipDuplicates: true,
         });
 
-        return new Response(JSON.stringify({ message: 'Locations processed. Duplicates skipped. Each location name must be unique'}), {
+        return new Response(JSON.stringify({ message: 'vendors processed. Duplicates skipped. Each vendor name must be unique'}), {
             status: 200,
             headers: { 'Content-Type': 'application/json' },
         });
 
 
-        // return new Response(JSON.stringify({ message: 'Locations processed. Duplicates skipped. Each location name must be unique', duplicates: duplicates }), {
+        // return new Response(JSON.stringify({ message: 'vendors processed. Duplicates skipped. Each vendor name must be unique', duplicates: duplicates }), {
         //     status: 200,
         //     headers: { 'Content-Type': 'application/json' },
         // });
@@ -51,8 +51,8 @@ export async function POST(req: NextRequest) {
         if (error instanceof Error) {
             errorMessage = error.message;
           }
-        console.error('Failed to process locations', error);
-        return new Response(JSON.stringify({ message: 'Failed to process locations', error: errorMessage }), {
+        console.error('Failed to process vendors', error);
+        return new Response(JSON.stringify({ message: 'Failed to process vendors', error: errorMessage }), {
             status: 500,
             headers: { 'Content-Type': 'application/json' },
         });
