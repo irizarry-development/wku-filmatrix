@@ -59,7 +59,7 @@ export const PATCH = auth(async (req) => {
     }
   });
   if (existing)
-    return requestConflict;
+    return requestConflict("A user with this email already exists");
 
   try {
     await prisma.user.update({
