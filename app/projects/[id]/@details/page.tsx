@@ -49,6 +49,7 @@ export default async function ProjectDetails({
     <DashboardContainer
       headerText="Project Details"
       headerIcon={<BsCameraReelsFill />}
+      additionalClasses="project-details-container"
       button={
         <FaEdit />
       }

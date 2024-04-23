@@ -5,7 +5,7 @@ import Button from "~/components/ui/Button"
 import DashboardContainer from "~/components/ui/DashboardContainer"
 import Drawer from "~/components/ui/Drawer"
 import prisma from "~/lib/prisma"
-import { FaLink } from "react-icons/fa6";
+import { FaEye, FaLink, FaLinkSlash } from "react-icons/fa6"
 
 interface CrewListProps {
   params: {
@@ -17,25 +17,27 @@ interface RedactedUser {
   name: string | null
 }
 
-interface CrewResponse extends Crew{
+interface CrewResponse extends Crew {
   user: RedactedUser
 }
 
 interface CrewCategory {
-  [key: string]: ({ user: {
-    name: string | null
-  } } & Crew)[]
+  [key: string]: ({
+    user: {
+      name: string | null
+    }
+  } & Crew)[]
 }
 
-function CrewComponent({
-  user: {
-    name
-  },
-  role
-}: CrewResponse) {
+function CrewComponent({ user: { name }, role }: CrewResponse) {
   return (
     <section className="crew-component">
-      <p><strong>{role}</strong>{name}</p>
+      <strong>{role}</strong>
+      <p>{name}</p>
+      <section className="crew-actions">
+        <FaEye className="view-crew" />
+        <FaLinkSlash className="unlink-crew" />
+      </section>
     </section>
   )
 }
@@ -55,7 +57,6 @@ export default async function CrewList({ params: { id } }: CrewListProps) {
   })
 
   const _renderCrew = (crew: CrewResponse[]) => {
-    
     let categorized: CrewCategory = {}
 
     crew.forEach((member) => {
@@ -73,12 +74,11 @@ export default async function CrewList({ params: { id } }: CrewListProps) {
   }
 
   return (
-    <DashboardContainer 
-      headerText="Crew" headerIcon={<FaUserFriends />}
+    <DashboardContainer
+      headerText="Crew"
+      headerIcon={<FaUserFriends />}
       additionalClasses="project-crew-container"
-      button={
-        <FaLink />
-      }
+      button={<FaLink />}
     >
       {_renderCrew(crew)}
     </DashboardContainer>

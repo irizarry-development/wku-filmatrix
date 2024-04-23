@@ -150,6 +150,59 @@
   }
 
   .project-crew-container {
+    .dashboard-container-content {
+      display: grid;
+      row-gap: 1rem;
+      .drawer .drawer-content {
+		display: grid;
+		row-gap: 0.1rem;
+		background: var(--gray-muted);
+        .crew-component {
+			display: grid;
+			grid-template-columns: 1fr 10fr 10.6rem;
+			column-gap: 1rem;
+			grid-template-areas: 
+				"role name actions";
+			background: var(--gray-text);
+			padding: 0.4rem;
+
+          p {
+			grid-area: name;
+            margin: 0;
+            font-size: 1.6rem;
+            padding: 1rem 4.2rem;
+          }
+
+		  strong {
+			grid-area: role;
+			font-size: 1.6rem;
+			align-self: center;
+			color: var(--gray-lightest);
+			justify-self: end;
+		  }
+
+		  .crew-actions {
+			grid-area: actions;
+			font-size: 2.4rem;
+			height: 2.4rem;
+			place-self: center;
+			display: grid;
+			grid-auto-flow: column;
+			column-gap: 1rem;
+
+			.unlink-crew {
+			  color: var(--red-darker);
+			  cursor: pointer;
+			}
+
+			.view-crew {
+			  color: var(--gray-lightest);
+			  cursor: pointer;
+			}
+		  }
+        }
+      }
+    }
   }
 
   .project-checklist-container {
@@ -198,21 +251,180 @@
     }
   }
 
+  .project-cast-container {
+    .dashboard-container-content {
+      display: grid;
+      row-gap: 1rem;
+
+      .drawer .drawer-content {
+        display: grid;
+        row-gap: 0.1rem;
+        background: var(--gray-muted);
+        .cast-component {
+          display: grid;
+          grid-template-columns: 1fr 6rem;
+          row-gap: 0.4rem;
+          padding: 1rem 2.6rem 1rem 2.2rem;
+          grid-template-areas: "role actions" "name actions";
+          background: var(--gray-text);
+
+          strong {
+            grid-area: role;
+            align-self: center;
+            font-size: 1.4rem;
+            color: var(--gray-lightest);
+          }
+
+          p {
+            grid-area: name;
+            margin: 0 0 0 2rem;
+          }
+
+          .cast-actions {
+            height: 2.4rem;
+            grid-area: actions;
+            font-size: 2.4rem;
+            align-self: center;
+            display: grid;
+            grid-auto-flow: column;
+            column-gap: 1rem;
+
+            .view-cast {
+              color: var(--gray-lightest);
+              cursor: pointer;
+            }
+
+            .unlink-cast {
+              color: var(--red-darker);
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .project-festivals-container {
+    .dashboard-container-content {
+      display: grid;
+      row-gap: 1rem;
+
+      .drawer .drawer-content .festival-component {
+        display: grid;
+        grid-template-areas:
+          "email status"
+          "strategy early"
+          "strategy deadline"
+          "actions submitted";
+
+        padding: 1rem 2.6rem 1rem 2.2rem;
+        column-gap: 4rem;
+
+        .festival-actions {
+          grid-area: actions;
+          display: grid;
+          grid-auto-flow: column;
+          column-gap: 2rem;
+          grid-template-columns: repeat(3, 3rem);
+
+          .festival-link {
+            align-self: center;
+            font-size: 3rem;
+            color: var(--gold);
+            cursor: pointer;
+          }
+          :nth-child(2) {
+            color: var(--gray-lighter);
+          }
+
+          :nth-child(3) {
+            color: var(--red);
+          }
+        }
+
+        .festival-email {
+          grid-area: email;
+
+          a {
+            color: var(--red);
+          }
+        }
+
+        .festival-strategy {
+          grid-area: strategy;
+        }
+
+        .festival-status {
+          grid-area: status;
+        }
+
+        .festival-early-deadline {
+          grid-area: early;
+        }
+
+        .festival-deadline {
+          grid-area: deadline;
+        }
+
+        .festival-submitted {
+          grid-area: submitted;
+        }
+      }
+    }
+  }
+
+  .dashboard-jumbotron {
+    grid-area: jumbotron;
+  }
+
+  .project-details-container {
+    grid-area: details;
+  }
+
+  .project-checklist-container {
+    grid-area: checklist;
+  }
+
+  .project-crew-container {
+    grid-area: crew;
+  }
+
+  .project-locations-container {
+    grid-area: locations;
+  }
+
+  .project-vendors-container {
+    grid-area: vendors;
+  }
+
+  .project-cast-container {
+    grid-area: cast;
+  }
+
+  .project-festivals-container {
+    grid-area: festivals;
+  }
+
   @media screen and (min-width: 1024px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     column-gap: 2rem;
+    grid-template-areas:
+      "jumbotron jumbotron jumbotron jumbotron"
+      "details details locations locations"
+      "details details vendors vendors"
+      "crew crew checklist checklist"
+      "crew crew checklist checklist"
+      "cast cast festivals festivals"
+      "cast cast festivals festivals";
+  }
 
-    .dashboard-jumbotron {
-      /* row-start / col-start / row-end / col-end */
-      grid-area: 1 / 1 / 2 / 3;
-    }
-
-    .project-checklist-container {
-      grid-area: 2 / 2 / 3 / 3;
-    }
-
-    .project-crew-container {
-      grid-area: 3 / 2 / 7 / 3;
-    }
+  @media screen and (min-width: 1440px) {
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 2rem;
+    grid-template-areas:
+      "jumbotron jumbotron jumbotron jumbotron jumbotron jumbotron"
+      "details details checklist checklist crew crew"
+      "locations locations cast cast festivals festivals"
+      "vendors vendors cast cast festivals festivals";
   }
 }

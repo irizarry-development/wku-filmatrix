@@ -47,7 +47,7 @@
     
         .dashboard-container-header {
             background: var(--red);
-            padding: 2rem 1rem;
+            padding: 2rem;
             display: grid;
             grid-template-columns: 3.7rem 1fr;
             column-gap: 2rem;
@@ -68,9 +68,10 @@
                 justify-self: end;
                 cursor: pointer;
 
+
                 svg {
                     font-size: 3rem;
-                    color: var(--gray-darkest)
+                    color: var(--gray-lightest)
                 }
             }
         }
