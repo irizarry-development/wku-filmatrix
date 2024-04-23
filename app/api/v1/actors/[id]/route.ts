@@ -52,7 +52,7 @@ export const PATCH = auth(async (req) => {
     return resourceNotFound;
 
   const body = await req.json();
-  let parsedBody;
+  let parsedBody: any;
   try {
     parsedBody = actorSchema.parse(body);
   } catch (errors) {

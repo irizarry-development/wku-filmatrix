@@ -58,7 +58,7 @@ export const PATCH = auth(async (req) => {
   }
   
   const body = await req.json();
-  let parsedBody;
+  let parsedBody: any;
   try {
     parsedBody = editFestivalSchema.parse(body);
   } catch (errors) {

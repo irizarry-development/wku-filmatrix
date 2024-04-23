@@ -46,7 +46,7 @@ export const PATCH = auth(async (req) => {
     return invalidRequestWithError("You cannot edit people other than yourself");
 
   const body = await req.json();
-  let parsedBody;
+  let parsedBody: any;
   try {
     parsedBody = createUserSchema.parse(body);
   } catch (errors) {

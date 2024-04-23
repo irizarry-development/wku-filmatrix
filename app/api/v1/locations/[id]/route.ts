@@ -45,7 +45,7 @@ export const PATCH = auth(async (req) => {
     return resourceNotFound;
 
   const body = await req.json();
-  let parsedBody;
+  let parsedBody: any;
   try {
     parsedBody = createLocationSchema.parse(body);
   } catch (errors) {

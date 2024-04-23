@@ -20,7 +20,7 @@ export const POST = auth(async (req) => {
     return forbiddenResponse;
 
   const body = await req.json();
-  let parsedBody;
+  let parsedBody: any;
   try {
     parsedBody = createCastSchema.parse(body);
   } catch (errors) {
