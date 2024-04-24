@@ -1,8 +1,8 @@
 "use client"
 
-import { Fieldset } from "./form/Fieldset"
-import Form from "./form/Form"
-import TextInput from "./form/Input"
+import { Fieldset } from "../form/Fieldset"
+import Form from "../form/Form"
+import TextInput from "../form/Input"
 
 export default function VendorEditComponent() {
 

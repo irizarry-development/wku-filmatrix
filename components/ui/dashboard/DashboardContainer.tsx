@@ -1,7 +1,7 @@
 "use client"
 
 import { ReactNode, useState } from "react"
-import Modal from "./global/Modal"
+import Modal from "../global/Modal"
 
 interface DashboardContainerProps {
   additionalClasses?: string
