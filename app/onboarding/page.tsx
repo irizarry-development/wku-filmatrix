@@ -2,17 +2,18 @@
 
 import axios from "axios"
 import { useRouter } from "next/navigation"
-import { useRef } from "react"
+import { useState } from "react"
 import toast from "react-hot-toast"
 import Button from "~/components/ui/Button"
 import Modal from "~/components/ui/Modal"
 import { Fieldset } from "~/components/ui/form/Fieldset"
+import Form from "~/components/ui/form/Form"
 import TextInput from "~/components/ui/form/Input"
 import { toggleModal } from "~/lib/modal"
 
 export default function OnboardingPage() {
-  const dialogRef = useRef<HTMLDialogElement>(null)
   const router = useRouter()
+  const [modalOpen, setModalOpen] = useState(false)
 
   async function handleSubmit(formData: FormData) {
     const onboardingData = {
@@ -49,10 +50,14 @@ export default function OnboardingPage() {
     }
   }
 
+  function _toggleModal() {
+    setModalOpen(!modalOpen)
+  }
+
   return (
     <section className="onboarding-page">
       <h1>Crew Onboarding</h1>
-      <form className="form" id="onboarding-form" action={handleSubmit}>
+      <Form action={handleSubmit} formId="onboarding-form">
         <Fieldset legendTitle="Crew Member Information">
           <TextInput
             label="Name"
@@ -93,7 +98,7 @@ export default function OnboardingPage() {
           color="primary"
           content="Submit"
           disabled={false}
-          handler={() => toggleModal(dialogRef)}
+          handler={_toggleModal}
           type="button"
         />
         <Button
@@ -103,7 +108,7 @@ export default function OnboardingPage() {
           handler={() => skipOnboarding()}
           type="button"
         />
-        <Modal ref={dialogRef} toggleHandler={() => toggleModal(dialogRef)}>
+        <Modal toggleHandler={_toggleModal} open={modalOpen}>
           <section className="onboarding-disclaimer">
             <h1>BY SUBMITTING THIS FORM IT IS AGREED AS FOLLOWS:</h1>
             <h3>1. VOLUNTARY SERVICE:</h3>{" "}
@@ -176,12 +181,12 @@ export default function OnboardingPage() {
               color="secondary"
               content="I Disagree (Exit)"
               disabled={false}
-              handler={() => toggleModal(dialogRef)}
+              handler={_toggleModal}
               type="button"
             />
           </section>
         </Modal>
-      </form>
+      </Form>
     </section>
   )
 }
