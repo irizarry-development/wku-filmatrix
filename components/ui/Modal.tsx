@@ -1,17 +1,14 @@
-import { ForwardedRef, forwardRef } from "react"
 import { MdClose } from "react-icons/md"
 
 interface ModalProps {
   children: React.ReactNode
   toggleHandler: () => void
+  open: boolean
 }
 
-const Modal = (
-  { children, toggleHandler }: ModalProps,
-  ref: ForwardedRef<HTMLDialogElement>
-) => {
+export default function Modal({ children, toggleHandler, open }: ModalProps) {
   return (
-    <dialog className="modal" ref={ref}>
+    <dialog className="modal" open={open}>
       <section className="modal-body">
         <section className="modal-header">
           <MdClose className="modal-close" onClick={toggleHandler} />
@@ -21,5 +18,3 @@ const Modal = (
     </dialog>
   )
 }
-
-export default forwardRef(Modal)

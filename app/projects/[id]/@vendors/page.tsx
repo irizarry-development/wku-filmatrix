@@ -3,6 +3,7 @@ import prisma from "~/lib/prisma"
 import DashboardContainer from "~/components/ui/DashboardContainer"
 import { FaLink, FaSuitcase } from "react-icons/fa6"
 import VendorComponent from "~/components/ui/VendorComponent"
+import VendorEditComponent from "~/components/ui/VendorEditComponent"
 
 export default async function ProjectVendors({ params: { id } }: RouteParams) {
     
@@ -26,6 +27,9 @@ export default async function ProjectVendors({ params: { id } }: RouteParams) {
       headerIcon={<FaSuitcase />}
       additionalClasses="project-vendors-container"
       button={<FaLink />}
+      modalContent={
+        <VendorEditComponent />
+      }
     >
       {associatedVendors.map((vendor) => (
         <VendorComponent key={vendor.id} {...vendor} projectId={id} />

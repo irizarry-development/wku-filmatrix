@@ -1,6 +1,7 @@
-"use client";
+"use client"
 
-import { ReactNode } from "react"
+import { ReactNode, useState } from "react"
+import Modal from "./Modal"
 
 interface DashboardContainerProps {
   additionalClasses?: string
@@ -8,6 +9,7 @@ interface DashboardContainerProps {
   headerIcon: ReactNode
   children: ReactNode
   button?: ReactNode
+  modalContent?: ReactNode
 }
 
 export default function DashboardContainer({
@@ -15,8 +17,15 @@ export default function DashboardContainer({
   headerText,
   headerIcon,
   children,
-  button
+  button,
+  modalContent
 }: DashboardContainerProps) {
+  const [modalOpen, setModalOpen] = useState(false)
+
+  function _toggleModal() {
+    setModalOpen(!modalOpen)
+  }
+
   return (
     <section
       className={`dashboard-container ${additionalClasses} ${button ? "has-button" : ""}`}
@@ -25,12 +34,20 @@ export default function DashboardContainer({
         {headerIcon}
         <h2>{headerText}</h2>
         {button && (
-          <section className="dashboard-container-header-button">
+          <section
+            className="dashboard-container-header-button"
+            onClick={_toggleModal}
+          >
             {button}
           </section>
         )}
       </section>
       <section className="dashboard-container-content">{children}</section>
+      {modalContent && (
+        <Modal open={modalOpen} toggleHandler={_toggleModal}>
+          {modalContent}
+        </Modal>
+      )}
     </section>
   )
 }

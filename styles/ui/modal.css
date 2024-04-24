@@ -1,14 +1,15 @@
-.modal {
+.modal[open] {
   width: 100vw;
-  height: 90vh;
-  background: none;
+  height: 100vh;
   border: none;
-  margin: auto;
+  background: rgba(36, 36, 36, 0.75);
+  margin: 0;
+  padding: 0;
   position: fixed;
-
-  &::backdrop {
-    background: rgba(36, 36, 36, 0.75);
-  }
+  z-index: 4;
+  top: 0;
+  left: 0;
+  display: grid;
 
   .modal-body {
     margin: 2rem;
@@ -16,6 +17,7 @@
     background: var(--gray-darker);
     display: grid;
     row-gap: 2rem;
+    place-self: center;
 
     .modal-header {
       display: grid;
