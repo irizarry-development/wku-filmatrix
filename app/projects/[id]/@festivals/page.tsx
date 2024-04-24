@@ -1,19 +1,17 @@
 import { Festival } from "@prisma/client"
 import {
-  FaArrowUpRightFromSquare,
   FaAward,
-  FaGlobe,
   FaLink,
   FaPlus,
   FaRegTrashCan
 } from "react-icons/fa6"
-import Button from "~/components/ui/Button"
 import DashboardContainer from "~/components/ui/DashboardContainer"
 import Drawer from "~/components/ui/Drawer"
 import prisma from "~/lib/prisma"
 import { dateFromISO8601 } from "~/lib/utils"
 import { FaEdit } from "react-icons/fa"
 import Link from "next/link"
+import { FestivalComponent } from "~/components/ui/FestivalComponent"
 
 
 interface FestivalsListProps {
@@ -22,52 +20,6 @@ interface FestivalsListProps {
   }
 }
 
-export function FestivalComponent({
-  fflink,
-  email,
-  strategy,
-  status,
-  earlyDeadline,
-  deadline,
-  submitted
-}: Festival) {
-  return (
-    <section className="festival-component">
-      <section className="festival-actions">
-        <FaEdit className="festival-link" />
-        <Link href={fflink || ""}>
-
-          <FaLink className="festival-link" />
-        </Link>
-        <FaRegTrashCan className="festival-link" />
-      </section>
-      <p className="festival-email">
-        <strong>Contact Email: </strong>
-        <a href={`mailto:${email}`}>{email || "N/A"}</a>
-      </p>
-      <p className="festival-strategy">
-        <strong>Strategy: </strong>
-        {strategy || "N/A"}
-      </p>
-      <p className="festival-status">
-        <strong>Status: </strong>
-        {status || "N/A"}
-      </p>
-      <p className="festival-early-deadline">
-        <strong>Early Deadline: </strong>
-        {earlyDeadline ? dateFromISO8601(earlyDeadline.toISOString()) : "N/A"}
-      </p>
-      <p className="festival-deadline">
-        <strong>Deadline: </strong>
-        {deadline ? dateFromISO8601(deadline.toISOString()) : "N/A"}
-      </p>
-      <p className="festival-submitted">
-        <strong>Submitted: </strong>
-        {submitted ? dateFromISO8601(submitted.toISOString()) : "N/A"}
-      </p>
-    </section>
-  )
-}
 export default async function FestivalsList({
   params: { id }
 }: FestivalsListProps) {

@@ -1,49 +1,10 @@
-import { Crew, User } from "@prisma/client"
-import { notFound } from "next/navigation"
 import { FaUserFriends } from "react-icons/fa"
-import Button from "~/components/ui/Button"
 import DashboardContainer from "~/components/ui/DashboardContainer"
 import Drawer from "~/components/ui/Drawer"
 import prisma from "~/lib/prisma"
-import { FaEye, FaLink, FaLinkSlash } from "react-icons/fa6"
-import Link from "next/link"
-
-
-interface CrewListProps {
-  params: {
-    id: string
-  }
-}
-
-interface RedactedUser {
-  name: string | null
-  id: string | null
-}
-
-interface CrewResponse extends Crew {
-  user: RedactedUser
-}
-
-interface CrewCategory {
-  [key: string]: ({
-    user: RedactedUser
-  } & Crew)[]
-}
-
-function CrewComponent({ user: { name, id }, role }: CrewResponse) {
-  return (
-    <section className="crew-component">
-      <strong>{role}</strong>
-      <p>{name}</p>
-      <section className="crew-actions">
-        <Link href={`/people/${id}`}>
-            <FaEye className="view-crew" />
-        </Link>
-        <FaLinkSlash className="unlink-crew" />
-      </section>
-    </section>
-  )
-}
+import { FaLink, FaPlus } from "react-icons/fa6"
+import { CrewResponse, CrewListProps, CrewCategory } from "~/lib/types"
+import CrewComponent from "~/components/ui/CrewComponent"
 
 export default async function CrewList({ params: { id } }: CrewListProps) {
   const crew: CrewResponse[] = await prisma.crew.findMany({
@@ -71,7 +32,7 @@ export default async function CrewList({ params: { id } }: CrewListProps) {
     return Object.keys(categorized).map((key) => (
       <Drawer title={key} key={key}>
         {categorized[key].map((member, i) => (
-          <CrewComponent key={i} {...member} />
+          <CrewComponent key={i} {...member} projectId={id} />
         ))}
       </Drawer>
     ))
@@ -82,7 +43,7 @@ export default async function CrewList({ params: { id } }: CrewListProps) {
       headerText="Crew"
       headerIcon={<FaUserFriends />}
       additionalClasses="project-crew-container"
-      button={<FaLink />}
+      button={<FaPlus />}
     >
       {_renderCrew(crew)}
     </DashboardContainer>
