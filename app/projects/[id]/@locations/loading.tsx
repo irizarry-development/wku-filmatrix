@@ -1,5 +1,18 @@
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaLink } from "react-icons/fa6";
+import DashboardContainer from "~/components/ui/DashboardContainer";
+
 export default function LocationSkeleton() {
     return (
-        <h1>Loading locations...</h1>
+        <DashboardContainer
+            headerText="Locations"
+            headerIcon={<FaMapMarkerAlt />}
+            additionalClasses="project-locations-container"
+            button={
+                <FaLink />
+            }
+        >
+            <p>Loading locations...</p>
+        </DashboardContainer>
     )
 }

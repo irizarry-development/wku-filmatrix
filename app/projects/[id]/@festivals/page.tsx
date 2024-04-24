@@ -12,7 +12,9 @@ import DashboardContainer from "~/components/ui/DashboardContainer"
 import Drawer from "~/components/ui/Drawer"
 import prisma from "~/lib/prisma"
 import { dateFromISO8601 } from "~/lib/utils"
-import { FaEdit, FaExternalLinkAlt } from "react-icons/fa"
+import { FaEdit } from "react-icons/fa"
+import Link from "next/link"
+
 
 interface FestivalsListProps {
   params: {
@@ -33,7 +35,10 @@ export function FestivalComponent({
     <section className="festival-component">
       <section className="festival-actions">
         <FaEdit className="festival-link" />
-        <FaLink className="festival-link" />
+        <Link href={fflink || ""}>
+
+          <FaLink className="festival-link" />
+        </Link>
         <FaRegTrashCan className="festival-link" />
       </section>
       <p className="festival-email">

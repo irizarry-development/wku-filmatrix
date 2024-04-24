@@ -6,6 +6,7 @@ import Drawer from "~/components/ui/Drawer"
 import prisma from "~/lib/prisma"
 import { FaEdit } from "react-icons/fa";
 
+
 interface ProjectDetailsProps {
   params: {
     id: string

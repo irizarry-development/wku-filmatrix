@@ -6,6 +6,7 @@ import { FaEye, FaMapMarkerAlt } from "react-icons/fa";
 import Button from "~/components/ui/Button";
 import Link from "next/link";
 import { FaLink, FaLinkSlash } from "react-icons/fa6";
+;
 
 export default async function LocationList({
     params: { id }

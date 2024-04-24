@@ -5,6 +5,7 @@ import DashboardContainer from "~/components/ui/DashboardContainer";
 import { FaEye, FaLink, FaLinkSlash, FaSuitcase } from "react-icons/fa6";
 import Button from "~/components/ui/Button";
 import Link from "next/link";
+;
 
 export default async function ProjectVendors({
     params: { id }

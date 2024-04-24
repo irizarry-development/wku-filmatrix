@@ -1,5 +1,17 @@
+import { FaSuitcase, FaLink } from "react-icons/fa6";
+import DashboardContainer from "~/components/ui/DashboardContainer";
+
 export default function VendorSkeleton() {
     return (
-        <h1>Loading Vendors...</h1>
+        <DashboardContainer
+            headerText="Vendors"
+            headerIcon={<FaSuitcase />}
+            additionalClasses="project-vendors-container"
+            button={
+                <FaLink />
+            }
+        >
+            <p>Loading vendors...</p>
+        </DashboardContainer>
     )
 }

@@ -1,5 +1,15 @@
+import { FaMasksTheater, FaLink } from "react-icons/fa6";
+import DashboardContainer from "~/components/ui/DashboardContainer";
+
 export default function CastSkeleton() {
     return (
-        <h1>Loading cast...</h1>
+        <DashboardContainer
+            headerText="Cast"
+            headerIcon={<FaMasksTheater />}
+            additionalClasses="project-cast-container"
+            button={<FaLink />}
+        >
+            <p>Loading cast...</p>
+        </DashboardContainer>
     )
 }

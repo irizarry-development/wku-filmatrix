@@ -6,6 +6,8 @@ import DashboardContainer from "~/components/ui/DashboardContainer"
 import Drawer from "~/components/ui/Drawer"
 import prisma from "~/lib/prisma"
 import { FaEye, FaLink, FaLinkSlash } from "react-icons/fa6"
+import Link from "next/link"
+
 
 interface CrewListProps {
   params: {
@@ -15,6 +17,7 @@ interface CrewListProps {
 
 interface RedactedUser {
   name: string | null
+  id: string | null
 }
 
 interface CrewResponse extends Crew {
@@ -23,19 +26,19 @@ interface CrewResponse extends Crew {
 
 interface CrewCategory {
   [key: string]: ({
-    user: {
-      name: string | null
-    }
+    user: RedactedUser
   } & Crew)[]
 }
 
-function CrewComponent({ user: { name }, role }: CrewResponse) {
+function CrewComponent({ user: { name, id }, role }: CrewResponse) {
   return (
     <section className="crew-component">
       <strong>{role}</strong>
       <p>{name}</p>
       <section className="crew-actions">
-        <FaEye className="view-crew" />
+        <Link href={`/people/${id}`}>
+            <FaEye className="view-crew" />
+        </Link>
         <FaLinkSlash className="unlink-crew" />
       </section>
     </section>
@@ -50,7 +53,8 @@ export default async function CrewList({ params: { id } }: CrewListProps) {
     include: {
       user: {
         select: {
-          name: true
+          name: true,
+          id: true
         }
       }
     }

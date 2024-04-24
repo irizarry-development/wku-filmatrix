@@ -1,10 +1,12 @@
 import { Actor, Cast } from "@prisma/client"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import { FaEye, FaLink, FaLinkSlash, FaMasksTheater } from "react-icons/fa6"
 import Button from "~/components/ui/Button"
 import DashboardContainer from "~/components/ui/DashboardContainer"
 import Drawer from "~/components/ui/Drawer"
 import prisma from "~/lib/prisma"
+
 
 interface CastListProps {
   params: {
@@ -19,7 +21,7 @@ interface CastCategory {
 }
 
 function CastComponent({
-  actor: { name },
+  actor: { name, id },
   role
 }: CastActor) {
   return (
@@ -32,7 +34,9 @@ function CastComponent({
           {name}
         </p>
         <section className="cast-actions">
-          <FaEye className="view-cast" />
+          <Link href={`/actors/${id}`}>
+              <FaEye className="view-cast" />
+          </Link>
           <FaLinkSlash className="unlink-cast" />
         </section>
     </section>
