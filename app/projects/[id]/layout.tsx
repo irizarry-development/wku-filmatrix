@@ -1,9 +1,6 @@
-import Image from "next/image"
-import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ReactNode } from "react"
-import { FaArrowLeftLong } from "react-icons/fa6"
-import DashboardLayout from "~/components/ui/DashboardLayout"
+import DashboardLayout from "~/components/ui/dashboard/DashboardLayout"
 import prisma from "~/lib/prisma"
 import { RouteParams } from "~/lib/types"
 
