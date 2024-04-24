@@ -8,8 +8,8 @@ import toast from "react-hot-toast"
 import axios, { AxiosError } from "axios"
 
 import { toggleModal } from "~/lib/modal"
-import Modal from "../Modal"
-import Button from "../Button"
+import Modal from "../global/Modal"
+import Button from "../global/Button"
 
 export default function TableRow(props: {
   type: string
