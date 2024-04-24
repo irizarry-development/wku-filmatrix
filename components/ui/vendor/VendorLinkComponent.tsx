@@ -9,7 +9,7 @@ import toast from "react-hot-toast"
 import Table from "../table/Table"
 import TableRow from "../table/TableRow"
 
-export default function VendorEditComponent() {
+export default function VendorLinkComponent() {
   const [searchResults, setSearchResults] = useState<Vendor[]>([])
 
   async function handleSubmit(formData: FormData) {

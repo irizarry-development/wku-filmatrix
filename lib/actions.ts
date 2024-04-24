@@ -112,24 +112,23 @@ export async function deleteFestival(formData: FormData) {
   })
 }
 
-export async function searchVendors(formData: FormData) {
-  const searchQuery = formData.get("searchQuery")
+export async function searchVendors(query: string) {
 
-  if (!searchQuery) {
+  if (!query) {
     throw new Error("Search query is required")
-  } else if (searchQuery.length < 3) {
+  } else if (query.length < 3) {
     throw new Error("Search query must be at least 3 characters")
   }
 
   return await prisma.vendor.findMany({
     where: {
       OR: [
-        { vendorName: { contains: searchQuery as string, mode: "insensitive" } },
-        { vendorDescription: { contains: searchQuery as string, mode: "insensitive" } },
-        { vendorAddress: { contains: searchQuery as string, mode: "insensitive" } },
-        { vendorPhone: { contains: searchQuery as string, mode: "insensitive" } },
-        { vendorEmail: { contains: searchQuery as string, mode: "insensitive" } },
-        { vendorContactName: { contains: searchQuery as string, mode: "insensitive" } }
+        { vendorName: { contains: query as string, mode: "insensitive" } },
+        { vendorDescription: { contains: query as string, mode: "insensitive" } },
+        { vendorAddress: { contains: query as string, mode: "insensitive" } },
+        { vendorPhone: { contains: query as string, mode: "insensitive" } },
+        { vendorEmail: { contains: query as string, mode: "insensitive" } },
+        { vendorContactName: { contains: query as string, mode: "insensitive" } }
       ]
     }
   })

@@ -2,8 +2,9 @@ import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma"
 import DashboardContainer from "~/components/ui/dashboard/DashboardContainer";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { FaLink } from "react-icons/fa6";
+import LocationLinkComponent from "~/components/ui/locations/LocationLinkComponent";
 import LocationComponent from "~/components/ui/locations/LocationComponent";
+import { FaLink } from "react-icons/fa6";
 
 export default async function LocationList({
     params: { id }
@@ -30,6 +31,9 @@ export default async function LocationList({
             additionalClasses="project-locations-container"
             button={
                 <FaLink />
+            }
+            modalContent={
+                <LocationLinkComponent />
             }
         >
             {
