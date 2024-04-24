@@ -7,7 +7,8 @@
   position: fixed;
   z-index: 1000;
   transition: 150ms ease-in-out;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   &.open {
     width: 14rem;
