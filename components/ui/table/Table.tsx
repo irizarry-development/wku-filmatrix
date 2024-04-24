@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-import Input from "../form/Input"
 
 interface TableProps {
   title: string
@@ -7,22 +6,17 @@ interface TableProps {
   children: ReactNode
 }
 
-export default function Table({ title, headers, children }: TableProps) {
+export default function Table({ headers, children }: TableProps) {
   return (
-    <>
-      {/* <Input placeholder={`Search ${title}`} id="search" type="text" /> */}
-      <section className="searchable-table">
-        <table className="table">
-          <thead className="table-header">
-            <tr>
-              {headers.concat("").map((header, i) => (
-                <th key={i}>{header}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="table-body">{children}</tbody>
-        </table>
-      </section>
-    </>
+    <table className="table">
+      <thead className="table-header">
+        <tr>
+          {headers.map((header, i) => (
+            <th key={i}>{header}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody className="table-body">{children}</tbody>
+    </table>
   )
 }

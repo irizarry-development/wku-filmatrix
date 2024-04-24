@@ -6,6 +6,13 @@ export interface RouteParams {
   }
 }
 
+export interface SearchParams {
+  searchParams: {
+    search?: string
+    pageNumber: string
+  }
+}
+
 export interface CrewListProps {
   params: {
     id: string
