@@ -1,11 +1,8 @@
-import Link from "next/link";
 import { ReactNode } from "react";
-import { FaArrowLeftLong } from "react-icons/fa6";
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
-import Image from "next/image";
 import { notFound } from "next/navigation";
-import DashboardLayout from "~/components/ui/DashboardLayout";
+import DashboardLayout from "~/components/ui/dashboard/DashboardLayout";
 
 interface PeopleLayoutProps {
     details: ReactNode

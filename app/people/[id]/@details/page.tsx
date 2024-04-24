@@ -1,9 +1,8 @@
 import { notFound } from "next/navigation"
 import { RouteParams } from "~/lib/types"
 import prisma from "~/lib/prisma"
-import DashboardContainer from "~/components/ui/DashboardContainer"
+import DashboardContainer from "~/components/ui/dashboard/DashboardContainer"
 import { FaClipboard, FaEdit } from "react-icons/fa"
-import Button from "~/components/ui/Button"
 
 export default async function ProfileDetails({ params: { id } }: RouteParams) {
   const foundPerson = await prisma.user.findUnique({

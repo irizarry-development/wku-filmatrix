@@ -1,8 +1,4 @@
-import Button from "~/components/ui/Button"
-import Select from "~/components/ui/form/Select"
-import Radio from "~/components/ui/form/Radio"
-import Input from "~/components/ui/form/Input"
-import Drawer from "~/components/ui/Drawer"
+import Drawer from "~/components/ui/global/Drawer"
 import { Fragment } from "react"
 import Link from "next/link"
 

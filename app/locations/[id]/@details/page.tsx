@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { FaClipboardList } from "react-icons/fa6";
-import DashboardContainer from "~/components/ui/DashboardContainer";
+import DashboardContainer from "~/components/ui/dashboard/DashboardContainer";
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import { FaEdit } from "react-icons/fa";

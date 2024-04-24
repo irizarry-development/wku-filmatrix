@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import DashboardLayout from "~/components/ui/DashboardLayout"
+import DashboardLayout from "~/components/ui/dashboard/DashboardLayout"
 import { RouteParams } from "~/lib/types"
 import prisma from "~/lib/prisma"
 import { notFound } from "next/navigation"

@@ -1,4 +1,4 @@
-import DashboardContainer from "~/components/ui/DashboardContainer";
+import DashboardContainer from "~/components/ui/dashboard/DashboardContainer";
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import { notFound } from "next/navigation";

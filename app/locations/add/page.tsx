@@ -4,7 +4,7 @@ import axios, { AxiosError } from "axios"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
-import Button from "~/components/ui/Button"
+import Button from "~/components/ui/global/Button"
 import Input from "~/components/ui/form/Input"
 import { FaArrowLeftLong } from "react-icons/fa6"
 

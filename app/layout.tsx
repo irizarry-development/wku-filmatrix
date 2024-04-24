@@ -1,11 +1,10 @@
 import { ReactNode } from "react"
 
 import "~/styles/app.css"
-import Header from "~/components/ui/Header"
+import Header from "~/components/ui/global/Header"
 import { Toaster } from "react-hot-toast"
 import { auth } from "~/lib/auth"
 import { SessionProvider } from "next-auth/react"
-import { redirect } from "next/navigation"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {

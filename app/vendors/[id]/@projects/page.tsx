@@ -1,10 +1,10 @@
 import { BsCameraReelsFill } from "react-icons/bs";
-import { FaEye, FaLink, FaLinkSlash } from "react-icons/fa6";
-import DashboardContainer from "~/components/ui/DashboardContainer";
+import { FaLink } from "react-icons/fa6";
+import DashboardContainer from "~/components/ui/dashboard/DashboardContainer";
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import { Project } from "@prisma/client";
-import DashboardContainerCard from "~/components/ui/DashboardContainerCard";
+import DashboardContainerCard from "~/components/ui/dashboard/DashboardContainerCard";
 
 export default async function VendorProjects({
     params

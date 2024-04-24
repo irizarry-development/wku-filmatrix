@@ -1,9 +1,9 @@
 import { Actor, Cast } from "@prisma/client"
 import { notFound } from "next/navigation"
 import { FaMasksTheater, FaPlus } from "react-icons/fa6"
-import { CastComponent } from "~/components/ui/CastComponent"
-import DashboardContainer from "~/components/ui/DashboardContainer"
-import Drawer from "~/components/ui/Drawer"
+import { CastComponent } from "~/components/ui/cast/CastComponent"
+import DashboardContainer from "~/components/ui/dashboard/DashboardContainer"
+import Drawer from "~/components/ui/global/Drawer"
 import prisma from "~/lib/prisma"
 import { CastCategory } from "~/lib/types"
 

@@ -1,5 +1,5 @@
 import { FaMasksTheater, FaLink } from "react-icons/fa6";
-import DashboardContainer from "~/components/ui/DashboardContainer";
+import DashboardContainer from "~/components/ui/dashboard/DashboardContainer";
 
 export default function CastSkeleton() {
     return (

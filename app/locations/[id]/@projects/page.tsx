@@ -1,9 +1,9 @@
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
-import DashboardContainer from "~/components/ui/DashboardContainer";
+import DashboardContainer from "~/components/ui/dashboard/DashboardContainer";
 import { BsCameraReelsFill } from "react-icons/bs";
 import { FaLink } from "react-icons/fa6";
-import DashboardContainerCard from "~/components/ui/DashboardContainerCard";
+import DashboardContainerCard from "~/components/ui/dashboard/DashboardContainerCard";
 
 export default async function LocationProjects({
     params

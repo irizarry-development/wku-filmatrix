@@ -1,17 +1,11 @@
-import { Festival } from "@prisma/client"
 import {
   FaAward,
-  FaLink,
-  FaPlus,
-  FaRegTrashCan
+  FaPlus
 } from "react-icons/fa6"
-import DashboardContainer from "~/components/ui/DashboardContainer"
-import Drawer from "~/components/ui/Drawer"
+import DashboardContainer from "~/components/ui/dashboard/DashboardContainer"
+import Drawer from "~/components/ui/global/Drawer"
 import prisma from "~/lib/prisma"
-import { dateFromISO8601 } from "~/lib/utils"
-import { FaEdit } from "react-icons/fa"
-import Link from "next/link"
-import { FestivalComponent } from "~/components/ui/FestivalComponent"
+import { FestivalComponent } from "~/components/ui/festivals/FestivalComponent"
 
 
 interface FestivalsListProps {

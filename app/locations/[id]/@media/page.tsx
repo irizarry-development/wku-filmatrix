@@ -1,6 +1,6 @@
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
-import DashboardContainer from "~/components/ui/DashboardContainer";
+import DashboardContainer from "~/components/ui/dashboard/DashboardContainer";
 import { FaImages, FaPlus } from "react-icons/fa6";
 
 export default async function LocationMedia({

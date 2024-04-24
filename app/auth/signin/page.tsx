@@ -1,7 +1,7 @@
 "use client"
 
 import TextInput from "~/components/ui/form/Input"
-import Button from "~/components/ui/Button"
+import Button from "~/components/ui/global/Button"
 import toast from "react-hot-toast"
 import { authenticate } from "~/lib/actions"
 

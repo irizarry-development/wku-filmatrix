@@ -1,13 +1,9 @@
-import Drawer from "~/components/ui/Drawer";
 import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma"
-import DashboardContainer from "~/components/ui/DashboardContainer";
-import { FaEye, FaMapMarkerAlt } from "react-icons/fa";
-import Button from "~/components/ui/Button";
-import Link from "next/link";
-import { FaLink, FaLinkSlash } from "react-icons/fa6";
-import LocationComponent from "~/components/ui/LocationComponent";
-;
+import DashboardContainer from "~/components/ui/dashboard/DashboardContainer";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaLink } from "react-icons/fa6";
+import LocationComponent from "~/components/ui/locations/LocationComponent";
 
 export default async function LocationList({
     params: { id }

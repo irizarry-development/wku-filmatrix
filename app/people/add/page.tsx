@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import { FaArrowLeftLong } from "react-icons/fa6"
-import Button from "~/components/ui/Button"
+import Button from "~/components/ui/global/Button"
 import Input from "~/components/ui/form/Input"
 
 export default function CreatePeoplePage() {

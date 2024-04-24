@@ -1,9 +1,9 @@
 import { RouteParams } from "~/lib/types"
 import prisma from "~/lib/prisma"
-import DashboardContainer from "~/components/ui/DashboardContainer"
+import DashboardContainer from "~/components/ui/dashboard/DashboardContainer"
 import { FaLink, FaSuitcase } from "react-icons/fa6"
-import VendorComponent from "~/components/ui/VendorComponent"
-import VendorEditComponent from "~/components/ui/VendorEditComponent"
+import VendorComponent from "~/components/ui/vendor/VendorComponent"
+import VendorEditComponent from "~/components/ui/vendor/VendorEditComponent"
 
 export default async function ProjectVendors({ params: { id } }: RouteParams) {
     

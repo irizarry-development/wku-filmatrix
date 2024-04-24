@@ -1,10 +1,10 @@
 import { FaUserFriends } from "react-icons/fa"
-import DashboardContainer from "~/components/ui/DashboardContainer"
-import Drawer from "~/components/ui/Drawer"
+import DashboardContainer from "~/components/ui/dashboard/DashboardContainer"
+import Drawer from "~/components/ui/global/Drawer"
 import prisma from "~/lib/prisma"
 import { FaLink, FaPlus } from "react-icons/fa6"
 import { CrewResponse, CrewListProps, CrewCategory } from "~/lib/types"
-import CrewComponent from "~/components/ui/CrewComponent"
+import CrewComponent from "~/components/ui/crew/CrewComponent"
 
 export default async function CrewList({ params: { id } }: CrewListProps) {
   const crew: CrewResponse[] = await prisma.crew.findMany({

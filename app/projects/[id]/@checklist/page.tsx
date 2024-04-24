@@ -1,13 +1,10 @@
 import prisma from "~/lib/prisma"
-import Link from "next/link"
-import { FaArrowLeftLong, FaRegCircleCheck } from "react-icons/fa6"
-import { notFound } from "next/navigation"
-import React, { Fragment } from "react"
-import { datetimeFromISO8601 } from "~/lib/utils"
-import Drawer from "~/components/ui/Drawer"
+import { FaRegCircleCheck } from "react-icons/fa6"
+import React from "react"
+import Drawer from "~/components/ui/global/Drawer"
 import { ProjectTodo } from "@prisma/client"
 import ProjectTodoComponent from "~/components/projects/ProjectTodoComponent"
-import DashboardContainer from "~/components/ui/DashboardContainer"
+import DashboardContainer from "~/components/ui/dashboard/DashboardContainer"
 
 
 interface ProjectChecklistPageProps {

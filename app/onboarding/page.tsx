@@ -4,12 +4,11 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import toast from "react-hot-toast"
-import Button from "~/components/ui/Button"
-import Modal from "~/components/ui/Modal"
+import Button from "~/components/ui/global/Button"
+import Modal from "~/components/ui/global/Modal"
 import { Fieldset } from "~/components/ui/form/Fieldset"
 import Form from "~/components/ui/form/Form"
 import TextInput from "~/components/ui/form/Input"
-import { toggleModal } from "~/lib/modal"
 
 export default function OnboardingPage() {
   const router = useRouter()
