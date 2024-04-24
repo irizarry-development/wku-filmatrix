@@ -3,7 +3,7 @@ import { FaRegCircleCheck } from "react-icons/fa6"
 import React from "react"
 import Drawer from "~/components/ui/global/Drawer"
 import { ProjectTodo } from "@prisma/client"
-import ProjectTodoComponent from "~/components/projects/ProjectTodoComponent"
+import ProjectTodoComponent from "~/components/ui/projects/ProjectTodoComponent"
 import DashboardContainer from "~/components/ui/dashboard/DashboardContainer"
 
 
