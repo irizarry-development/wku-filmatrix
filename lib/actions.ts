@@ -3,6 +3,8 @@
 import { AuthError } from "next-auth"
 import { signIn } from "~/lib/auth"
 import prisma from "~/lib/prisma"
+import { SearchParams } from "./types"
+import { Prisma } from "@prisma/client"
 
 export async function authenticate(formData: FormData) {
   try {
@@ -131,4 +133,51 @@ export async function searchVendors(formData: FormData) {
       ]
     }
   })
+}
+
+type SearchFilters =
+  | Prisma.UserWhereInput
+  | Prisma.ActorWhereInput
+  | Prisma.VendorWhereInput
+  | Prisma.LocationWhereInput
+  | Prisma.ProjectWhereInput
+
+export async function paginatedQuery<T>(
+  { searchParams }: SearchParams,
+  perPage: number,
+  searchHandler: any,
+  countHandler: any,
+  searchFilter: SearchFilters
+) {
+  let parsedPage = parseInt(searchParams.pageNumber || "")
+
+  if (Number.isNaN(parsedPage)) {
+    parsedPage = 1
+  }
+
+  let data: T[] = []
+  let totalData = 0
+
+  if (!searchParams.search) {
+    data = await searchHandler({
+      take: perPage,
+      skip: (parsedPage - 1) * perPage
+    })
+
+    totalData = await countHandler()
+  } else {
+    data = await searchHandler({
+      where: searchFilter,
+      take: perPage,
+      skip: (parsedPage - 1) * perPage
+    })
+
+    totalData = await countHandler({
+      where: searchFilter
+    })
+  }
+
+  const remaining = totalData - parsedPage * perPage
+
+  return { data, remaining, parsedPage }
 }

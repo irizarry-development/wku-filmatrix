@@ -1,52 +1,48 @@
-import { Prisma } from "@prisma/client"
+import { Prisma, Location } from "@prisma/client"
 import DatabasePage from "~/components/ui/database/DatabasePage"
 import TableRow from "~/components/ui/table/TableRow"
+import { paginatedQuery } from "~/lib/actions"
 import prisma from "~/lib/prisma"
 import { SearchParams } from "~/lib/types"
 
-export default async function LocationDatabase({
-  searchParams: { search, pageNumber }
-}: SearchParams) {
-  let parsedPage = parseInt(pageNumber || "")
-  if (Number.isNaN(parsedPage)) parsedPage = 1
-  const perPage = 10
-  let locationData = null
-  let totalLocations = 0
-
-  if (!search) {
-    locationData = await prisma.location.findMany({
-      take: perPage,
-      skip: (parsedPage - 1) * perPage
-    })
-    totalLocations = await prisma.location.count()
-  } else {
-    const searchFilter: Prisma.LocationWhereInput = {
-      OR: [
-        { locationName: { contains: search, mode: "insensitive" } },
-        {
-          locationDescription: {
-            contains: search,
-            mode: "insensitive"
-          }
+export default async function LocationDatabase({ searchParams }: SearchParams) {
+  const locationSearchFilter: Prisma.LocationWhereInput = {
+    OR: [
+      { locationName: { contains: searchParams.search, mode: "insensitive" } },
+      {
+        locationDescription: {
+          contains: searchParams.search,
+          mode: "insensitive"
         }
-      ]
-    }
-    locationData = await prisma.location.findMany({
-      where: searchFilter,
-      take: perPage,
-      skip: (parsedPage - 1) * perPage
-    })
-    totalLocations = await prisma.location.count({ where: searchFilter })
+      },
+      {
+        locationAddress: { contains: searchParams.search, mode: "insensitive" }
+      },
+      { locationPhone: { contains: searchParams.search, mode: "insensitive" } },
+      { locationEmail: { contains: searchParams.search, mode: "insensitive" } },
+      {
+        locationContactName: {
+          contains: searchParams.search,
+          mode: "insensitive"
+        }
+      }
+    ]
   }
 
-  const remaining = totalLocations - parsedPage * perPage
+  const { data, remaining, parsedPage } = await paginatedQuery<Location>(
+    { searchParams },
+    10,
+    prisma.location.findMany,
+    prisma.location.count,
+    locationSearchFilter
+  )
 
   return (
     <DatabasePage
       databaseHeader="Locations"
       databaseId="locations"
       databaseFormId="location-form"
-      searchValue={search || ""}
+      searchValue={searchParams.search || ""}
       parsedPage={parsedPage}
       remaining={remaining}
       databaseTableHeaders={[
@@ -60,27 +56,27 @@ export default async function LocationDatabase({
         ""
       ]}
     >
-      {locationData.length > 0 &&
-            locationData.map((loc, i) => (
-              <TableRow
-                key={i}
-                type="Locations"
-                singular="Location"
-                id={loc.id}
-                name={loc.locationName}
-                fields={[
-                  loc.locationName,
-                  loc.locationAddress,
-                  loc.locationDescription,
-                  loc.locationPhone,
-                  loc.locationEmail,
-                  loc.locationContactName,
-                  loc.locationKeywords
-                ]}
-                deleteUrl="/api/v1/locations"
-                renderActions
-              />
-            ))}
+      {data.length > 0 &&
+        data.map((loc, i) => (
+          <TableRow
+            key={i}
+            type="Locations"
+            singular="Location"
+            id={loc.id}
+            name={loc.locationName}
+            fields={[
+              loc.locationName,
+              loc.locationAddress,
+              loc.locationDescription,
+              loc.locationPhone,
+              loc.locationEmail,
+              loc.locationContactName,
+              loc.locationKeywords
+            ]}
+            deleteUrl="/api/v1/locations"
+            renderActions
+          />
+        ))}
     </DatabasePage>
   )
 }
