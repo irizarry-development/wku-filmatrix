@@ -6,7 +6,8 @@ import {
   FaArrowRightLong,
   FaArrowRotateLeft,
   FaCirclePlus,
-  FaMagnifyingGlass
+  FaMagnifyingGlass,
+  FaUpload
 } from "react-icons/fa6"
 import TextInput from "~/components/ui/form/Input"
 import Table from "~/components/ui/table/Table"
@@ -64,6 +65,9 @@ export default async function VendorDatabase({
         <h1>Vendors</h1>
         <Link href="/vendors/add" className="database-page-add">
           <FaCirclePlus />
+        </Link>
+        <Link href="/vendors/upload" className="database-page-upload">
+          <FaUpload />
         </Link>
         <form
           id="vendor-search-form"
