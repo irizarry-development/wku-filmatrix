@@ -14,7 +14,7 @@ export default async function Home() {
       text: "WKU Film Student Handbook"
     }
   ]
-  const productionLinks = [
+  const productionLinks: HomepageLink[] = [
     {
       url: "https://www.wkufilm.com/wp-content/uploads/2021/08/Additional-Photography.zip",
       text: "Additional Photography"
@@ -48,7 +48,7 @@ export default async function Home() {
       text: "Safety"
     }
   ]
-  const postproductionLinks = [
+  const postproductionLinks: HomepageLink[] = [
     {
       url: "https://forms.gle/f54U6t7Csfshjqgs5",
       text: "Post Hall Reservations"
@@ -87,13 +87,13 @@ export default async function Home() {
       text: "Poster Use Form"
     }
   ]
-  const studentDatabaseLinks = [
+  const studentDatabaseLinks: HomepageLink[] = [
     {
       url: "https://www.wkufilm.com/location-database/",
       text: "Location Database"
     }
   ]
-  const helpfulLinks = [
+  const helpfulLinks: HomepageLink[] = [
     { url: "http://wku.edu/film", text: "School of Media" },
     {
       url: "https://www.wku.edu/studyaway/programs/sa-winter/sundancewinter2020.php",
@@ -105,7 +105,7 @@ export default async function Home() {
     },
     { url: "http://filmoffice.ky.gov/", text: "Kenctuky Film Office" }
   ]
-  const jobLinks = [
+  const jobLinks: HomepageLink[] = [
     {
       url: "http://www.mandy.com/index.php?country=US",
       text: "Mandy.com (Production Jobs)"
@@ -116,7 +116,7 @@ export default async function Home() {
       text: "UTA Job List (Industry Jobs, Development, Agencies, etc."
     }
   ]
-  const internshipLinks = [
+  const internshipLinks: HomepageLink[] = [
     { url: "", text: "Television Academy (Emmys) Internship Program" }
   ]
 
@@ -140,13 +140,24 @@ export default async function Home() {
         <Drawer title="WKU Film Student Handbook">
           {_renderLinks(studentHandbookLinks)}
         </Drawer>
-        <Drawer title="Production">{_renderLinks(productionLinks)}</Drawer>
-        {/* <Drawer title="Production" />
-                    <Drawer title="Post-Production" />
-                    <Drawer title="Student Database" />
-                    <Drawer title="Helpful Links" />
-                    <Drawer title="Jobs" />
-                    <Drawer title="Internships" /> */}
+        <Drawer title="Production">
+          {_renderLinks(productionLinks)}
+        </Drawer>
+        <Drawer title="Post-Production">
+          {_renderLinks(postproductionLinks)}
+        </Drawer>
+        <Drawer title="Student Database">
+          {_renderLinks(studentDatabaseLinks)}
+        </Drawer>
+        <Drawer title="Helpful Links">
+          {_renderLinks(helpfulLinks)}
+        </Drawer>
+        <Drawer title="Jobs">
+          {_renderLinks(jobLinks)}
+        </Drawer>
+        <Drawer title="Interships">
+          {_renderLinks(internshipLinks)}
+        </Drawer>
       </section>
     </Fragment>
   )
