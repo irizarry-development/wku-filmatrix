@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from "~/lib/prisma"
 
-export const config = {
-    runtime: 'experimental-edge',
-};
-  
 export async function POST(req: NextRequest) {
     if (!req.body) {
         return new Response(JSON.stringify({ message: 'No data provided' }), {

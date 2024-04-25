@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from "~/lib/prisma"
 
-export const config = {
-    runtime: 'experimental-edge',
-};
   
 export async function POST(req: NextRequest) {
     if (!req.body) {
@@ -41,13 +38,13 @@ export async function POST(req: NextRequest) {
             headers: { 'Content-Type': 'application/json' },
         });
 
-
         // return new Response(JSON.stringify({ message: 'Locations processed. Duplicates skipped. Each location name must be unique', duplicates: duplicates }), {
         //     status: 200,
         //     headers: { 'Content-Type': 'application/json' },
         // });
+
     } catch (error) {
-        let errorMessage
+        let errorMessage;
         if (error instanceof Error) {
             errorMessage = error.message;
           }
