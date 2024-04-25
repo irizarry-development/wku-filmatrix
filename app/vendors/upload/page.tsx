@@ -1,17 +1,21 @@
 'use client'
 import { useState } from 'react';
 import * as XLSX from 'xlsx';
+import Button from '~/components/ui/Button';
+import InputButton from '~/components/ui/FileInput';
 
 const VendorsUpload = () => {
     const [file, setFile] = useState<File | null>(null);
-    const [uploadMessage, setUploadMessage] = useState<string>('');
+    const [uploadMessage, setUploadMessage] = useState<string>('Please select a file to upload.');
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (files && files.length) {
             setFile(files[0]);
+            setUploadMessage(`Selected file: ${files[0].name}`); 
         } else {
             setFile(null);
+            setUploadMessage('');
         }
     };
 
@@ -58,11 +62,36 @@ const VendorsUpload = () => {
     };
 
     return (
-        <div>
-            <input type="file" accept=".csv,.xlsx,.xls" onChange={handleFileChange} />
-            <button onClick={handleUpload}>Upload Vendors</button>
-            {uploadMessage && <p>{uploadMessage}</p>}
-        </div>
+        <fieldset className="upload-fieldset">
+            <legend>Upload Vendors</legend>
+            <div className="upload-container">
+                <p>Note: All repeated entries with the same name will be skipped and only the first one will be processed. For example, if you have three vendors with the name "House" only the first will be processed and all subsequent entries will be skipped.<br></br>
+                The headers for the file should be as follows:</p>
+                <ul>
+                    <li>Name</li>
+                    <li>Address</li>
+                    <li>Description</li>
+                    <li>Keywords</li>
+                    <li>Contact</li>
+                    <li>Phone</li>
+                    <li>Email</li>
+                    <li>Comments</li>
+                </ul>
+                <InputButton
+                    color="primary"
+                    accept=".csv,.xlsx,.xls"
+                    onChange={handleFileChange}
+                    buttonText="Select File"
+                />
+                <Button
+                    color="primary"
+                    content="Upload Vendors"
+                    handler={handleUpload}
+                    type="button"
+                />
+                {uploadMessage && <p className="upload-message">{uploadMessage}</p>}
+            </div>
+        </fieldset>
     );
 };
 

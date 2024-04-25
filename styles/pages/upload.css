@@ -1,0 +1,41 @@
+.upload-fieldset {
+    border: 2px dashed var(--white); 
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+    position: relative; 
+    padding-bottom: 100px; 
+}
+
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px; 
+}
+
+
+.upload-message {
+    color: white;
+    padding: 2.4rem;
+    border-radius: 5px;
+    width: 100%;
+    position: absolute; 
+    bottom: 10px;
+    left: 0;
+    right: 0;
+}
+
+legend {
+    font-size: 3em;
+    color: white; 
+}
+
+ul {
+    margin-top: 0;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--gray-lighter);
+}
