@@ -5,6 +5,7 @@ import toast from "react-hot-toast"
 import Form from "../form/Form"
 import TextInput from "../form/Input"
 import Table from "../table/Table"
+import { FaLink } from "react-icons/fa6"
 
 interface LinkComponentProps<T> {
   searchHandler: (searchQuery: string) => Promise<T[]>
@@ -41,9 +42,17 @@ export default function LinkComponent<T extends Object>({
     return results.map((result: T, i) => (
       <tr key={i}>
         {Object.keys(result).map((key, i) => {
+
+          if (key === "id") {
+            return null
+          }
+
           //@ts-ignore
           return <td key={i}>{result[key]}</td>
         })}
+        <td>
+          <FaLink />
+        </td>
       </tr>
     ))
   }

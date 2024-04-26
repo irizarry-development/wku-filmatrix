@@ -37,11 +37,7 @@ export default async function ProjectVendors({ params: { id } }: RouteParams) {
           tableTitle="Vendors"
           tableHeaders={[
             "Vendor Name",
-            "Description",
-            "Address",
-            "Phone",
-            "Email",
-            "Contact Name"
+            ""
           ]}
         />
       }
