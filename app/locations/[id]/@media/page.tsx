@@ -2,6 +2,7 @@ import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import DashboardContainer from "~/components/ui/dashboard/DashboardContainer";
 import { FaImages, FaPlus } from "react-icons/fa6";
+import Image from "next/image";
 
 export default async function LocationMedia({
     params
@@ -27,7 +28,7 @@ export default async function LocationMedia({
         >
             {foundLocationMedia.map((media) => (
                 <div key={media.id} className="media-item">
-                    <img src={media.url} />
+                    <Image src={media.url} alt={media.id} />
                 </div>
             ))}
         </DashboardContainer>

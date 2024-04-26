@@ -14,7 +14,7 @@ export default function Form({
     additionalClasses
 }: FormProps) {
     return (
-        <form action={action || ""} method={method || ""} className={`form ${additionalClasses ? additionalClasses : ""}`} id={formId}>
+        <form action={action || ""} method={method || undefined} className={`form ${additionalClasses ? additionalClasses : ""}`} id={formId}>
             {children}
         </form>
     )

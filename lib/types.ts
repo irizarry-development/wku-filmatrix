@@ -39,3 +39,8 @@ export type CastActor = { actor: Actor } & Cast
 export interface CastCategory {
   [key: string]: ({ actor: Actor } & Cast)[]
 }
+
+export interface TruncatedVendor {
+  id: string
+  vendorName: string
+}

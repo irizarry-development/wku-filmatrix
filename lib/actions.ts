@@ -130,6 +130,10 @@ export async function searchVendors(query: string) {
         { vendorEmail: { contains: query as string, mode: "insensitive" } },
         { vendorContactName: { contains: query as string, mode: "insensitive" } }
       ]
+    },
+    select: {
+      vendorName: true,
+      id: true
     }
   })
 }

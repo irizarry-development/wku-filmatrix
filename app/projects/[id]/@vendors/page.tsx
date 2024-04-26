@@ -1,4 +1,4 @@
-import { RouteParams } from "~/lib/types"
+import { RouteParams, TruncatedVendor } from "~/lib/types"
 import prisma from "~/lib/prisma"
 import DashboardContainer from "~/components/ui/dashboard/DashboardContainer"
 import { FaLink, FaSuitcase } from "react-icons/fa6"
@@ -30,7 +30,7 @@ export default async function ProjectVendors({ params: { id } }: RouteParams) {
       additionalClasses="project-vendors-container"
       button={<FaLink />}
       modalContent={
-        <LinkComponent<Vendor>
+        <LinkComponent<TruncatedVendor>
           searchHandler={searchVendors}
           formId="vendor-link-form"
           searchPlaceholder="Search for a vendor"
