@@ -24,6 +24,11 @@ export interface TruncatedUser {
   id: string
 }
 
+export interface TruncatedLocation {
+  locationName: string
+  id: string
+}
+
 export interface CrewResponse extends Crew {
   user: TruncatedUser
 }

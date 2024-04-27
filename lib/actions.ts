@@ -138,6 +138,32 @@ export async function searchVendors(query: string) {
   })
 }
 
+export async function searchLocations(query: string) {
+  
+    if (!query) {
+      throw new Error("Search query is required")
+    } else if (query.length < 3) {
+      throw new Error("Search query must be at least 3 characters")
+    }
+  
+    return await prisma.location.findMany({
+      where: {
+        OR: [
+          { locationName: { contains: query as string, mode: "insensitive" } },
+          { locationDescription: { contains: query as string, mode: "insensitive" } },
+          { locationAddress: { contains: query as string, mode: "insensitive" } },
+          { locationPhone: { contains: query as string, mode: "insensitive" } },
+          { locationEmail: { contains: query as string, mode: "insensitive" } }
+        ]
+      },
+      select: {
+        locationName: true,
+        id: true
+      }
+    })
+  
+}
+
 type SearchFilters =
   | Prisma.UserWhereInput
   | Prisma.ActorWhereInput

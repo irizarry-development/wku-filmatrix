@@ -5,7 +5,8 @@ import toast from "react-hot-toast"
 import Form from "../form/Form"
 import TextInput from "../form/Input"
 import Table from "../table/Table"
-import { FaLink } from "react-icons/fa6"
+import { FaLink, FaPlus } from "react-icons/fa6"
+import Link from "next/link"
 
 interface LinkComponentProps<T> {
   searchHandler: (searchQuery: string) => Promise<T[]>
@@ -61,6 +62,12 @@ export default function LinkComponent<T extends Object>({
     <Fragment>
       <Form action={handleSubmit} formId={formId}>
         <TextInput label={searchPlaceholder} id="searchQuery" type="text" />
+        <section className="add-link">
+          Didnt find what you were looking for? 
+          <Link href={`/${tableTitle.toLowerCase()}/add`}>
+            Add {tableTitle}
+          </Link>
+          </section>
       </Form>
       <Table title={tableTitle} headers={tableHeaders}>
         {_renderResults(searchResults)}
