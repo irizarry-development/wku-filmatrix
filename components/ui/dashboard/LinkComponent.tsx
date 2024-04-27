@@ -38,11 +38,11 @@ export default function LinkComponent<T extends Object>({
   }
 
   function _renderResults(results: T[]) {
-    return results.map((result: T) => (
-      <tr>
-        {Object.keys(result).map((key) => {
+    return results.map((result: T, i) => (
+      <tr key={i}>
+        {Object.keys(result).map((key, i) => {
           //@ts-ignore
-          return <td>{result[key]}</td>
+          return <td key={i}>{result[key]}</td>
         })}
       </tr>
     ))

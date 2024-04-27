@@ -14,6 +14,7 @@ export default function VendorLinkComponent() {
 
   async function handleSubmit(formData: FormData) {
     try {
+        // @ts-ignore
         const foundVendors = await searchVendors(formData)
 
         if (foundVendors) {
