@@ -1,0 +1,48 @@
+services:
+
+  filmatrix-db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - filmatrix_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  filmatrix-web:
+    build: .
+    depends_on:
+      - filmatrix-db
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - AUTH_SECRET=${AUTH_SECRET}
+      - AUTH_TRUST_HOST=${AUTH_TRUST_HOST}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+    volumes:
+      - filmatrix_profile_media:/app/media/profiles
+      - filmatrix_locations_media:/app/media/locations
+      - filmatrix_projects_media:/app/media/projects
+    ports:
+      - "3000:3000"
+
+  # nginx:
+  #   build: ./nginx
+  #   environment:
+  #     - HOSTNAME=${HOSTNAME}
+  #   volumes:
+  #     - ./.ssl:/etc/ssl:ro
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   depends_on:
+  #     - web
+
+volumes:
+  filmatrix_postgres_data:
+  filmatrix_profile_media:
+  filmatrix_locations_media:
+  filmatrix_projects_media:
