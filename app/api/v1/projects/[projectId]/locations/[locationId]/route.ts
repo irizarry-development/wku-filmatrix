@@ -18,8 +18,8 @@ export const POST = auth(async (req) => {
     return forbiddenResponse;
 
   const surl = req.url.split("/");
-  const projectId = surl[-3]!;
-  const locationId = surl[-1]!;
+  const projectId = surl.at(-3)!;
+  const locationId = surl.at(-1)!;
   const [project, location] = await Promise.all([
     prisma.project.findUnique({
       where: {
@@ -99,8 +99,8 @@ export const DELETE = auth(async (req) => {
     return forbiddenResponse;
 
   const surl = req.url.split("/");
-  const projectId = surl[-3]!;
-  const locationId = surl[-1]!;
+  const projectId = surl.at(-3)!;
+  const locationId = surl.at(-1)!;
   const [project, location] = await Promise.all([
     prisma.project.findUnique({
       where: {

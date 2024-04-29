@@ -24,7 +24,6 @@ export async function POST(req: NextRequest) {
     }
   });
 
-
   if (existingUserByEmail)
     return requestConflict(`User with email \'${email}\' already exists`);
   if (!['1', '2', '3'].some(pos => pos === role))

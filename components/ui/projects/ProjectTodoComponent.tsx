@@ -12,16 +12,18 @@ export default function ProjectTodoComponent({
   approvedDT,
   approverName
 }: ProjectTodo) {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleApproval = async (id: string, name: string) => {
     try {
       await axios.post(`/api/v1/todos/${id}/approve`)
       toast.success(`${name} approved`)
+      router.refresh();
     } catch (error) {
-      toast.error(
-        `Failed to approve ${name} - ${(error as AxiosError).response?.data}`
-      )
+      if (error instanceof AxiosError)
+        toast.error(`Failed to approve ${name} - ${(error as AxiosError).response?.data}`)
+      else
+        toast.error('Unexpected error approving project todo');
     }
     router.refresh()
   }

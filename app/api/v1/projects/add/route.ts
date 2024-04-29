@@ -3,7 +3,7 @@ import { ZodError } from "zod"
 import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, successWithMessage, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
-import { createProjectSchema } from "~/lib/z"
+import { createProjectESchema, createProjectSchema } from "~/lib/z"
 
 const todos = [
   ["Pre-Production", "Script"],
@@ -84,7 +84,7 @@ export const POST = auth(async (req) => {
   const body = await req.json();
   let parsedBody: any;
   try {
-    parsedBody = createProjectSchema.parse(body);
+    parsedBody = createProjectESchema.parse(body);
   } catch (errors) {
     return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
   }

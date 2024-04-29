@@ -8,7 +8,7 @@ export const GET = auth(async (req) => {
   if (!auth)
     return unauthorizedResponse;
 
-  const id = splitUrl(req.url)
+  const id = req.url.split('/')[req.url.length - 1];
   const project = await prisma.project.findUnique({
     where: {
       id
@@ -42,7 +42,7 @@ export const PATCH = auth(async (req) => {
     return forbiddenResponse
   }
 
-  const id = splitUrl(req.url)
+  const id = req.url.split('/')[req.url.length - 1];
   const project = await prisma.project.findUnique({
     where: {
       id
@@ -86,49 +86,36 @@ export const DELETE = auth(async (req) => {
   
   const auth = checkAuthentication(req)
 
-  if (!auth) {
-    return unauthorizedResponse
-  }
-  // get requester and validate
+  if (!auth)
+    return unauthorizedResponse;
   const requester = await prisma.user.findUnique({
     where: {
       email: auth
     }
-  })
+  });
+  if (!requester) 
+    return unexpectedError;
+  if (requester.role !== 1)
+    return forbiddenResponse;
 
-  if (!requester) {
-    return unexpectedError
-  }
-
-  // throw error if requester is not admin
-  if (requester.role !== 1) {
-    return forbiddenResponse
-  }
-
-  // get project id from url
-  const id = splitUrl(req.url)
-  // find project
+  const surl = req.url.split('/');
+  const id = surl.at(-1)!;
   const project = await prisma.project.findUnique({
     where: {
       id
     }
-  })
+  });
+  if (!project)
+    return resourceNotFound;
 
-  // if project does not exist, return error
-  if (!project) {
-    return resourceNotFound
-  }
-
-  // delete project
   try {
-    const deleted = await prisma.project.delete({
+    await prisma.project.delete({
       where: {
         id
       }
-    })
-
-    return resourceDeleteSuccess
+    });
+    return resourceDeleteSuccess;
   } catch (error) {
-    return unexpectedError
+    return unexpectedError;
   }
 }) as any

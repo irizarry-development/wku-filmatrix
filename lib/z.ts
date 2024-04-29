@@ -109,6 +109,33 @@ export const createProjectSchema = z.object({
     .min(1, "Project production number is required"),
 });
 
+export const createProjectESchema = z.object({
+  projectName: z.string().min(1, "Project name is required"),
+  projectDescription: z.string().min(1, "Project description is required"),
+  projectRuntime: z.string().min(1, "Project runtime is required"),
+  projectAspectRatio: z.string().min(1, "Project aspect ratio is required"),
+  projectRating: z.string().min(1, "Project rating is required"),
+  projectRatingCriteria: z
+    .string()
+    .min(1, "Project rating criteria is required"),
+  projectProductionNumber: z
+    .string()
+    .min(1, "Project production number is required"),
+  projectCategory: z.string().min(1, "Project category is required"),
+  projectGenre: z.string().min(1, "Project genre is required"),
+  projectLanguage: z.string().min(1, "Project language is required"),
+  projectShootingFormat: z
+    .string()
+    .min(1, "Project shooting format is required"),
+  projectFilmSound: z.string().min(1, "Project film sound is required"),
+  projectFilmSubtitled: z.boolean(),
+  projectTagline: z.string().min(1, "Project tagline is required"),
+  projectLogLine: z.string().min(1, "Project log line is required"),
+  project25WordPitch: z.string().min(1, "Project 25 word pitch is required"),
+  project50WordPitch: z.string().min(1, "Project 50 word pitch is required"),
+  project75WordPitch: z.string().min(1, "Project 75 word pitch is required")
+});
+
 export const editProjectSchema = z.object({
   projectName: z
     .string()
