@@ -7,23 +7,23 @@ import { editCastSchema } from "~/lib/z"
 export const GET = auth(async (req) => {
   const auth = checkAuthentication(req)
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
-  const id = req.url.split("/").pop()!;
+  const id = req.url.split("/").at(-1)!;
   const cast = await prisma.cast.findUnique({
     where: {
       id
     },
   });
   if (!cast)
-    return resourceNotFound;
+    return resourceNotFound();
   return successWithMessage({cast});
 }) as any
 
 export const PATCH = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
   const requester = await prisma.user.findUnique({
     where: {
@@ -31,18 +31,18 @@ export const PATCH = auth(async (req) => {
     },
   });
   if (!requester)
-    return unexpectedError;
+    return unexpectedError();
   if (requester.role === 3)
-    return forbiddenResponse;
+    return forbiddenResponse();
 
-  const id = req.url.split("/").pop()!;
+  const id = req.url.split("/").at(-1)!;
   const cast = await prisma.cast.findUnique({
     where: {
       id
     },
   });
   if (!cast)
-    return resourceNotFound;
+    return resourceNotFound();
   
   if (requester.role !== 1) {
     const crew = await prisma.crew.findFirst({
@@ -54,7 +54,7 @@ export const PATCH = auth(async (req) => {
       }
     });
     if (!crew)
-      return forbiddenResponse;
+      return forbiddenResponse();
   }
 
   const body = await req.json();
@@ -72,16 +72,16 @@ export const PATCH = auth(async (req) => {
       },
       data: parsedBody,
     });
-    return resourceUpdateSuccess;
+    return resourceUpdateSuccess();
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any
 
 export const DELETE = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
   const requester = await prisma.user.findUnique({
     where: {
@@ -89,18 +89,18 @@ export const DELETE = auth(async (req) => {
     }
   });
   if (!requester)
-    return unexpectedError;
+    return unexpectedError();
   if (requester.role === 3)
-    return forbiddenResponse;
+    return forbiddenResponse();
 
-  const id = req.url.split("/").pop()!;
+  const id = req.url.split("/").at(-1)!;
   const cast = await prisma.cast.findUnique({
     where: {
       id
     },
   });
   if (!cast)
-    return resourceNotFound;
+    return resourceNotFound();
 
   if (requester.role !== 1) {
     const crew = await prisma.crew.findFirst({
@@ -112,7 +112,7 @@ export const DELETE = auth(async (req) => {
       }
     });
     if (!crew)
-      return forbiddenResponse;
+      return forbiddenResponse();
   }
 
   try {
@@ -121,8 +121,8 @@ export const DELETE = auth(async (req) => {
         id
       },
     });
-    return resourceDeleteSuccess;
+    return resourceDeleteSuccess();
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any

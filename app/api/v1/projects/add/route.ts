@@ -68,18 +68,17 @@ const todos = [
 export const POST = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
-  // get requester and validate
   const requester = await prisma.user.findUnique({
     where: {
       email: auth,
     }
   });
   if (!requester)
-    return unexpectedError;
+    return unexpectedError();
   if (requester.role !== 1)
-    return forbiddenResponse;
+    return forbiddenResponse();
 
   const body = await req.json();
   let parsedBody: any;
@@ -118,6 +117,6 @@ export const POST = auth(async (req) => {
     })
     return successWithMessage({project: project!});
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any

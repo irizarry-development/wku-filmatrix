@@ -6,7 +6,7 @@ import { checkAuthentication, successWithMessage, unauthorizedResponse, unexpect
 export const PATCH = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
   const body = await req.json()
   const parsedBody = onboardingBodySchema.parse(body)
@@ -20,6 +20,6 @@ export const PATCH = auth(async (req) => {
     })
     return successWithMessage("Onboarding form submitted");
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any

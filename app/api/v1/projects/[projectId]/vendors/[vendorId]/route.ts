@@ -5,7 +5,7 @@ import prisma from "~/lib/prisma"
 export const POST = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
   const requester = await prisma.user.findUnique({
     where: {
@@ -14,12 +14,11 @@ export const POST = auth(async (req) => {
   });
   
   if (!requester)
-    return unexpectedError;
+    return unexpectedError();
   if (requester.role === 3)
-    return forbiddenResponse;
+    return forbiddenResponse();
 
   const surl = req.url.split("/");
-  
   const projectId = surl.at(-3);
   const vendorId = surl.at(-1);
   
@@ -36,9 +35,9 @@ export const POST = auth(async (req) => {
     }),
   ]);
   if (!project)
-    return resourceNotFound;
+    return resourceNotFound();
   if (!vendor)
-    return resourceNotFound;
+    return resourceNotFound();
 
   if (requester.role !== 1) {
     
@@ -51,7 +50,7 @@ export const POST = auth(async (req) => {
       }
     });
     if (!crew)
-      return forbiddenResponse;
+      return forbiddenResponse();
   }
 
   const existing = await prisma.vendor.findFirst({
@@ -83,14 +82,14 @@ export const POST = auth(async (req) => {
       })
     );
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any
 
 export const DELETE = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
   const requester = await prisma.user.findUnique({
     where: {
@@ -98,13 +97,13 @@ export const DELETE = auth(async (req) => {
     }
   });
   if (!requester)
-    return unexpectedError;
+    return unexpectedError();
   if (requester.role === 3)
-    return forbiddenResponse;
+    return forbiddenResponse();
 
   const surl = req.url.split("/");
-  const projectId = surl.at(-3);
-  const vendorId = surl.at(-1);
+  const projectId = surl.at(-3)!;
+  const vendorId = surl.at(-1)!;
   const [project, vendor] = await Promise.all([
     prisma.project.findUnique({
       where: {
@@ -118,9 +117,9 @@ export const DELETE = auth(async (req) => {
     }),
   ]);
   if (!project)
-    return resourceNotFound;
+    return resourceNotFound();
   if (!vendor)
-    return resourceNotFound;
+    return resourceNotFound();
 
   if (requester.role !== 1) {
     const crew = await prisma.crew.findFirst({
@@ -132,7 +131,7 @@ export const DELETE = auth(async (req) => {
       }
     });
     if (!crew)
-      return forbiddenResponse;
+      return forbiddenResponse();
   }
 
   const existing = await prisma.vendor.findFirst({
@@ -161,8 +160,8 @@ export const DELETE = auth(async (req) => {
         },
       },
     });
-    return resourceDeleteSuccess;
+    return resourceDeleteSuccess();
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any

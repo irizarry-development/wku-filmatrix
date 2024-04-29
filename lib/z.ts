@@ -42,6 +42,18 @@ export const editUserSchema = z.object({
   emergencyContactAddress: z.string().optional()
 });
 
+export const changePasswordSchema = z.object({
+  currentp: z
+    .string()
+    .min(1, "Current password required"),
+  newp: z
+    .string()
+    .min(1, "New password required"),
+  repeatp: z
+    .string()
+    .min(1, "Repeat password required"),
+});
+
 export const createVendorSchema = z.object({
   vendorName: z.string().min(1, "Vendor name is required"),
   vendorDescription: z.string().min(1, "Vendor description is required"),

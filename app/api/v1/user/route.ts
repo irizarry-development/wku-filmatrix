@@ -4,9 +4,9 @@ import { createUserSchema } from "~/lib/z"
 import { hash } from "bcrypt"
 import { invalidRequestWithError, requestConflict, successWithMessage, unexpectedError, unexpectedErrorWithMessage } from "~/lib/api"
 import { ZodError } from "zod"
+import { auth } from "~/lib/auth"
 
-export async function POST(req: NextRequest) {
-
+export const POST = auth(async (req) => {
   const body = await req.json()
 
   let name, email, role, password, repeat;
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     if (error instanceof ZodError)
       return invalidRequestWithError((error as ZodError).issues.at(0)?.message)
-    return unexpectedError
+    return unexpectedError();
   }
 
   const existingUserByEmail = await prisma.user.findUnique({
@@ -59,6 +59,6 @@ export async function POST(req: NextRequest) {
     });
     return successWithMessage(rest);
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
-}
+})

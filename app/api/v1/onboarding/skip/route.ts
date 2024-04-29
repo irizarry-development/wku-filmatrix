@@ -5,7 +5,7 @@ import prisma from "~/lib/prisma"
 export const POST = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
   try {
     await prisma.user.update({
@@ -16,6 +16,6 @@ export const POST = auth(async (req) => {
     })
     return successWithMessage("Onboarding form submitted");
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any

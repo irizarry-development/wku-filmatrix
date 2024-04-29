@@ -4,6 +4,7 @@ import { RouteParams } from "~/lib/types";
 import prisma from "~/lib/prisma";
 import { notFound } from "next/navigation";
 import { FaEdit } from "react-icons/fa";
+import ChangePassword from "~/components/ui/people/ChangePassword"
 
 export default async function Password({
     params: { id }
@@ -35,8 +36,11 @@ export default async function Password({
             headerText="Password"
             headerIcon={<FaShieldHalved />}
             additionalClasses="person-password"
-            button={
-                <FaEdit />
+            button={<FaEdit />}
+            modalContent={
+                <ChangePassword
+                    userId={id}
+                />
             }
         >
 			<></>

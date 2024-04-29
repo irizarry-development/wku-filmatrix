@@ -7,23 +7,23 @@ import { createUserSchema } from "~/lib/z"
 export const GET = auth(async (req) => {
   const auth = checkAuthentication(req)
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
-  const id = req.url.split("/").pop()
+  const id = req.url.split("/").at(-1)!;
   const user = await prisma.user.findUnique({
     where: {
       id
     }
-  })
+  });
   if (!user)
-    return resourceNotFound;
+    return resourceNotFound();
   return successWithMessage({ user });
 }) as any
 
 export const PATCH = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
   const requester = await prisma.user.findUnique({
     where: {
@@ -31,7 +31,7 @@ export const PATCH = auth(async (req) => {
     },
   });
   if (!requester)
-    return unexpectedError;
+    return unexpectedError();
 
   const id = req.url.split("/").pop()
   const user = await prisma.user.findUnique({
@@ -40,7 +40,7 @@ export const PATCH = auth(async (req) => {
     }
   });
   if (!user)
-    return resourceNotFound;
+    return resourceNotFound();
 
   if (user.email !== requester.email && requester.role !== 1)
     return invalidRequestWithError("You cannot edit people other than yourself");
@@ -68,16 +68,16 @@ export const PATCH = auth(async (req) => {
       },
       data: parsedBody
     })
-    return resourceUpdateSuccess;
+    return resourceUpdateSuccess();
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any
 
 export const DELETE = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
   const requester = await prisma.user.findUnique({
     where: {
@@ -85,9 +85,9 @@ export const DELETE = auth(async (req) => {
     }
   });
   if (!requester)
-    return unexpectedError;
+    return unexpectedError();
   if (requester.role !== 1)
-    return forbiddenResponse;
+    return forbiddenResponse();
 
   const id = req.url.split("/").pop();
   const user = await prisma.user.findUnique({
@@ -96,7 +96,7 @@ export const DELETE = auth(async (req) => {
     }
   });
   if (!user)
-    return resourceNotFound;
+    return resourceNotFound();
   if (user.email === auth)
     return invalidRequestWithError("You cannot delete yourself");
 
@@ -106,8 +106,8 @@ export const DELETE = auth(async (req) => {
         id
       },
     });
-    return resourceDeleteSuccess;
+    return resourceDeleteSuccess();
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any

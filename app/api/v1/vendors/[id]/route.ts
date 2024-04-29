@@ -7,42 +7,42 @@ import { createVendorSchema } from "~/lib/z"
 export const GET = auth(async (req) => {
   const auth = checkAuthentication(req)
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
-  const id = req.url.split("/").pop()
+  const id = req.url.split("/").at(-1)!;
   const vendor = await prisma.vendor.findUnique({
     where: {
       id
     }
   });
   if (!vendor)
-    return resourceNotFound;
+    return resourceNotFound();
   return successWithMessage({ vendor });
 }) as any
 
 export const PATCH = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
   const requester = await prisma.user.findUnique({
     where: {
       email: auth,
     }
-  })
+  });
   if (!requester)
-    return unexpectedError;
+    return unexpectedError();
   if (requester.role !== 1)
-    return forbiddenResponse;
+    return forbiddenResponse();
 
-  const id = req.url.split("/").pop()
+  const id = req.url.split("/").at(-1)!;
   const vendor = await prisma.vendor.findUnique({
     where: {
       id
     }
   });
   if (!vendor)
-    return resourceNotFound;
+    return resourceNotFound();
 
   const body = await req.json();
   let parsedBody: any;
@@ -67,16 +67,16 @@ export const PATCH = auth(async (req) => {
       },
       data: parsedBody
     })
-    return resourceUpdateSuccess;
+    return resourceUpdateSuccess();
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any
 
 export const DELETE = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
   const requester = await prisma.user.findUnique({
     where: {
@@ -84,19 +84,19 @@ export const DELETE = auth(async (req) => {
     }
   });
   if (!requester) {
-    return unexpectedError;
+    return unexpectedError();
   }
   if (requester.role !== 1)
-    return forbiddenResponse;
+    return forbiddenResponse();
 
-  const id = req.url.split("/").pop()!;
+  const id = req.url.split("/").at(-1)!;
   const vendor = await prisma.vendor.findUnique({
     where: {
       id
     },
   });
   if (!vendor)
-    return resourceNotFound;
+    return resourceNotFound();
 
   try {
     await prisma.vendor.delete({
@@ -104,8 +104,8 @@ export const DELETE = auth(async (req) => {
         id
       },
     });
-    return resourceDeleteSuccess;
+    return resourceDeleteSuccess();
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any

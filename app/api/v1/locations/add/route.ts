@@ -7,21 +7,19 @@ import { createLocationSchema } from "~/lib/z"
 export const POST = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
-  // get requester and validate
   const requester = await prisma.user.findUnique({
     where: {
       email: auth,
     }
   })
   if (!requester) {
-    return unexpectedError;
+    return unexpectedError();
   }
 
-  // throw error if requester is a graduated student
   if (requester.role === 3)
-    return forbiddenResponse;
+    return forbiddenResponse();
 
   const body = await req.json();
   let parsedBody: any;
@@ -31,7 +29,6 @@ export const POST = auth(async (req) => {
     return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
   }
 
-  // if location with given name already exists, throw error
   const existing = await prisma.location.findUnique({
     where: {
       locationName: parsedBody.locationName
@@ -47,6 +44,6 @@ export const POST = auth(async (req) => {
       })
     );
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any

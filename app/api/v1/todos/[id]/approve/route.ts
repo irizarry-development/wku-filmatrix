@@ -5,7 +5,7 @@ import prisma from "~/lib/prisma"
 export const POST = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
   const requester = await prisma.user.findUnique({
     where: {
@@ -13,18 +13,18 @@ export const POST = auth(async (req) => {
     }
   });
   if (!requester)
-    return unexpectedError;
+    return unexpectedError();
   if (requester.role !== 1)
-    return forbiddenResponse;
+    return forbiddenResponse();
 
-  const id = req.url.split("/").at(-2);
+  const id = req.url.split("/").at(-2)!;
   const todo = await prisma.projectTodo.findUnique({
     where: {
       id
     }
   })
   if (!todo)
-    return resourceNotFound;
+    return resourceNotFound();
 
   if (todo.complete)
     return invalidRequestWithError("Project todo already complete");
@@ -41,8 +41,8 @@ export const POST = auth(async (req) => {
         approverName: requester.name || "Unknown"
       }
     })
-    return resourceUpdateSuccess;
+    return resourceUpdateSuccess();
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 })
