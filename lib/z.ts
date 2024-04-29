@@ -1,8 +1,32 @@
-import { z } from "zod"
+import { number, z } from "zod"
 
 export const createUserSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email"),
-  name: z.string().min(1, "Name is required"),
+  name: z
+    .string()
+    .min(1, "Name is required"),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Invalid email"),
+  role: z
+    .string()
+    .min(1, "Role is required"),
+  password: z
+    .string()
+    .min(1, "Password is required"),
+  repeat: z
+    .string()
+    .min(1, "Repeat password is required"),
+});
+
+export const editUserSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Name is required"),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Invalid email"),
   saltedPassword: z.string().optional(),
   degree: z.string().optional(),
   classYear: z.string().optional(),

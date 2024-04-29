@@ -21,7 +21,7 @@ interface TextInputProps {
   initialValue?: string
 }
 
-export default function TextInput({
+export default function Input({
   id,
   helperText,
   label,

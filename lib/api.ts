@@ -30,6 +30,7 @@ export const requestConflict = (message: string | undefined) => NextResponse.jso
 // GLOBAL CONSTS
 
 export const unexpectedError = NextResponse.json("An unexpected error occurred", { status: 500 })
+export const unexpectedErrorWithMessage = (message: string | undefined) => NextResponse.json(message, { status: 500 })
 
 // URL SPLITTER
 

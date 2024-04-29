@@ -1,7 +1,7 @@
 interface RadioProps {
   id: string
   label: string
-  options: string[]
+  options: {name: string, value: number}[]
   checkbox?: boolean
 }
 
@@ -16,8 +16,9 @@ export default function Radio({ id, label, checkbox, options }: RadioProps) {
               type={checkbox ? "checkbox" : "radio"}
               id={`${id}${index}`}
               name={`${id}`}
+              value={option.value}
             />
-            {option}
+            {option.name}
           </label>
         ))}
       </section>
