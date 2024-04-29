@@ -7,7 +7,7 @@ interface DashboardContainerProps {
   additionalClasses?: string
   headerText: string
   headerIcon: ReactNode
-  children: ReactNode
+  children?: ReactNode,
   button?: ReactNode
   modalContent?: ReactNode
 }
@@ -42,7 +42,15 @@ export default function DashboardContainer({
           </section>
         )}
       </section>
-      <section className="dashboard-container-content">{children}</section>
+      <section className="dashboard-container-content">
+        {
+          (children) && (
+            <section className="dashboard-container-content-inner">
+              {children}
+            </section>
+          )
+        }
+      </section>
       {modalContent && (
         <Modal open={modalOpen} toggleHandler={_toggleModal}>
           {modalContent}

@@ -54,6 +54,7 @@
         grid-template-columns: repeat(3, 1fr);
         grid-template-areas: 
             "jumbotron jumbotron jumbotron"
+            "details password biography"
             "details emergency biography"
             "details medical biography"
             "projects projects biography";

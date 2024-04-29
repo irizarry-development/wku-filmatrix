@@ -6,6 +6,7 @@ import DashboardLayout from "~/components/ui/dashboard/DashboardLayout";
 
 interface PeopleLayoutProps {
     details: ReactNode
+    password: ReactNode
     projects: ReactNode
     biography: ReactNode
     medicalInformation: ReactNode
@@ -15,6 +16,7 @@ interface PeopleLayoutProps {
 export default async function PeopleLayout({
     params: { id },
     details,
+    password,
     projects,
     biography,
     medicalInformation,
@@ -43,6 +45,7 @@ export default async function PeopleLayout({
             dashboardClass="people-view"
         >
             {details}
+            {password}
             {projects}
             {biography}
             {medicalInformation}
