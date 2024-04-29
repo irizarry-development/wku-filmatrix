@@ -1,6 +1,6 @@
 "use client"
 
-import { ReactNode, useState } from "react"
+import React, { ReactNode, useState } from "react"
 import Modal from "../global/Modal"
 
 interface DashboardContainerProps {
@@ -44,7 +44,7 @@ export default function DashboardContainer({
       </section>
       <section className="dashboard-container-content">
         {
-          (children) && (
+          (children && React.Children.count(children) > 0) && (
             <section className="dashboard-container-content-inner">
               {children}
             </section>
