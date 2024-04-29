@@ -77,30 +77,37 @@ export const onboardingBodySchema = z.object({
 });
 
 export const createProjectSchema = z.object({
-  projectName: z.string().min(1, "Project name is required"),
-  projectDescription: z.string().min(1, "Project description is required"),
-  projectRuntime: z.string().min(1, "Project runtime is required"),
-  projectAspectRatio: z.string().min(1, "Project aspect ratio is required"),
-  projectRating: z.string().min(1, "Project rating is required"),
-  projectRatingCriteria: z
+  projectName: z
     .string()
-    .min(1, "Project rating criteria is required"),
+    .min(1, "Project name is required"),
   projectProductionNumber: z
     .string()
     .min(1, "Project production number is required"),
-  projectCategory: z.string().min(1, "Project category is required"),
-  projectGenre: z.string().min(1, "Project genre is required"),
-  projectLanguage: z.string().min(1, "Project language is required"),
-  projectShootingFormat: z
+});
+
+export const editProjectSchema = z.object({
+  projectName: z
     .string()
-    .min(1, "Project shooting format is required"),
-  projectFilmSound: z.string().min(1, "Project film sound is required"),
-  projectFilmSubtitled: z.boolean(),
-  projectTagline: z.string().min(1, "Project tagline is required"),
-  projectLogLine: z.string().min(1, "Project log line is required"),
-  project25WordPitch: z.string().min(1, "Project 25 word pitch is required"),
-  project50WordPitch: z.string().min(1, "Project 50 word pitch is required"),
-  project75WordPitch: z.string().min(1, "Project 75 word pitch is required")
+    .min(1, "Project name is required"),
+  projectDescription: z.string().optional(),
+  projectRuntime: z.string().optional(),
+  projectAspectRatio: z.string().optional(),
+  projectRating: z.string().optional(),
+  projectRatingCriteria: z.string().optional(),
+  projectProductionNumber: z
+    .string()
+    .min(1, "Project production number is required"),
+  projectCategory: z.string().optional(),
+  projectGenre: z.string().optional(),
+  projectLanguage: z.string().optional(),
+  projectShootingFormat: z.string().optional(),
+  projectFilmSound: z.string().optional(),
+  projectFilmSubtitled: z.boolean().optional(),
+  projectTagline: z.string().optional(),
+  projectLogLine: z.string().optional(),
+  project25WordPitch: z.string().optional(),
+  project50WordPitch: z.string().optional(),
+  project75WordPitch: z.string().optional(),
 });
 
 export const createCrewSchema = z.object({

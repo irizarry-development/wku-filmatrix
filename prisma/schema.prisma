@@ -108,23 +108,23 @@ model Vendor {
 model Project {
   id                          String    @id @default(cuid())
   projectName                 String    @unique
-  projectDescription          String
-  projectRuntime              String
-  projectAspectRatio          String
-  projectRating               String
-  projectRatingCriteria       String
+  projectDescription          String?
+  projectRuntime              String?
+  projectAspectRatio          String?
+  projectRating               String?
+  projectRatingCriteria       String?
   projectProductionNumber     String    @unique
-  projectCategory             String
-  projectGenre                String
-  projectLanguage             String
-  projectShootingFormat       String
-  projectFilmSound            String
+  projectCategory             String?
+  projectGenre                String?
+  projectLanguage             String?
+  projectShootingFormat       String?
+  projectFilmSound            String?
   projectFilmSubtitled        Boolean   @default(false)
-  projectTagline              String
-  projectLogLine              String
-  project25WordPitch          String
-  project50WordPitch          String
-  project75WordPitch          String
+  projectTagline              String?
+  projectLogLine              String?
+  project25WordPitch          String?
+  project50WordPitch          String?
+  project75WordPitch          String?
 
   media       ProjectMedia[]
   locations   Location[]

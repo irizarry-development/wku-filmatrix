@@ -1,0 +1,16 @@
+-- AlterTable
+ALTER TABLE "Project" ALTER COLUMN "projectDescription" DROP NOT NULL,
+ALTER COLUMN "projectRuntime" DROP NOT NULL,
+ALTER COLUMN "projectAspectRatio" DROP NOT NULL,
+ALTER COLUMN "projectRating" DROP NOT NULL,
+ALTER COLUMN "projectRatingCriteria" DROP NOT NULL,
+ALTER COLUMN "projectCategory" DROP NOT NULL,
+ALTER COLUMN "projectGenre" DROP NOT NULL,
+ALTER COLUMN "projectLanguage" DROP NOT NULL,
+ALTER COLUMN "projectShootingFormat" DROP NOT NULL,
+ALTER COLUMN "projectFilmSound" DROP NOT NULL,
+ALTER COLUMN "projectTagline" DROP NOT NULL,
+ALTER COLUMN "projectLogLine" DROP NOT NULL,
+ALTER COLUMN "project25WordPitch" DROP NOT NULL,
+ALTER COLUMN "project50WordPitch" DROP NOT NULL,
+ALTER COLUMN "project75WordPitch" DROP NOT NULL;

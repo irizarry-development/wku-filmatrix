@@ -1,5 +1,5 @@
 import { auth } from "~/lib/auth"
-import { createProjectSchema } from "~/lib/z"
+import { editProjectSchema } from "~/lib/z"
 import prisma from "~/lib/prisma"
 import { checkAuthentication, forbiddenResponse, requestConflict, resourceDeleteSuccess, successWithMessage, resourceNotFound, resourceUpdateSuccess, splitUrl, unauthorizedResponse, unexpectedError } from "~/lib/api"
 
@@ -54,7 +54,7 @@ export const PATCH = auth(async (req) => {
   }
 
   const body = await req.json()
-  const parsedBody = createProjectSchema.parse(body)
+  const parsedBody = editProjectSchema.parse(body)
 
   // if project with given name or production number already exists, throw error
   const existing = await prisma.project.findFirst({

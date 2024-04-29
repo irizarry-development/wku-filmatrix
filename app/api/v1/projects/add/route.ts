@@ -66,7 +66,7 @@ const todos = [
 ]
 
 export const POST = auth(async (req) => {
-  const auth = checkAuthentication(req)
+  const auth = checkAuthentication(req);
   if (!auth)
     return unauthorizedResponse;
 
