@@ -3,17 +3,15 @@ import prisma from "~/lib/prisma"
 import DashboardContainer from "~/components/ui/dashboard/DashboardContainer"
 import { FaImages, FaPlus } from "react-icons/fa6"
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 export default async function MediaList({ params: { id } }: RouteParams) {
-  const projecWithMedia = await prisma.project.findUnique({
+  const foundMedia = await prisma.projectMedia.findMany({
     where: {
-      id: id
-    },
-    include: {
-      media: true,
+      projectId: id
     },
   });
-  if (!projecWithMedia)
+  if (!foundMedia)
     return notFound();
 
   return (
@@ -25,9 +23,11 @@ export default async function MediaList({ params: { id } }: RouteParams) {
 
     >
       {
-        projecWithMedia.media.map(media => {
+        foundMedia.map(media => {
           return (
-            <p>{media.url}</p>
+            <div key={media.id} className="media-item">
+              <Image src={media.url} alt={media.id} />
+            </div>
           )
         })
       }
