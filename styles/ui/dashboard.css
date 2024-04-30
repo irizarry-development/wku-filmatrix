@@ -58,6 +58,7 @@
             display: grid;
             grid-template-columns: 3.7rem 1fr;
             column-gap: 2rem;
+            user-select: none;
     
             svg {
                 font-size: 3.7rem;
