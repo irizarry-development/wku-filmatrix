@@ -1,5 +1,5 @@
 import { ZodError } from "zod"
-import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, successWithMessage, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, successWithMessage, unauthorizedResponse, unexpectedError, unexpectedErrorWithMessage } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { createCastSchema } from "~/lib/z"
@@ -7,7 +7,7 @@ import { createCastSchema } from "~/lib/z"
 export const POST = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
   const requester = await prisma.user.findUnique({
     where: {
@@ -15,16 +15,18 @@ export const POST = auth(async (req) => {
     }
   });
   if (!requester)
-    return unexpectedError;
+    return unexpectedError();
   if (requester.role === 3)
-    return forbiddenResponse;
+    return forbiddenResponse();
 
   const body = await req.json();
   let parsedBody: any;
   try {
     parsedBody = createCastSchema.parse(body);
   } catch (errors) {
-    return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
+    if (errors instanceof ZodError)
+      return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
+    return unexpectedErrorWithMessage("Unexpected error linking actor to project");
   }
 
   if (requester.role !== 1) {
@@ -37,7 +39,7 @@ export const POST = auth(async (req) => {
       }
     });
     if (!crew)
-      return forbiddenResponse;
+      return forbiddenResponse();
   }
 
   const existing = await prisma.cast.findFirst({
@@ -58,6 +60,6 @@ export const POST = auth(async (req) => {
       })
     );
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any

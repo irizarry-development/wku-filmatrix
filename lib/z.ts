@@ -1,8 +1,32 @@
-import { z } from "zod"
+import { number, z } from "zod"
 
 export const createUserSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email"),
-  name: z.string().min(1, "Name is required"),
+  name: z
+    .string()
+    .min(1, "Name is required"),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Invalid email"),
+  role: z
+    .string()
+    .min(1, "Role is required"),
+  password: z
+    .string()
+    .min(1, "Password is required"),
+  repeat: z
+    .string()
+    .min(1, "Repeat password is required"),
+});
+
+export const editUserSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Name is required"),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Invalid email"),
   saltedPassword: z.string().optional(),
   degree: z.string().optional(),
   classYear: z.string().optional(),
@@ -16,6 +40,30 @@ export const createUserSchema = z.object({
   emergencyContactName: z.string().optional(),
   emergencyContactPhone: z.string().optional(),
   emergencyContactAddress: z.string().optional()
+});
+
+export const createHomelinkSchema = z.object({
+  category: z
+    .string()
+    .min(1, "Category is required"),
+  name: z
+    .string()
+    .min(1, "Name is required"),
+  url: z
+    .string()
+    .min(1, "URL is required"),
+});
+
+export const changePasswordSchema = z.object({
+  currentp: z
+    .string()
+    .min(1, "Current password required"),
+  newp: z
+    .string()
+    .min(1, "New password required"),
+  repeatp: z
+    .string()
+    .min(1, "Repeat password required"),
 });
 
 export const createVendorSchema = z.object({
@@ -77,6 +125,15 @@ export const onboardingBodySchema = z.object({
 });
 
 export const createProjectSchema = z.object({
+  projectName: z
+    .string()
+    .min(1, "Project name is required"),
+  projectProductionNumber: z
+    .string()
+    .min(1, "Project production number is required"),
+});
+
+export const createProjectESchema = z.object({
   projectName: z.string().min(1, "Project name is required"),
   projectDescription: z.string().min(1, "Project description is required"),
   projectRuntime: z.string().min(1, "Project runtime is required"),
@@ -101,6 +158,31 @@ export const createProjectSchema = z.object({
   project25WordPitch: z.string().min(1, "Project 25 word pitch is required"),
   project50WordPitch: z.string().min(1, "Project 50 word pitch is required"),
   project75WordPitch: z.string().min(1, "Project 75 word pitch is required")
+});
+
+export const editProjectSchema = z.object({
+  projectName: z
+    .string()
+    .min(1, "Project name is required"),
+  projectDescription: z.string().optional(),
+  projectRuntime: z.string().optional(),
+  projectAspectRatio: z.string().optional(),
+  projectRating: z.string().optional(),
+  projectRatingCriteria: z.string().optional(),
+  projectProductionNumber: z
+    .string()
+    .min(1, "Project production number is required"),
+  projectCategory: z.string().optional(),
+  projectGenre: z.string().optional(),
+  projectLanguage: z.string().optional(),
+  projectShootingFormat: z.string().optional(),
+  projectFilmSound: z.string().optional(),
+  projectFilmSubtitled: z.boolean().optional(),
+  projectTagline: z.string().optional(),
+  projectLogLine: z.string().optional(),
+  project25WordPitch: z.string().optional(),
+  project50WordPitch: z.string().optional(),
+  project75WordPitch: z.string().optional(),
 });
 
 export const createCrewSchema = z.object({

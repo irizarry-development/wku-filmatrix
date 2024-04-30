@@ -13,6 +13,7 @@ interface PeopleDashboardProps {
   locations: ReactNode
   festivals: ReactNode
   cast: ReactNode
+  media: ReactNode
 }
 
 export default async function Layout({
@@ -23,6 +24,7 @@ export default async function Layout({
   locations,
   festivals,
   cast,
+  media,
   params,
 }: PeopleDashboardProps & RouteParams) {
 
@@ -31,7 +33,8 @@ export default async function Layout({
       id: params.id
     },
     select: {
-      projectName: true
+      projectName: true,
+      projectProductionNumber: true,
     }
   })
 
@@ -43,17 +46,19 @@ export default async function Layout({
     <DashboardLayout
       jumbotronImage="https://www.wku.edu/marketingandcommunications/images/social-hero-3.jpg"
       jumbotronTitle={found.projectName}
+      jumbotronSubtitle={found.projectProductionNumber}
       dashboardId="projects"
       dashboardName={`Project Dashboard for ${found.projectName}`}
       dashboardClass="project-view"
     >
       {details}
+      {checklist}
       {crew}
       {locations}
       {vendors}
       {cast}
       {festivals}
-      {checklist}
+      {media}
     </DashboardLayout>
   )
 }

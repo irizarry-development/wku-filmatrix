@@ -10,6 +10,8 @@
     margin: 2rem;
     cursor: pointer;
     z-index: 1;
+    user-select: none;
+
 
     h2 {
       align-self: center;

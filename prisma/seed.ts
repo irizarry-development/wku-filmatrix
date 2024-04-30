@@ -21,6 +21,7 @@ async function main() {
         image:
           "https://images.ctfassets.net/e5382hct74si/2P1iOve0LZJRZWUzfXpi9r/9d4d27765764fb1ad7379d7cbe5f1043/ucxb4lHy_400x400.jpg",
         saltedPassword: saltedAdminPassword,
+        hasOnboarded: true,
         role: 1
       }
     }),

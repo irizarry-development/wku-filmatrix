@@ -1,6 +1,6 @@
 "use client"
 
-import TextInput from "~/components/ui/form/Input"
+import Input from "~/components/ui/form/Input"
 import Button from "~/components/ui/global/Button"
 import toast from "react-hot-toast"
 import { authenticate } from "~/lib/actions"
@@ -25,8 +25,8 @@ export default function LoginPage() {
       <h1>WKU Filmatrix</h1>
       <fieldset>
         <legend>Sign in</legend>
-        <TextInput label="Your NetID" id="email" type="email" />
-        <TextInput label="Password" id="password" type="password" />
+        <Input id="email" label="Your NetID" type="email" />
+        <Input id="password" label="Password" type="password" />
         <section className="login-buttons">
           <Button color="primary" content="Sign in" />
           <Button color="secondary" content="Forgot password?" />

@@ -1,62 +1,59 @@
 import { auth } from "~/lib/auth"
-import { createProjectSchema } from "~/lib/z"
+import { editProjectSchema } from "~/lib/z"
 import prisma from "~/lib/prisma"
-import { checkAuthentication, forbiddenResponse, requestConflict, resourceDeleteSuccess, successWithMessage, resourceNotFound, resourceUpdateSuccess, splitUrl, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, forbiddenResponse, requestConflict, resourceDeleteSuccess, successWithMessage, resourceNotFound, resourceUpdateSuccess, splitUrl, unauthorizedResponse, unexpectedError, invalidRequestWithError, unexpectedErrorWithMessage } from "~/lib/api"
+import { ZodError } from "zod"
 
 export const GET = auth(async (req) => {
   const auth = checkAuthentication(req)
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
-  const id = splitUrl(req.url)
+  const id = req.url.split('/').at(-1)!;
   const project = await prisma.project.findUnique({
     where: {
       id
     }
   })
   if (!project)
-    return resourceNotFound;
+    return resourceNotFound();
   return successWithMessage({ project })
 }) as any
 
 export const PATCH = auth(async (req) => {
-  
   const auth = checkAuthentication(req)
+  if (!auth)
+    return unauthorizedResponse();
 
-  if (!auth) {
-    return unauthorizedResponse;
-  }
-
-  // get requester and validate
   const requester = await prisma.user.findUnique({
     where: {
       email: auth
     }
   })
+  if (!requester)
+    return unexpectedError();
+  if (requester.role !== 1)
+    return forbiddenResponse();
 
-  if (!requester) {
-    return unexpectedError
-  }
-
-  if (requester.role !== 1) {
-    return forbiddenResponse
-  }
-
-  const id = splitUrl(req.url)
+  const id = req.url.split('/').at(-1)!;
   const project = await prisma.project.findUnique({
     where: {
       id
     }
-  })
+  });
+  if (!project)
+    return resourceNotFound();
 
-  if (!project) {
-    return resourceNotFound
+  const body = await req.json();
+  let parsedBody: any;
+  try {
+    parsedBody = editProjectSchema.parse(body);
+  } catch (errors) {
+    if (errors instanceof ZodError)
+      return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
+    return unexpectedErrorWithMessage("Unexpected error editing project");
   }
 
-  const body = await req.json()
-  const parsedBody = createProjectSchema.parse(body)
-
-  // if project with given name or production number already exists, throw error
   const existing = await prisma.project.findFirst({
     where: {
       OR: [
@@ -76,59 +73,44 @@ export const PATCH = auth(async (req) => {
       data: parsedBody
     })
 
-    return resourceUpdateSuccess
+    return resourceUpdateSuccess();
   } catch (error) {
-    return unexpectedError
+    return unexpectedError();
   }
 }) as any
 
 export const DELETE = auth(async (req) => {
-  
   const auth = checkAuthentication(req)
+  if (!auth)
+    return unauthorizedResponse();
 
-  if (!auth) {
-    return unauthorizedResponse
-  }
-  // get requester and validate
   const requester = await prisma.user.findUnique({
     where: {
       email: auth
     }
-  })
+  });
+  if (!requester) 
+    return unexpectedError();
+  if (requester.role !== 1)
+    return forbiddenResponse();
 
-  if (!requester) {
-    return unexpectedError
-  }
-
-  // throw error if requester is not admin
-  if (requester.role !== 1) {
-    return forbiddenResponse
-  }
-
-  // get project id from url
-  const id = splitUrl(req.url)
-  // find project
+  const id = req.url.split('/').at(-1)!;
   const project = await prisma.project.findUnique({
     where: {
       id
     }
-  })
+  });
+  if (!project)
+    return resourceNotFound();
 
-  // if project does not exist, return error
-  if (!project) {
-    return resourceNotFound
-  }
-
-  // delete project
   try {
-    const deleted = await prisma.project.delete({
+    await prisma.project.delete({
       where: {
         id
       }
-    })
-
-    return resourceDeleteSuccess
+    });
+    return resourceDeleteSuccess();
   } catch (error) {
-    return unexpectedError
+    return unexpectedError();
   }
 }) as any

@@ -1,10 +1,10 @@
 "use client"
 
+import axios, { AxiosError } from "axios"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import { FaEye, FaLinkSlash } from "react-icons/fa6"
-import { unlinkLocation } from "~/lib/actions"
 
 interface TruncatedLocation {
     id: string
@@ -17,17 +17,19 @@ export default function LocationComponent({
     locationName,
     projectId
 }: TruncatedLocation) {
-
     const router = useRouter()
 
-    async function unlink(formData: FormData) {
+    async function unlink() {
         try {
-            await unlinkLocation(formData)
-
-            toast.success("Location unlinked")
-            router.refresh()
+            await axios.delete(`/api/v1/projects/${projectId}/locations/${id}`);
+            toast.success("Location unlinked");
+            router.push(`/projects/${projectId}`);
+            router.refresh();
         } catch (error) {
-            console.error(error)
+            if (error instanceof AxiosError)
+                toast.error(`Failed unlink location - ${(error as AxiosError).response?.data}`);
+            else
+                toast.error('Unexpected error unlinking location');
         }
     }
 

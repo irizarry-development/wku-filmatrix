@@ -32,9 +32,11 @@ export default async function ProjectVendors({ params: { id } }: RouteParams) {
       modalContent={
         <LinkComponent<TruncatedVendor>
           searchHandler={searchVendors}
+          projectId={id}
           formId="vendor-link-form"
           searchPlaceholder="Search for a vendor"
-          tableTitle="Vendors"
+          singular="Vendor"
+          plural="Vendors"
           tableHeaders={[
             "Vendor Name",
             ""

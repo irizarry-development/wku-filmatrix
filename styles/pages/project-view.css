@@ -150,56 +150,59 @@
   }
 
   .project-crew-container {
+
     .dashboard-container-content {
       display: grid;
       row-gap: 1rem;
+
       .drawer .drawer-content {
-		display: grid;
-		row-gap: 0.1rem;
-		background: var(--gray-muted);
+        display: grid;
+        row-gap: 0.1rem;
+        background: var(--gray-muted);
+
         .crew-component {
-			display: grid;
-			grid-template-columns: 1fr 10fr 10.6rem;
-			column-gap: 1rem;
-			grid-template-areas: 
-				"role name actions";
-			background: var(--gray-text);
-			padding: 0.4rem;
+          display: grid;
+          grid-template-columns: 1fr 10fr 10.6rem;
+          column-gap: 1rem;
+          grid-template-areas: 
+            "role name actions";
+          background: var(--gray-text);
+          padding: 0.4rem;
 
           p {
-			grid-area: name;
+            grid-area: name;
             margin: 0;
             font-size: 1.6rem;
             padding: 1rem 4.2rem;
           }
 
-		  strong {
-			grid-area: role;
-			font-size: 1.6rem;
-			align-self: center;
-			color: var(--gray-lightest);
-			justify-self: end;
-		  }
+          strong {
+            grid-area: role;
+            font-size: 1.6rem;
+            align-self: center;
+            color: var(--gray-lightest);
+            justify-self: end;
+          }
 
-		  .crew-actions {
-			grid-area: actions;
-			font-size: 2.4rem;
-			height: 2.4rem;
-			place-self: center;
-			display: grid;
-			grid-auto-flow: column;
-			column-gap: 1rem;
+          .crew-actions {
+            grid-area: actions;
+            font-size: 2.4rem;
+            height: 2.4rem;
+            place-self: center;
+            display: grid;
+            grid-auto-flow: column;
+            column-gap: 1rem;
 
-			.unlink-crew {
-			  color: var(--red-darker);
-			  cursor: pointer;
-			}
+            .unlink-crew {
+              color: var(--red-darker);
+              cursor: pointer;
+            }
 
-			.view-crew {
-			  color: var(--gray-lightest);
-			  cursor: pointer;
-			}
-		  }
+            .view-crew {
+              color: var(--gray-lightest);
+              cursor: pointer;
+            }
+          }
         }
       }
     }
@@ -405,6 +408,10 @@
     grid-area: festivals;
   }
 
+  .project-media-container {
+    grid-area: media;
+  }
+
   grid-template-areas:
     "jumbotron"
     "details"
@@ -413,7 +420,8 @@
     "crew"
     "checklist"
     "cast"
-    "festivals";
+    "festivals"
+    "media";
 
   @media screen and (min-width: 1024px) {
     grid-template-columns: repeat(4, 1fr);
@@ -425,7 +433,8 @@
       "crew crew checklist checklist"
       "crew crew checklist checklist"
       "cast cast festivals festivals"
-      "cast cast festivals festivals";
+      "cast cast festivals festivals"
+      "media media media media";
   }
 
   @media screen and (min-width: 1440px) {
@@ -435,6 +444,7 @@
       "jumbotron jumbotron jumbotron jumbotron jumbotron jumbotron"
       "details details checklist checklist crew crew"
       "locations locations cast cast festivals festivals"
-      "vendors vendors cast cast festivals festivals";
+      "vendors vendors cast cast festivals festivals"
+      "media media media media media media";
   }
 }

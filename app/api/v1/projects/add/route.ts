@@ -3,7 +3,7 @@ import { ZodError } from "zod"
 import { checkAuthentication, forbiddenResponse, invalidRequestWithError, requestConflict, successWithMessage, unauthorizedResponse, unexpectedError } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
-import { createProjectSchema } from "~/lib/z"
+import { createProjectESchema, createProjectSchema } from "~/lib/z"
 
 const todos = [
   ["Pre-Production", "Script"],
@@ -66,25 +66,24 @@ const todos = [
 ]
 
 export const POST = auth(async (req) => {
-  const auth = checkAuthentication(req)
+  const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
-  // get requester and validate
   const requester = await prisma.user.findUnique({
     where: {
       email: auth,
     }
   });
   if (!requester)
-    return unexpectedError;
+    return unexpectedError();
   if (requester.role !== 1)
-    return forbiddenResponse;
+    return forbiddenResponse();
 
   const body = await req.json();
   let parsedBody: any;
   try {
-    parsedBody = createProjectSchema.parse(body);
+    parsedBody = createProjectESchema.parse(body);
   } catch (errors) {
     return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
   }
@@ -118,6 +117,6 @@ export const POST = auth(async (req) => {
     })
     return successWithMessage({project: project!});
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any

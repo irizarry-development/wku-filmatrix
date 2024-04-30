@@ -18,19 +18,17 @@ export default async function LocationMedia({
     return (
         <DashboardContainer
             headerText="Location Media"
-            headerIcon={
-                <FaImages />
-            }
+            headerIcon={ <FaImages /> }
             additionalClasses="location-media"
-            button={
-                <FaPlus />
-            }
+            button={ <FaPlus /> }
         >
-            {foundLocationMedia.map((media) => (
-                <div key={media.id} className="media-item">
-                    <Image src={media.url} alt={media.id} />
-                </div>
-            ))}
+            {
+                foundLocationMedia.map((media) => (
+                    <div key={media.id} className="media-item">
+                        <Image src={media.url} alt={media.id} />
+                    </div>
+                ))
+            }
         </DashboardContainer>
     )
 }

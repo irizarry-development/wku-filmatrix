@@ -7,7 +7,7 @@ import { createCrewSchema } from "~/lib/z"
 export const POST = auth(async (req) => {
   const auth = checkAuthentication(req);
   if (!auth)
-    return unauthorizedResponse;
+    return unauthorizedResponse();
 
   const requester = await prisma.user.findUnique({
     where: {
@@ -15,9 +15,9 @@ export const POST = auth(async (req) => {
     }
   });
   if (!requester)
-    return unexpectedError;
+    return unexpectedError();
   if (requester.role !== 1)
-    return forbiddenResponse;
+    return forbiddenResponse();
 
   const body = await req.json();
   let parsedBody: any;
@@ -45,6 +45,6 @@ export const POST = auth(async (req) => {
       })
     );
   } catch (error) {
-    return unexpectedError;
+    return unexpectedError();
   }
 }) as any
