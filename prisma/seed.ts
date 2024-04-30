@@ -2,10 +2,10 @@ import prisma from "../lib/prisma"
 import bcrypt from "bcrypt"
 
 async function main() {
-  const adminPassword = process.env.ADMIN_PASSWORD
+  const adminPassword = process.env.NEXTJS_ADMIN_PASSWORD
 
   if (!adminPassword) {
-    console.error("ADMIN_PASSWORD not set")
+    console.error("NEXTJS_ADMIN_PASSWORD not set")
     process.exit(1)
   }
 

@@ -1,14 +1,17 @@
-# WKU Filmatrix production installation guide
+# Filmatrix production installation guide
 
-This installation guide assumes you have installed:
- - Docker on a Debian based Linux distrubution, or on Windows with the WSL 2 based engine.
- - Git
+This installation guide assumes:
+ - You are on on a Debian based Linux distribution, or on Windows with WSL 2 running a Debian based Linux distribution
+ - Docker is installed (on Windows you must be using the WSL 2 based engine)
+ - Git is installed
 
-This guide also assumes 
+Following the previous assumptions, the installation process is very similar on either Linux or Windows.
 
-Once Docker and Docker Compose are installed, the installation process is extremely similar on any operating system.
+## Download
 
-First, you must clone the repository at https://github.com/irizarry-development/wku-filmatrix to your machine using one of these commands.
+First, you must obtain the project source code.
+
+Clone the repository at https://github.com/irizarry-development/wku-filmatrix to your machine using one of these commands.
 
 HTTPS
 
@@ -18,30 +21,44 @@ SSH
 
     git clone git@github.com:irizarry-development/wku-filmatrix.git
 
-Once you have this folder, navigate to it and create a file called `.env`. Fill this file with the following content:
+Cloning with SSH is highly recommended for a production server.
+
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+## Environment Configuration
+
+Once you have the project folder, navigate into it and create a file called `.env`. Fill this file with the following content:
 
     # database
+    POSTGRES_DB="<db_name>"
     POSTGRES_USER="<db_user>"
     POSTGRES_PASSWORD="<db_pass>"
-    POSTGRES_DB="<db_name>"
+    POSTGRES_PORT="<db_port>"
 
-    # web
-    DATABASE_URL="postgresql://<db_user>:<db_pass>@filmatrix-db:5432/<db_name>"
+    # auth
     AUTH_SECRET="<secret>"
     AUTH_TRUST_HOST="localhost"
-    ADMIN_PASSWORD="<admin_pass>"
+
+    # web
+    NEXTJS_DATABASE_URL="postgresql://<db_user>:<db_pass>@db:5432/<db_name>"
+    NEXTJS_ADMIN_PASSWORD="<admin_pass>"
+    NEXTJS_PORT="<web_port>"
 
     # nginx
-    HOSTNAME="<hostname>"
+    NGINX_HOSTNAME="<hostname>"
 
- - Replace both instances of `<db_user>` with the username of the user in the database. This can be anything. If you don't know what do set it to, set it to `filmatrix`.
+ - Replace both instances of `<db_user>` with the username of the user in the database. This can be anything. If you don't know what do set it to, set them to `filmatrix`.
  - Replace both instances of `<db_pass>` with the password of the user in the database. This should be a secure password.
- - Replace both instances of `<db_name>` with the name of the database. This can be anything. If you don't know what do set it to, set it to `filmatrix`.
+ - Replace both instances of `<db_name>` with the name of the database. This can be anything. If you don't know what do set it to, set them to `filmatrix`.
+ - Replace the instance of `<db_port>` with the port the database will use on the host machine. The default is `5432`, which will work if there are no other instances of PostgreSQL or any process using port 5432 running on your machine. Any number from `1024` to `65535` is valid.
  - Replace the instance of `<secret>` with a secure password, something different that what was set for `<db_pass>`.
- - Replace the instance of `<admin_pass>` with the password that will be used to log into the admin account of Filmatrix. This should be a secure password, different that what was set for `<db_pass>` or `<secret>`.
+ - Replace the instance of `<admin_pass>` with the password that will be used to log into the root account of Filmatrix. This should be a secure password, different that what was set for `<db_pass>` or `<secret>`.
+ - Replace the instance of `<web_port>` with the port the web server will use on the host machine. The default is `3000`, which will work if there are no other instances of NextJS or any process using port 3000 running on your machine. Any number from `1024` to `65535` is valid. Cannot be the same as `<db_port>`.
  - Replace `<hostname>` with the domain name of the website that will host this server.
 
-Once you have finished editing this file, run the following command:
+## Building and running the app
+
+Once you have finished editing the environment file, run the following command:
 
     docker-compose up -d
 
@@ -49,7 +66,9 @@ Once you have finished editing this file, run the following command:
 
 Once this finishes, the app should be available at http://localhost:3000.
 
-You can view information about the database and webserver processes in Docker by running:
+## Basic Docker functionality for dealing with the Filmatrix container
+
+You can view information about the database and web server processes in Docker by running:
 
     docker ps
 
@@ -66,5 +85,3 @@ to stop the process, and
     docker restart <id>
 
 to restart the process.
-
-

@@ -99,6 +99,8 @@ export const DELETE = auth(async (req) => {
     return resourceNotFound();
   if (user.email === auth)
     return invalidRequestWithError("You cannot delete yourself");
+  if (user.email === "filmatrix@sys.admin")
+    return invalidRequestWithError("You cannot delete the root user");
 
   try {
     await prisma.user.delete({
