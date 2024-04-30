@@ -64,7 +64,7 @@ Once you have finished editing the environment file, run the following command:
 
  - if you are in a Linux terminal and are having issues running this command or any Docker command, try running them with `sudo`
 
-Once this finishes, the app should be available at http://localhost:3000.
+Once this finishes, the app should be available at `http://localhost:<web_port>`, where `<web_port>` is what you set you set earlier in the `.env` file.
 
 ## Basic Docker functionality for dealing with the Filmatrix container
 
