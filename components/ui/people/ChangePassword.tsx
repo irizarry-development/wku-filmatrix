@@ -6,6 +6,7 @@ import Form from "../form/Form"
 import Input from "../form/Input"
 import { useRouter } from "next/navigation"
 import axios, { AxiosError } from "axios"
+import Button from "../global/Button"
 
 interface ChangePasswordProps {
   userId: string,
@@ -41,7 +42,11 @@ export default function LinkComponent({
         <Input id="currentp" label="Current Password" type="password" />
         <Input id="newp" label="New Password" type="password" />
         <Input id="repeatp" label="Repeat Password" type="password" />
-        <input type="submit" />
+        <Button
+          color="primary"
+          content="Submit"
+          type="submit"
+        />
       </Form>
     </Fragment>
   )

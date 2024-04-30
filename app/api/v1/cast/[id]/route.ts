@@ -1,5 +1,5 @@
 import { ZodError } from "zod"
-import { checkAuthentication, forbiddenResponse, invalidRequestWithError, resourceDeleteSuccess, successWithMessage, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError } from "~/lib/api"
+import { checkAuthentication, forbiddenResponse, invalidRequestWithError, resourceDeleteSuccess, successWithMessage, resourceNotFound, resourceUpdateSuccess, unauthorizedResponse, unexpectedError, unexpectedErrorWithMessage } from "~/lib/api"
 import { auth } from "~/lib/auth"
 import prisma from "~/lib/prisma"
 import { editCastSchema } from "~/lib/z"
@@ -62,7 +62,9 @@ export const PATCH = auth(async (req) => {
   try {
     parsedBody = editCastSchema.parse(body);
   } catch (errors) {
-    return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
+    if (errors instanceof ZodError)
+      return invalidRequestWithError((errors as ZodError).issues.at(0)?.message);
+    return unexpectedErrorWithMessage("Unexpected error editing cast member");
   }
 
   try {

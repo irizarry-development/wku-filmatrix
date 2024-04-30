@@ -42,6 +42,18 @@ export const editUserSchema = z.object({
   emergencyContactAddress: z.string().optional()
 });
 
+export const createHomelinkSchema = z.object({
+  category: z
+    .string()
+    .min(1, "Category is required"),
+  name: z
+    .string()
+    .min(1, "Name is required"),
+  url: z
+    .string()
+    .min(1, "URL is required"),
+});
+
 export const changePasswordSchema = z.object({
   currentp: z
     .string()
