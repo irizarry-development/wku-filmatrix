@@ -9,7 +9,7 @@ import { auth } from "~/lib/auth"
 export const POST = auth(async (req) => {
   const body = await req.json()
 
-  let name, email, role, password, repeat;
+  let name: string, email: string, role: string, password: string, repeat: string;
   try {
     ({name, email, role, password, repeat} = createUserSchema.parse(body));
   } catch (error) {

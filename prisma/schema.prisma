@@ -160,6 +160,7 @@ model Crew {
 
   category      String
   role          String
+  canEdit       Boolean     @default(false)
 
   @@unique([userId, projectId])
 }
