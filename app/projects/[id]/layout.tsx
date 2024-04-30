@@ -13,6 +13,7 @@ interface PeopleDashboardProps {
   locations: ReactNode
   festivals: ReactNode
   cast: ReactNode
+  media: ReactNode
 }
 
 export default async function Layout({
@@ -23,6 +24,7 @@ export default async function Layout({
   locations,
   festivals,
   cast,
+  media,
   params,
 }: PeopleDashboardProps & RouteParams) {
 
@@ -50,12 +52,13 @@ export default async function Layout({
       dashboardClass="project-view"
     >
       {details}
+      {checklist}
       {crew}
       {locations}
       {vendors}
       {cast}
       {festivals}
-      {checklist}
+      {media}
     </DashboardLayout>
   )
 }

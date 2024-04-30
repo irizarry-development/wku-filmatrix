@@ -66,9 +66,6 @@ export default async function ProjectDetails({
       <p>
         <strong>Rating Criteria:</strong> {foundProject.projectRatingCriteria}
       </p>
-      {/* <p>
-        <strong>Production Number:</strong> {foundProject.projectProductionNumber}
-      </p> */}
       <p>
         <strong>Category:</strong> {foundProject.projectCategory}
       </p>
