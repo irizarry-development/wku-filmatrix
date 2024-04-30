@@ -34,6 +34,13 @@
                 font-size: 6rem;
                 text-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
             }
+
+            h2 {
+                align-self: end;
+                margin: 0;
+                font-size: 2rem;
+                text-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+            }
         }
     }
     

@@ -39,9 +39,8 @@ export default async function ProjectDetails({
     }
   })
 
-  if (!foundProject) {
-    return notFound()
-  }
+  if (!foundProject)
+    return notFound();
 
   return (
     <DashboardContainer
@@ -67,10 +66,9 @@ export default async function ProjectDetails({
       <p>
         <strong>Rating Criteria:</strong> {foundProject.projectRatingCriteria}
       </p>
-      <p>
-        <strong>Production Number:</strong>{" "}
-        {foundProject.projectProductionNumber}
-      </p>
+      {/* <p>
+        <strong>Production Number:</strong> {foundProject.projectProductionNumber}
+      </p> */}
       <p>
         <strong>Category:</strong> {foundProject.projectCategory}
       </p>

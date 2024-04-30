@@ -31,7 +31,8 @@ export default async function Layout({
       id: params.id
     },
     select: {
-      projectName: true
+      projectName: true,
+      projectProductionNumber: true,
     }
   })
 
@@ -43,6 +44,7 @@ export default async function Layout({
     <DashboardLayout
       jumbotronImage="https://www.wku.edu/marketingandcommunications/images/social-hero-3.jpg"
       jumbotronTitle={found.projectName}
+      jumbotronSubtitle={found.projectProductionNumber}
       dashboardId="projects"
       dashboardName={`Project Dashboard for ${found.projectName}`}
       dashboardClass="project-view"

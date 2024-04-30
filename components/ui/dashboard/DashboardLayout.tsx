@@ -7,6 +7,7 @@ interface DashboardLayoutProps {
     children: ReactNode
     jumbotronImage: string
     jumbotronTitle: string
+    jumbotronSubtitle?: string,
     dashboardId: string
     dashboardName: string
     dashboardClass: string
@@ -16,6 +17,7 @@ export default function DashboardLayout({
     children,
     jumbotronImage,
     jumbotronTitle,
+    jumbotronSubtitle,
     dashboardId,
     dashboardClass
 }: DashboardLayoutProps) {
@@ -34,6 +36,7 @@ export default function DashboardLayout({
                         <FaArrowLeftLong />
                     </Link>
                     <h1>{jumbotronTitle}</h1>
+                    { (jumbotronSubtitle) && <h2>{jumbotronSubtitle}</h2> }
                 </section>
             </section>
             {children}
